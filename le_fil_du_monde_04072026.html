@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition de la Journée</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:72px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:36px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  .wire-box{
+    background:var(--ink);
+    color:var(--paper);
+    padding:12px 14px;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    line-height:1.75;
+    margin-bottom:18px;
+  }
+  .wire-box .wtitle{
+    color:var(--brass);
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    font-size:10px;
+    border-bottom:1px solid rgba(239,232,216,0.3);
+    padding-bottom:6px;
+    margin-bottom:8px;
+    display:block;
+  }
+  .wire-box .t{color:#c9a876; margin-right:6px;}
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* TREATY LIST */
+  .treaty-columns{
+    columns:2;
+    column-gap:30px;
+    font-size:13px;
+    line-height:1.6;
+  }
+  .treaty-columns .treaty-item{
+    break-inside:avoid;
+    margin-bottom:8px;
+    padding-left:14px;
+    position:relative;
+  }
+  .treaty-columns .treaty-item::before{
+    content:"\2014";
+    position:absolute;
+    left:0;
+    color:var(--blood);
+  }
+  .treaty-columns .peace::before{
+    content:"\2726";
+    font-size:10px;
+    top:2px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .stamp{
+    display:inline-block;
+    border:2px solid var(--blood);
+    color:var(--blood);
+    font-family:'Courier Prime', monospace;
+    font-weight:700;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:2px 6px;
+    transform:rotate(-3deg);
+    margin-bottom:6px;
+  }
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:46px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>Vol. I — N° 2</span>
+    <span>Dépêché sur le fil mondial</span>
+    <span>Prix : le crédit d'une nation</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">&laquo; Chaque traité est une rumeur, chaque rumeur un traité &raquo; — les dépêches d'une journée entière de guerre</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>Édition complète — Tous les fronts, de bout en bout</span>
+    <span>Édition spéciale de crise</span>
+    <span>D'après les fils diplomatique et commercial</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Dernière heure — Le front sud</div>
+      <h2 class="headline">L'AFRIQUE DU SUD SEULE FACE À TOUS : PRETORIA ROMPT SIX PACTES ALORS QUE LES ARMÉES SE RESSERRENT DE TOUTES PARTS</h2>
+      <p class="deck">La Tunisie, la Hongrie, la Turquie, le Kirghizistan, la Croatie et le Maroc sont tous abandonnés en une seule journée, tandis que le Kenya, la Namibie, la RD Congo et l'Afrique centrale multiplient les attaques sur les terres sud-africaines</p>
+      <div class="byline">De notre bureau des dépêches — le récit d'une journée entière</div>
+      <div class="story-body">
+        <p>L'Afrique du Sud a passé la journée à déchirer son propre carnet d'adresses. Ses pactes défensifs avec la Tunisie, la Hongrie, la Turquie et le Kirghizistan sont tombés les uns après les autres, et au soir le Maroc s'était ajouté à la liste — six partenaires abandonnés avant le coucher du soleil.</p>
+        <p>Cet isolement volontaire n'a rien d'une coïncidence pour les observateurs qui suivent la carte. Alors même que l'encre séchait sur chaque rupture, les forces kényanes lançaient un assaut sur un territoire tenu par l'Afrique du Sud, suivi quelques heures plus tard d'une seconde poussée kényane plus profonde dans le même théâtre. La Namibie a ouvert son propre front, attaquant à deux reprises dans le même intervalle, avant de forcer Pretoria à une coûteuse victoire défensive en fin de journée.</p>
+        <p>La RD Congo a frappé deux fois également, et l'Afrique centrale a remporté une victoire décisive sur une garnison sud-africaine ailleurs sur la ligne de front. Tout ne s'est pas joué contre Pretoria — des territoires ont aussi changé de mains dans l'autre sens, l'un passant pacifiquement de l'Afrique du Sud à la Zambie, un autre cédé au Mozambique pour une somme modeste, ce qui laisse penser que certains fronts se règlent à la table des négociations plutôt que sur le champ de bataille.</p>
+        <p>De son côté, l'Égypte semblait suivre le même scénario à des milliers de kilomètres, rompant au cours de la journée ses propres pactes avec le Liberia, la Libye, l'Afrique du Sud et la Bulgarie. Que les deux vagues de ruptures soient coordonnées ou fortuites, les chancelleries qui suivent le fil y voient déjà un signal d'alarme plutôt qu'un hasard.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="wire-box">
+        <span class="wtitle">Dépêches, dans l'ordre reçu</span>
+        <div><span class="t">&mdash;</span>Le Kenya et la Palestine ouvrent la journée en faillite</div>
+        <div><span class="t">&mdash;</span>Porto Rico signe avec les États-Unis, puis avec Cuba</div>
+        <div><span class="t">&mdash;</span>L'Australie déclare la guerre à Madagascar</div>
+        <div><span class="t">&mdash;</span>La Tanzanie et l'Australie font la paix</div>
+        <div><span class="t">&mdash;</span>L'Italie remporte la bataille lancée par l'Albanie</div>
+        <div><span class="t">&mdash;</span>La RD Congo frappe un territoire sud-africain</div>
+        <div><span class="t">&mdash;</span>La Russie attaque un territoire lituanien</div>
+        <div><span class="t">&mdash;</span>La Turquie et la Syrie font la paix</div>
+        <div><span class="t">&mdash;</span>La Jamaïque déclare la guerre à la Colombie</div>
+        <div><span class="t">&mdash;</span>Le Viêt Nam déclare la guerre à la Thaïlande</div>
+        <div><span class="t">&mdash;</span>Israël frappe un territoire palestinien</div>
+        <div><span class="t">&mdash;</span>L'Allemagne déclare la guerre à la Turquie, puis se réconcilie avec elle</div>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Bureau de la Baltique</div>
+        <h3>La Lituanie combat sur quatre fronts à la fois</h3>
+        <p>La Russie, l'Ouzbékistan, le Kazakhstan, la Chine et les îles Salomon ont tous frappé des territoires tenus par la Lituanie au cours de la journée. Celle-ci a riposté quand elle a pu — remportant une victoire nette face à l'Ouzbékistan — mais le nombre d'assaillants fait déjà de ce théâtre le plus disputé du fil.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Carnet mondain</div>
+        <h3>Reservoir Dogs change de visage</h3>
+        <p>L'alliance connue sous le nom de Reservoir Dogs a perdu un membre fondateur lorsque le Burundi a claqué la porte, avant d'accueillir Porto Rico quelques heures plus tard — la preuve que même en temps de guerre, certains clubs ne cessent jamais de recruter.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Les Balkans</div>
+      <h3>La Croatie ouvre trois fronts avant la nuit</h3>
+      <p>La Croatie a frappé le Monténégro, la Bosnie et la Serbie coup sur coup, tandis que la Serbie et l'Albanie se sont livré bataille à tour de rôle et que la Serbie a par ailleurs déclaré la guerre à Malte. Le Kosovo et la Macédoine du Nord, eux, ont laissé leur propre pacte s'éteindre en silence.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amérique centrale</div>
+      <h3>Le Salvador et la Jamaïque passent tous deux à l'offensive</h3>
+      <p>Le Salvador et le Honduras se sont échangé des victoires sur le terrain avant que le Salvador ne se retourne aussi contre le Guatemala. La Jamaïque a déclaré la guerre à la Colombie et frappé à deux reprises, remportant une victoire, tout en envoyant discrètement des fonds au Venezuela.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Le Levant</div>
+      <h3>Israël frappe en territoire palestinien au milieu des trêves</h3>
+      <p>Israël a lancé une attaque sur un territoire tenu par la Palestine, alors même que la Turquie et la Syrie, puis séparément la Syrie et la Jordanie, concluaient la paix. Le Yémen et Oman se sont affrontés à deux reprises, le Yémen l'emportant lors de la revanche.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est</div>
+      <h3>Le Viêt Nam déclare la guerre pendant que le Cambodge change deux fois de mains</h3>
+      <p>Un territoire disputé tenu par le Cambodge a d'abord été remporté par les forces chinoises, avant d'être repris par le Viêt Nam lors d'une seconde bataille le même jour. Le Viêt Nam a ensuite formellement déclaré la guerre à la Thaïlande, tandis que les lignes de front continuaient de bouger dans la région.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le corps diplomatique</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="treaty-columns">
+    <div class="treaty-item">La Jordanie et la Somalie signent un pacte défensif</div>
+    <div class="treaty-item">L'Irak et la Tchéquie signent un pacte défensif</div>
+    <div class="treaty-item">L'Irak et Oman signent un pacte défensif</div>
+    <div class="treaty-item">Le Nigéria et la Belgique signent un pacte défensif</div>
+    <div class="treaty-item">La Colombie signe avec les États-Unis et avec la Tunisie</div>
+    <div class="treaty-item">L'Ouzbékistan et le Guatemala signent un pacte défensif</div>
+    <div class="treaty-item">Madagascar et l'Érythrée signent un pacte défensif</div>
+    <div class="treaty-item">La Tchéquie et les Fidji signent un pacte défensif</div>
+    <div class="treaty-item">Le Timor oriental et la Papouasie-Nouvelle-Guinée signent un pacte défensif</div>
+    <div class="treaty-item">Les Fidji et la Slovaquie signent un pacte défensif</div>
+    <div class="treaty-item">La Roumanie et Israël signent un pacte défensif</div>
+    <div class="treaty-item peace">Paix conclue : Namibie et Lesotho</div>
+    <div class="treaty-item peace">Paix conclue : Égypte et Serbie</div>
+    <div class="treaty-item peace">Paix conclue : Inde et Birmanie</div>
+    <div class="treaty-item peace">Paix conclue : Iran et Tadjikistan</div>
+    <div class="treaty-item peace">Paix conclue : Brésil et Pérou</div>
+    <div class="treaty-item peace">Paix conclue : Allemagne et Turquie</div>
+    <div class="treaty-item peace">Paix conclue : Ouganda et Burundi</div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <div class="stamp">Matières premières</div>
+      <h3>Les prospecteurs font une razzia</h3>
+      <p>Des gisements de céréales, de calcaire, de pétrole, de plomb, de fer, de bétail, de coca, de bois et de poisson ont été recensés dans des territoires dispersés sur tous les théâtres de la guerre, chacun assorti d'une prime de rendement temporaire. Les milieux commerciaux parlent de la période la plus faste en découvertes depuis le début du conflit, même si la plupart des primes doivent s'éteindre d'ici quelques jours.</p>
+    </div>
+    <div class="lower-box">
+      <h3>L'argent qui circule</h3>
+      <ul>
+        <li>La Belgique envoie une somme considérable au Nigéria</li>
+        <li>L'Inde transfère des fonds aux Philippines</li>
+        <li>Les Pays-Bas virent de l'argent à la Lituanie à deux reprises dans la journée</li>
+        <li>Les îles Salomon et l'Ouzbékistan échangent des transferts dans les deux sens</li>
+        <li>Le Brunei envoie des fonds aux îles Salomon</li>
+        <li>Le Maroc et le Venezuela envoient chacun une somme plus modeste à l'étranger</li>
+        <li>La Suède vire une somme importante à la Thaïlande</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Cette édition rassemble une journée entière de dépêches issues des fils diplomatique, militaire et commercial. Les territoires encore répertoriés sous un simple code d'immatriculation sont publiés tels que reçus, en attendant confirmation de l'autorité qui les administre. Suite au prochain numéro, à mesure que la guerre se poursuit.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
