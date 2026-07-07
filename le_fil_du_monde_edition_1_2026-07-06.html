@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Le Fil du Monde — Édition du 6 juillet 2026</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+        :root {
+            --paper: #efe8d8;
+            --paper-dark: #e4dcc7;
+            --ink: #1c1a16;
+            --ink-soft: #3a362e;
+            --rule: #1c1a16;
+            --blood: #7a1f1f;
+            --brass: #8a6d3b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper-dark);
+            font-family: 'Libre Caslon Text', serif;
+            color: var(--ink);
+            display: flex;
+            justify-content: center;
+            padding: 24px 12px;
+        }
+
+        .page {
+            background: var(--paper);
+            width: 100%;
+            max-width: 1040px;
+            padding: 28px 34px 40px;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08), 0 20px 40px rgba(0, 0, 0, 0.25);
+            background-image:
+                radial-gradient(circle at 15% 20%, rgba(0, 0, 0, 0.03) 0, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(0, 0, 0, 0.03) 0, transparent 40%);
+        }
+
+        /* MASTHEAD */
+        .topline {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            border-bottom: 1px solid var(--ink);
+            padding-bottom: 6px;
+            margin-bottom: 10px;
+        }
+
+        .masthead {
+            text-align: center;
+            padding: 6px 0 10px;
+        }
+
+        .masthead h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 76px;
+            margin: 0;
+            letter-spacing: 0.5px;
+            line-height: 0.95;
+        }
+
+        .masthead .tagline {
+            font-family: 'Libre Caslon Text', serif;
+            font-style: italic;
+            font-size: 13px;
+            color: var(--ink-soft);
+            margin-top: 4px;
+            letter-spacing: 0.03em;
+        }
+
+        .rule-thick {
+            border: none;
+            border-top: 4px double var(--ink);
+            margin: 8px 0 4px;
+        }
+
+        .rule-thin {
+            border: none;
+            border-top: 1px solid var(--ink);
+            margin: 4px 0;
+        }
+
+        .edition-bar {
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Courier Prime', monospace;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 0 8px;
+        }
+
+        /* MAIN GRID */
+        .layout {
+            display: grid;
+            grid-template-columns: 2.1fr 1fr;
+            gap: 26px;
+            margin-top: 6px;
+        }
+
+        .eyebrow {
+            font-family: 'Courier Prime', monospace;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--blood);
+            margin-bottom: 4px;
+        }
+
+        h2.headline {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 38px;
+            line-height: 1.03;
+            margin: 0 0 6px;
+        }
+
+        .deck {
+            font-style: italic;
+            font-size: 15.5px;
+            color: var(--ink-soft);
+            margin: 0 0 10px;
+            border-bottom: 1px solid var(--ink);
+            padding-bottom: 10px;
+        }
+
+        .byline {
+            font-family: 'Courier Prime', monospace;
+            font-size: 10.5px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ink-soft);
+            margin-bottom: 10px;
+        }
+
+        .story-body {
+            columns: 2;
+            column-gap: 22px;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .story-body p {
+            margin: 0 0 10px;
+        }
+
+        .story-body p:first-of-type::first-letter {
+            float: left;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 50px;
+            line-height: 38px;
+            padding-right: 6px;
+            padding-top: 2px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            border-left: 1px solid var(--ink);
+            padding-left: 20px;
+        }
+
+        .brief {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--ink-soft);
+        }
+
+        .brief:last-child {
+            border-bottom: none;
+        }
+
+        .brief .eyebrow {
+            font-size: 10px;
+        }
+
+        .brief h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            margin: 0 0 5px;
+            line-height: 1.1;
+        }
+
+        .brief p {
+            font-size: 12.5px;
+            line-height: 1.45;
+            margin: 0;
+        }
+
+        .wire-box {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 12px 14px;
+            font-family: 'Courier Prime', monospace;
+            font-size: 10.5px;
+            line-height: 1.75;
+            margin-bottom: 18px;
+        }
+
+        .wire-box .wtitle {
+            color: var(--brass);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 10px;
+            border-bottom: 1px solid rgba(239, 232, 216, 0.3);
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .wire-box .t {
+            color: #c9a876;
+            margin-right: 6px;
+        }
+
+        /* SECTION HEADER */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 26px 0 14px;
+        }
+
+        .section-header .label {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: 22px;
+            white-space: nowrap;
+        }
+
+        .section-header .line {
+            flex: 1;
+            border-top: 3px double var(--ink);
+        }
+
+        /* REGIONAL GRID */
+        .regional-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .region-card {
+            border: 1px solid var(--ink);
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .region-card .eyebrow {
+            font-size: 9.5px;
+        }
+
+        .region-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 16.5px;
+            margin: 0 0 6px;
+            line-height: 1.15;
+        }
+
+        .region-card p {
+            font-size: 12px;
+            line-height: 1.42;
+            margin: 0;
+        }
+
+        /* TREATY / LIST COLUMNS */
+        .treaty-columns {
+            columns: 2;
+            column-gap: 30px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .treaty-columns .treaty-item {
+            break-inside: avoid;
+            margin-bottom: 8px;
+            padding-left: 14px;
+            position: relative;
+        }
+
+        .treaty-columns .treaty-item::before {
+            content: "\2014";
+            position: absolute;
+            left: 0;
+            color: var(--blood);
+        }
+
+        .treaty-columns .peace::before {
+            content: "\2726";
+            font-size: 10px;
+            top: 2px;
+        }
+
+        /* LOWER BAND */
+        .lower {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 22px;
+            margin-top: 6px;
+        }
+
+        .lower-box h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            margin: 0 0 6px;
+        }
+
+        .lower-box p,
+        .lower-box li {
+            font-size: 12.5px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .lower-box ul {
+            margin: 0;
+            padding-left: 16px;
+        }
+
+        .lower-box li {
+            margin-bottom: 4px;
+        }
+
+        .stamp {
+            display: inline-block;
+            font-family: 'Courier Prime', monospace;
+            font-size: 9.5px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: 1px solid var(--blood);
+            color: var(--blood);
+            padding: 1px 6px;
+            margin-bottom: 6px;
+            transform: rotate(-2deg);
+        }
+
+        .footer-rule {
+            margin-top: 24px;
+            padding-top: 8px;
+            border-top: 1px solid var(--ink);
+            text-align: center;
+            font-family: 'Courier Prime', monospace;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+        }
+
+        @media (max-width:820px) {
+
+            .layout,
+            .lower {
+                grid-template-columns: 1fr;
+            }
+
+            .regional-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .treaty-columns {
+                columns: 1;
+            }
+
+            .sidebar {
+                border-left: none;
+                border-top: 1px solid var(--ink);
+                padding-left: 0;
+                padding-top: 16px;
+            }
+
+            .masthead h1 {
+                font-size: 48px;
+            }
+
+            .story-body {
+                columns: 1;
+            }
+        }
+
+        @media (max-width:520px) {
+            .regional-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- ============ TOP STRIP ============ -->
+        <div class="topline">
+            <span>Vol. I — N° 1</span>
+            <span>Bureau international des dépêches</span>
+            <span>Prix : un Kouign-amann</span>
+        </div>
+
+        <!-- ============ MASTHEAD ============ -->
+        <div class="masthead">
+            <h1>LE FIL DU MONDE</h1>
+            <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+        </div>
+
+        <hr class="rule-thick">
+        <div class="edition-bar">
+            <span>Édition du 6 juillet 2026</span>
+            <span>Berlin fait la paix à l'ouest, la guerre continue en Bavière</span>
+            <span>Dépêches compilées à la clôture de la journée</span>
+        </div>
+        <hr class="rule-thin">
+
+        <!-- ============ MAIN STORY + SIDEBAR ============ -->
+        <div class="layout">
+            <div class="main-story">
+                <div class="eyebrow">Urgence nationale — Front franco-allemand</div>
+                <h2 class="headline">L'ALLEMAGNE SIGNE LA PAIX AVEC LES PAYS-BAS ET ATTAQUE LA BAVIÈRE FRANÇAISE LE MÊME JOUR</h2>
+                <p class="deck">En l'espace de quelques heures, l'Allemagne a refermé un front à l'ouest et rouvert l'un
+                    des plus sensibles pour la France, laissant les chancelleries perplexes quant à la logique
+                    d'ensemble de l'Allemagne.</p>
+                <div class="byline">De notre bureau diplomatique — 6 juillet 2026</div>
+                <div class="story-body">
+                    <p>Dès la matinée, l'armée allemande a porté le fer sur la Bavière, tenue par la France, sans
+                        qu'aucun communiqué n'accompagne l'offensive. Le geste n'a rien d'anodin : il intervient alors
+                        que la France multipliait, ces derniers jours, les gestes d'ouverture vers l'est du continent, et il
+                        replace la France au centre d'un contentieux qu'elle pensait pouvoir tenir à distance.</p>
+                    <p>Quelques heures plus tard, coup de théâtre : l'Allemagne annonçait la paix avec les Pays-Bas, mettant
+                        fin à une hostilité qui rongeait le front occidental depuis des semaines. Le rapprochement
+                        surprend d'autant plus que les Pays-Bas comptent, parmi leurs alliés déclarés, plusieurs des partenaires
+                        les plus proches de la France elle-même — l'Égypte, la Pologne, la Hongrie, l'Irak, la Sierra
+                        Leone. Faire la paix avec l'un des membres de ce cercle tout en frappant la France en son cœur
+                        bavarois relève, aux yeux de plusieurs chancelleries, d'une stratégie à deux vitesses plus que
+                        d'une contradiction.</p>
+                    <p>La France, elle-même comptée parmi les toutes premières puissances industrielles de ce conflit,
+                        n'a rien cédé publiquement de sa position. Dans l'après-midi, elle a même resserré ses propres
+                        alliances en signant un pacte défensif avec le Kirghizistan, signe que la France entend répondre par
+                        l'élargissement plutôt que par la crispation. Le message a été reçu au-delà du cercle habituel
+                        des chancelleries alliées.</p>
+                    <p>À l'heure de boucler cette édition, aucune issue n'était connue pour la bataille de Bavière : ni
+                        victoire, ni revers n'a été rapporté dans la journée. Le silence qui entoure ce front est, en
+                        lui-même, une information — et Le Fil du Monde suivra son dénouement dès qu'il sera connu.</p>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <!-- Wire-style bullet list -->
+                <div class="wire-box">
+                    <span class="wtitle">Dépêches de la journée</span>
+                    <div><span class="t">&mdash;</span>La Namibie s'empare de Southwestern Angola aux dépens de
+                        l'Angola.</div>
+                    <div><span class="t">&mdash;</span>L'Australie et le Brunei signent un pacte défensif.</div>
+                    <div><span class="t">&mdash;</span>L'Allemagne attaque la Bavière, tenue par la France.</div>
+                    <div><span class="t">&mdash;</span>Taïwan libère Eastern Taiwan, occupée par le Cambodge.</div>
+                    <div><span class="t">&mdash;</span>La Russie déclare la guerre à la Finlande.</div>
+                    <div><span class="t">&mdash;</span>L'Iran déclare la guerre à l'Ouzbékistan.</div>
+                    <div><span class="t">&mdash;</span>L'Allemagne et les Pays-Bas concluent la paix.</div>
+                    <div><span class="t">&mdash;</span>La France et le Kirghizistan signent un pacte défensif.</div>
+                    <div><span class="t">&mdash;</span>L'Égypte s'empare de Jérusalem, tenue par Israël.</div>
+                    <div><span class="t">&mdash;</span>Cuba rejoint l'alliance Reservoir Dogs.</div>
+                    <div><span class="t">&mdash;</span>L'Ukraine déclare la guerre à Chypre.</div>
+                    <div><span class="t">&mdash;</span>Le Vatican déclare la guerre à la Serbie.</div>
+                </div>
+
+                <div class="brief">
+                    <div class="eyebrow">Proche-Orient</div>
+                    <h3>Jérusalem change de mains</h3>
+                    <p>En fin de journée, l'Égypte a emporté la bataille de Jérusalem face à Israël, quelques heures
+                        après qu'Israël eut lui-même lancé une offensive sur le West Bank tenu par la Palestine — une
+                        offensive repoussée par la défense palestinienne. Le Proche-Orient referme ainsi une journée à
+                        double tranchant, où chaque camp a gagné et perdu du terrain.</p>
+                </div>
+
+                <div class="brief">
+                    <div class="eyebrow">Balkans</div>
+                    <h3>La Croatie multiplie les fronts, sans butin</h3>
+                    <p>Alliée de la France, la Croatie a lancé des offensives contre la Bosnie, le Monténégro et la
+                        Roumanie au cours de la journée, sans qu'aucune ne se solde par une victoire confirmée. Seule la
+                        bataille de Southern Bosnia a connu une issue, à l'avantage du défenseur bosnien. La Croatie devra
+                        attendre la prochaine édition pour connaître le sort de ses autres offensives.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ REGIONAL GRID (4 cards) ============ -->
+        <div class="section-header">
+            <span class="label">Dépêches régionales</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="regional-grid">
+            <div class="region-card">
+                <div class="eyebrow">Amériques — Caraïbes</div>
+                <h3>Le triangle Honduras-Salvador-Nicaragua s'embrase</h3>
+                <p>Le Honduras a lancé deux offensives contre les positions salvadoriennes de Western Honduras puis
+                    d'Eastern Honduras, sans résultat connu ce jour, tandis que le Salvador a pris sa revanche en
+                    s'emparant de Western Nicaragua. Sur les Caraïbes, la Jamaïque a arraché Colombian Orinoco à la
+                    Colombie, dans un contentieux qui semble loin d'être clos.</p>
+            </div>
+            <div class="region-card">
+                <div class="eyebrow">Balkans</div>
+                <h3>La Serbie assiégée de toutes parts</h3>
+                <p>La Serbie a résisté aux assauts de la Croatie sur la Vojvodine et pris le dessus sur la Hongrie à
+                    Transdanubia, mais a cédé la côte du Turkish Mediterranean Coast face à Chypre pendant que la Grèce
+                    se lançait à l'assaut de la Crète. Le Vatican a choisi ce même jour pour lui déclarer la guerre, un
+                    geste que les chancelleries voisines ont observé avec attention.</p>
+            </div>
+            <div class="region-card">
+                <div class="eyebrow">Afrique australe</div>
+                <h3>L'Afrique du Sud recule sur tous les tableaux</h3>
+                <p>L'Afrique du Sud a perdu Cabinda et Lunda, libérées par l'Angola, subi un revers à Luapula face à la RD
+                    Congo, et cédé Cabo Delgado & Niassa au Mozambique ainsi que KwaZulu-Natal au Lesotho par la voie
+                    diplomatique. La Namibie, de son côté, a repoussé une incursion zimbabwéenne à Eastern Botswana tout
+                    en avançant elle-même en territoire angolais.</p>
+            </div>
+            <div class="region-card">
+                <div class="eyebrow">Asie du Sud-Est</div>
+                <h3>East Timor multiplie les pactes, le Vietnam se disperse</h3>
+                <p>East Timor a signé pas moins de sept pactes défensifs dans la journée tout en essuyant un revers à Nusa
+                    Tenggara face à l'Indonésie. Le Vietnam a tenu Bangkok face à la Thaïlande mais lancé de nouvelles
+                    offensives contre le Cambodge, sans résultat connu à l'heure de boucler cette édition.</p>
+            </div>
+        </div>
+
+        <!-- ============ DIPLOMATIC CORPS ============ -->
+        <div class="section-header">
+            <span class="label">Le corps diplomatique</span>
+            <span class="line"></span>
+        </div>
+
+        <div class="treaty-columns">
+            <div class="treaty-item">Australie et Brunei signent un pacte défensif.</div>
+            <div class="treaty-item">East Timor et United Korea signent un pacte défensif.</div>
+            <div class="treaty-item">East Timor et Slovaquie signent un pacte défensif.</div>
+            <div class="treaty-item">East Timor et Irak signent un pacte défensif.</div>
+            <div class="treaty-item">Thaïlande et Australie signent un pacte défensif.</div>
+            <div class="treaty-item">Czechia et Papua New Guinea signent un pacte défensif.</div>
+            <div class="treaty-item">Éthiopie et Palestine signent un pacte défensif.</div>
+            <div class="treaty-item">Yémen et Finlande signent un pacte défensif.</div>
+            <div class="treaty-item">United Arab Emirates et Slovaquie signent un pacte défensif.</div>
+            <div class="treaty-item">Érythrée et Oman signent un pacte défensif.</div>
+            <div class="treaty-item">East Timor et Érythrée signent un pacte défensif.</div>
+            <div class="treaty-item">East Timor et Czechia signent un pacte défensif.</div>
+            <div class="treaty-item">East Timor et Vietnam signent un pacte défensif.</div>
+            <div class="treaty-item">Russie et Guatemala signent un pacte défensif.</div>
+            <div class="treaty-item">Irak et United Korea signent un pacte défensif.</div>
+            <div class="treaty-item">Russie et Venezuela signent un pacte défensif.</div>
+            <div class="treaty-item">Turkiye et Hongrie signent un pacte défensif.</div>
+            <div class="treaty-item">France et Kirghizistan signent un pacte défensif.</div>
+            <div class="treaty-item">Géorgie et Yémen signent un pacte défensif.</div>
+            <div class="treaty-item">East Timor et United Arab Emirates signent un pacte défensif.</div>
+            <div class="treaty-item">Afrique du Sud et Éthiopie signent un pacte défensif.</div>
+            <div class="treaty-item">South Sudan et Égypte signent un pacte défensif.</div>
+            <div class="treaty-item">Chine et Irak signent un pacte défensif.</div>
+            <div class="treaty-item">Oman et Philippines signent un pacte défensif.</div>
+            <div class="treaty-item">North Macedonia et Ukraine signent un pacte défensif.</div>
+            <div class="treaty-item">Equatorial Guinea et Cape Verde signent un pacte défensif.</div>
+            <div class="treaty-item peace">Paix entre Afghanistan et Tadjikistan.</div>
+            <div class="treaty-item peace">Paix entre Inde et Afghanistan.</div>
+            <div class="treaty-item peace">Paix entre Solomon Islands et Fidji.</div>
+            <div class="treaty-item peace">Paix entre Allemagne et Pays-Bas.</div>
+        </div>
+
+        <!-- ============ LOWER BAND (3 boxes) ============ -->
+        <div class="lower">
+            <div class="lower-box">
+                <span class="stamp">Alliances</span>
+                <h3>L'Iran s'isole encore</h3>
+                <p>L'Iran, déjà en délicatesse avec une grande partie du globe, a rompu ce jour ses pactes défensifs
+                    avec l'Arménie et le Pakistan, tout en déclarant la guerre à l'Ouzbékistan et en lançant une
+                    offensive sur West Kazakhstan. Une journée de plus qui confirme l'Iran comme l'une des nations les
+                    plus esseulées du conflit.</p>
+            </div>
+            <div class="lower-box">
+                <h3>Transferts du jour</h3>
+                <p>Le Niger a été l'un des grands bénéficiaires de la journée, recevant des fonds de l'Allemagne, du
+                    Portugal et des Pays-Bas.</p>
+                <ul>
+                    <li>Croatie → Hongrie : 2000 (à deux reprises)</li>
+                    <li>Hongrie → Croatie : 993</li>
+                    <li>Inde → Oman : 5000</li>
+                    <li>Inde → Tchad : 200</li>
+                    <li>Finlande → Yémen : 1000</li>
+                    <li>Belgique → Nigeria : 2000</li>
+                    <li>Allemagne → Niger : 3000</li>
+                    <li>Pays-Bas → Nigeria : 3000</li>
+                    <li>Portugal → Niger : 2000</li>
+                    <li>Tunisie → Nigeria : 300</li>
+                    <li>Venezuela → Russie : 3000</li>
+                </ul>
+            </div>
+            <div class="lower-box">
+                <h3>Note de la rédaction</h3>
+                <p>Plusieurs batailles engagées ce jour restent sans issue connue à l'heure du bouclage — Bavière,
+                    Dalmatia, Continental Croatia, Slavonia, Phnom Penh, Vientiane, Dong Hoi, Abuja et Northern
+                    Cameroon. Le Fil du Monde en suivra le dénouement dans ses prochaines éditions.</p>
+            </div>
+        </div>
+
+        <!-- ============ FOOTER ============ -->
+        <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction
+            interdite sans trésorerie en état de marche</div>
+
+    </div>
+</body>
+
+</html>
