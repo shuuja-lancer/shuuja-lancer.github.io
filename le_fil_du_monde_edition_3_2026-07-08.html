@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  .wire-box{
+    background:var(--ink);
+    color:var(--paper);
+    padding:12px 14px;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    line-height:1.75;
+    margin-bottom:18px;
+  }
+  .wire-box .wtitle{
+    color:var(--brass);
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    font-size:10px;
+    border-bottom:1px solid rgba(239,232,216,0.3);
+    padding-bottom:6px;
+    margin-bottom:8px;
+    display:block;
+  }
+  .wire-box .t{color:#c9a876; margin-right:6px;}
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* TREATY / LIST COLUMNS */
+  .treaty-columns{
+    columns:2;
+    column-gap:30px;
+    font-size:13px;
+    line-height:1.6;
+  }
+  .treaty-columns .treaty-item{
+    break-inside:avoid;
+    margin-bottom:8px;
+    padding-left:14px;
+    position:relative;
+  }
+  .treaty-columns .treaty-item::before{
+    content:"\2014";
+    position:absolute;
+    left:0;
+    color:var(--blood);
+  }
+  .treaty-columns .peace::before{
+    content:"\2726";
+    font-size:10px;
+    top:2px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ TOP STRIP ============ -->
+  <div class="topline">
+    <span>Vol. I — N° 3</span>
+    <span>Bureau international des dépêches</span>
+    <span>Prix : pas cher</span>
+  </div>
+
+  <!-- ============ MASTHEAD ============ -->
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>Édition du 8 juillet 2026</span>
+    <span>Rhine retombe sous souveraineté allemande</span>
+    <span>Dépêches compilées à la clôture de la journée</span>
+  </div>
+  <hr class="rule-thin">
+
+  <!-- ============ MAIN STORY + SIDEBAR ============ -->
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Urgence nationale — Front franco-allemand</div>
+      <h2 class="headline">L'ALLEMAGNE REPREND RHINE À LA FRANCE, DEUXIÈME REVERS EN DEUX JOURS</h2>
+      <p class="deck">Au lendemain de la perte de Baden-Württemberg, la France cède également Rhine à l'issue d'un assaut allemand lancé dès l'aube — une pression qui ne faiblit pas sur le front occidental.</p>
+      <div class="byline">De notre bureau diplomatique — 8 juillet 2026</div>
+      <div class="story-body">
+        <p>Dès les premières heures de la matinée, l'Allemagne a lancé une offensive contre Rhine, un territoire alors sous administration française. L'attaque intervient à peine vingt-quatre heures après la perte de Baden-Württemberg, cédé la veille à la suite d'une révolte financée directement par Berlin — un précédent qui avait déjà alerté les chancelleries sur la détermination allemande à reprendre pied sur le sol qu'elle revendique.</p>
+        <p>Les combats se sont prolongés jusqu'en fin de journée, l'issue n'étant confirmée qu'à l'heure de boucler cette édition. Le verdict est sans appel : l'Allemagne l'emporte largement, dans un affrontement où elle a imposé un rythme d'offensive que la France n'a pu soutenir. Aucun round n'aura permis aux défenseurs de renverser la tendance.</p>
+        <p>Rhine ne comptait pas parmi les possessions historiques de la France : le territoire appartient aux régions d'origine de l'Allemagne, qui le récupère donc plutôt qu'elle ne l'annexe. Ce distinguo n'atténue toutefois pas la portée du revers pour Paris, qui perd pied un peu plus sur le front occidental face à ce que les observateurs considèrent déjà comme la première puissance industrielle de ce conflit.</p>
+        <p>À l'heure de boucler cette édition, aucune réplique française n'avait été rapportée. La France conserve l'essentiel de son territoire d'origine, mais devra désormais composer avec une pression allemande continue, deux jours consécutifs après la perte de Baden-Württemberg, sans qu'aucun signe de ralentissement ne soit perceptible du côté de Berlin.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <!-- Repeat this .brief block for each short sidebar story -->
+      <div class="brief">
+        <div class="eyebrow">Péninsule italienne — Alliée de la France</div>
+        <h3>Rome ne gouverne plus le moindre territoire d'origine</h3>
+        <p>L'Italie, alliée déclarée de la France, ne contrôle plus aucun de ses territoires historiques : Sardinia et Lazio sont occupées par le Vatican, Sicily et Naples par la Serbie, Romagna & Tuscany et Northeastern Italy par l'Autriche. Fait notable, Northwestern Italy reste sous administration française — un dernier fragment de territoire italien conservé au sein du camp allié.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Moyen-Orient — Ennemie de la France</div>
+        <h3>L'Iran multiplie pactes et rentrées d'argent</h3>
+        <p>L'Iran, ennemi déclaré de la France, a signé cinq nouveaux pactes défensifs dans la journée — avec le Guatemala, le Costa Rica, le Nicaragua puis le Brésil et la Bolivie — tout en recevant des fonds d'une demi-douzaine de nations, dont l'Allemagne à deux reprises pour un total remarquable. Téhéran consolide ainsi une position déjà favorable sur ce fil.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ REGIONAL / TOPIC GRID (4 cards) ============ -->
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <!-- Duplicate/remove .region-card blocks as needed -->
+    <div class="region-card">
+      <div class="eyebrow">Europe de l'Est — Alliée de la France en difficulté</div>
+      <h3>La Lituanie recule sur sept fronts à la fois</h3>
+      <p>La Lituanie, alliée déclarée de la France, a connu l'une de ses journées les plus difficiles du conflit, cédant Kostanay et Pavlodar au Kazakhstan, Moscow et Great Vasyugan Mire à la Russie, ainsi que Transural Gate à l'Iran. Osh serait par ailleurs passée sous contrôle ouzbek, ennemi de la France, selon nos dernières informations, bien que les conditions exactes du combat n'aient pas été confirmées dans nos sources. Les États-Unis lui avaient auparavant pris American Pacific Coast puis Alaska, avant que les deux nations ne concluent la paix en toute fin de journée. Malgré ces revers, Vilnius conserve un vaste empire territorial et continue d'envoyer des fonds à la Pologne, autre alliée de la France.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie-Pacifique</div>
+      <h3>Taïwan perd ses deux derniers territoires</h3>
+      <p>Taïwan a perdu Eastern Taiwan face aux Philippines dès la nuit, puis Northern Taiwan face à la Chine en tout début d'après-midi, ne laissant plus à Taipei le moindre pouce de son territoire d'origine. Les quatre régions historiques de l'île sont désormais toutes occupées, par la Chine ou par les Philippines. Taïwan continue néanmoins d'exister diplomatiquement, avec le soutien de l'Australie, du Cambodge, de Madagascar, du Pakistan, de la Slovaquie, du Laos et de l'Irlande.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique centrale</div>
+      <h3>Le Nigeria assailli sur cinq fronts</h3>
+      <p>Le Nigeria a cédé Continental Equatorial Guinea puis Bioko au Gabon et à la Guinée équatoriale dès la nuit, avant de perdre Western Cameroon face au Cameroun en matinée. La pression n'a pas faibli en fin de journée : Southeast Nigeria et Borno and Yobe sont tombées coup sur coup, respectivement aux mains de la Guinée équatoriale et du Cameroun, tandis que le Burkina Faso ouvrait un cinquième front en direction de Lagos.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Balkans</div>
+      <h3>La Grèce, ruinée à l'aube, referme ses alliances au fil de la journée</h3>
+      <p>La Grèce a débuté sa journée en se déclarant en faillite et en rompant simultanément huit pactes défensifs, avant de perdre Crete face à l'Égypte, alliée de la France, au petit matin. Athènes a ensuite reconstruit patiemment son réseau d'alliances, signant de nouveaux pactes avec la Turquie, le Kirghizistan, la Hongrie, Chypre, la Croatie puis la Bulgarie au fil des heures suivantes. Une tentative tardive de reprendre Epirus à la Serbie restait sans résultat connu à l'heure du bouclage.</p>
+    </div>
+  </div>
+
+  <!-- ============ TWO-COLUMN LIST (treaties, results, announcements, etc.) ============ -->
+  <div class="section-header">
+    <span class="label">Le corps diplomatique</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="treaty-columns">
+    <!-- Plain items use the dash marker; add class="peace" for the star marker -->
+    <div class="treaty-item">Érythrée et Slovaquie signent un pacte défensif.</div>
+    <div class="treaty-item">Iran et Guatemala signent un pacte défensif.</div>
+    <div class="treaty-item">Érythrée et Irak signent un pacte défensif.</div>
+    <div class="treaty-item">Malte et Kirghizistan signent un pacte défensif.</div>
+    <div class="treaty-item">Thaïlande et Brunei signent un pacte défensif.</div>
+    <div class="treaty-item">Grèce et Turquie signent un pacte défensif.</div>
+    <div class="treaty-item">Allemagne et Kazakhstan signent un pacte défensif.</div>
+    <div class="treaty-item">Philippines et Émirats arabes unis signent un pacte défensif.</div>
+    <div class="treaty-item">Kirghizistan et Grèce signent un pacte défensif.</div>
+    <div class="treaty-item">Malte et France signent un pacte défensif.</div>
+    <div class="treaty-item">Grèce et Hongrie signent un pacte défensif.</div>
+    <div class="treaty-item">Grèce et Chypre signent un pacte défensif.</div>
+    <div class="treaty-item">Italie et Kirghizistan signent un pacte défensif.</div>
+    <div class="treaty-item">Serbie et Moldavie signent un pacte défensif.</div>
+    <div class="treaty-item">Grèce et Croatie signent un pacte défensif.</div>
+    <div class="treaty-item">Grèce et Bulgarie signent un pacte défensif.</div>
+    <div class="treaty-item">Iran et Costa Rica signent un pacte défensif.</div>
+    <div class="treaty-item">Iran et Nicaragua signent un pacte défensif.</div>
+    <div class="treaty-item">Iran et Brésil signent un pacte défensif.</div>
+    <div class="treaty-item">Pologne et Lettonie signent un pacte défensif.</div>
+    <div class="treaty-item">Iran et Bolivie signent un pacte défensif.</div>
+    <div class="treaty-item">Pologne et Danemark signent un pacte défensif.</div>
+    <div class="treaty-item peace">Sierra Leone et Liban concluent la paix.</div>
+    <div class="treaty-item peace">Maurice et Timor oriental concluent la paix.</div>
+    <div class="treaty-item peace">Oman et Yémen concluent la paix.</div>
+    <div class="treaty-item peace">Yémen et Arménie concluent la paix.</div>
+    <div class="treaty-item peace">RD Congo et Centrafrique concluent la paix.</div>
+    <div class="treaty-item peace">Yémen et Érythrée concluent la paix.</div>
+    <div class="treaty-item peace">Irak et Yémen concluent la paix.</div>
+    <div class="treaty-item peace">Pays-Bas et Ukraine concluent la paix.</div>
+    <div class="treaty-item peace">Ouzbékistan et Sierra Leone concluent la paix.</div>
+    <div class="treaty-item peace">Chili et Kirghizistan concluent la paix.</div>
+    <div class="treaty-item peace">Guatemala et Sierra Leone concluent la paix.</div>
+    <div class="treaty-item peace">États-Unis et Lituanie concluent la paix.</div>
+    <div class="treaty-item peace">Yémen et Inde concluent la paix.</div>
+    <div class="treaty-item peace">Guinée équatoriale et Gabon concluent la paix.</div>
+  </div>
+
+  <!-- ============ LOWER BAND (3 boxes) ============ -->
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Nouveaux visages, nouvelles alliances</h3>
+      <p>L'Inde et le Ghana ont chacun vu un nouveau président prendre ses fonctions au cours de la journée, sans qu'aucun changement de cap diplomatique ne soit rapporté dans l'immédiat. Le Salvador, de son côté, a rejoint l'alliance Steppes Horde.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Transferts du jour</h3>
+      <ul>
+        <li>Vers la Pologne : Pays-Bas, Belgique, Danemark, Lettonie, Slovaquie, Groenland, Égypte, et la Lituanie à deux reprises</li>
+        <li>Vers l'Iran : Allemagne à deux reprises, puis Yémen, Portugal, Thaïlande, Suède, Suriname et Finlande</li>
+        <li>Pologne → Lituanie ; Belgique → Lituanie</li>
+        <li>El Salvador → Russie ; Ouzbékistan → Russie ; Venezuela → Russie</li>
+        <li>Inde → Chine ; Égypte → Grèce ; Portugal → RD Congo</li>
+        <li>Italie → Slovénie ; Malte → Slovénie</li>
+        <li>Émirats arabes unis → Irak ; Croatie → Bulgarie</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Deux offensives lancées en toute fin de soirée — les Philippines contre Kalimantan et le Timor oriental contre Maluku, toutes deux tenues par l'Indonésie — n'avaient pas encore livré leur résultat à l'heure de boucler cette édition. Le Fil du Monde en suivra l'issue dans sa prochaine livraison.</p>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
