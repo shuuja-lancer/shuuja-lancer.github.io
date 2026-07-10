@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 10 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>Vol. I — N° 5</span>
+    <span>Bureau international des dépêches</span>
+    <span>Prix : trois francs six sous</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>Édition du 10 juillet 2026</span>
+    <span>Mobilisation — Défense du territoire</span>
+    <span>Dépêches compilées à la clôture de la journée</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Urgence nationale — Défense du territoire</div>
+      <h2 class="headline">PARIS SONNE LA MOBILISATION GÉNÉRALE FACE À LA MENACE ALLEMANDE</h2>
+      <p class="deck">Le Ministère de la Défense appelle les citoyens les plus expérimentés à prendre les armes et annonce une vaste réorganisation stratégique pour contrer les ambitions de Berlin.</p>
+      <div class="byline">De notre bureau de Paris — 11 juillet 2026</div>
+      <div class="story-body">
+        <p>L'heure est à la gravité dans les couloirs du Ministère de la Défense. Dans une adresse solennelle à la nation, le gouvernement français a sonné le tocsin de la mobilisation, appelant l'ensemble des citoyens à se préparer au choc qui s'annonce. Alors que « l'aigle allemand » et ses alliés massent leurs forces et planent sur l'Europe, Paris refuse de céder au fatalisme et orchestre minutieusement la riposte.</p>
+        <p>Au cœur de cette stratégie de résilience figure une refonte complète de l'architecture d'alliance, directement pilotée par la présidence. Le Ministère a confirmé que des changements opérationnels majeurs sont d'ores et déjà en cours, garantissant au haut commandement un accès direct aux ordres de bataille des nations partenaires. Cette coordination tactique accrue doit permettre à la France de déclencher l'assistance militaire internationale au moindre signe de mise en péril de ses lignes souveraines.</p>
+        <p>Mais le salut de la patrie reposera avant tout sur ses propres forces. L'état-major exhorte les citoyens les plus aguerris à basculer immédiatement en configuration de combat. Pour appuyer cet effort massif, les autorités ont déclassifié une série de directives stratégiques et de schémas d'armement optimisés, conçus pour décupler la puissance de feu de chaque volontaire. Des instruments de planification tactique sophistiqués ont également été mis à la libre disposition des troupes afin de rationaliser les frappes face à l'ennemi.</p>
+        <p>L'effort militaire réclame cependant l'unité absolue de toutes les forces vives du pays, y compris celles restées à l'arrière. Le Ministère en appelle au patriotisme des industriels et des grands acteurs de l'économie, les invitant à soutenir financièrement les Unités Militaires et le Trésor national. Chaque contribution sera vitale pour l'entretien des bunkers, le maintien des bases militaires et le financement des ordres de déploiement. Face à l'orage continental qui gronde, la France entend bien prouver à ses détracteurs que sa force de frappe demeure crainte, réactive et respectée.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Europe de l'Est</div>
+        <h3>La Pologne, rempart sur le front de l'Est</h3>
+        <p>La Pologne s'est affirmée comme le rempart essentiel de l'alliance française en Europe de l'Est en repoussant avec succès une offensive majeure de l'Iran sur la région de Central Chernozem, puis en préservant le contrôle de Moscou face à une attaque russe. Malgré l'intensité des assauts adverses, ces victoires défensives confirment la résilience des troupes de Varsovie et assurent l'imperméabilité des positions pro-françaises face à ses opposants historiques sur le continent.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Asie du Nord-Est</div>
+        <h3>L'avancée américaine en Extrême-Orient</h3>
+        <p>Les États-Unis, partenaires diplomatiques de la France, ont franchi une nouvelle étape dans leur campagne de l'Est en s'emparant victorieusement de Outer Manchuria. Face à la Russie, ennemie déclarée de Washington et de Paris, les forces américaines ont remporté une victoire écrasante, confisquant le territoire sans jamais voir leur emprise sur les combats menacée par les garnisons russes.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Front moyen-oriental</div>
+        <h3>L'hégémonie turque s'étend en Anatolie</h3>
+        <p>La Turquie, alliée stratégique de la France, a mené une série de campagnes éclairs couronnées d'un succès total. Les armées d'Ankara se sont successivement emparées de Central Anatolia face à l'Ukraine, de Southeastern Anatolia aux dépens de la Serbie, et d'Eastern Anatolia face à la Géorgie. Chaque bataille s'est soldée par une victoire sans appel, consacrant la supériorité opérationnelle turque dans la région.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Amériques</div>
+      <h3>Guerre totale et percée bahaméenne</h3>
+      <p>Les Bahamas, nation hostile aux intérêts français, ont frappé le sol nord-américain en arrachant Southeastern USA aux États-Unis lors d'une victoire militaire nette. Simultanément, le gouvernement de Washington a élargi le périmètre du conflit mondial en déclarant officiellement la guerre à Jamaica, Madagascar et Brazil.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est</div>
+      <h3>L'Inde fait chuter Java</h3>
+      <p>L'Inde, puissance alliée de Paris, a lancé une offensive d'envergure contre l'Indonésie, nation opposée à la France. Au terme d'une bataille rangée de haute intensité, l'armée indienne s'est emparée du territoire insulaire stratégique de Java, obtenant une victoire écrasante sur les défenseurs indonésiens.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique de l'Est</div>
+      <h3>Bouleversements sur l'axe ougandais</h3>
+      <p>Le Kenya a violemment percé les lignes de l'Ouganda, réussissant à prendre le contrôle militaire d'Eastern Uganda et de Central Uganda suite à des assauts décisifs. Néanmoins, la DR Congo a rapidement répliqué en attaquant victorieusement les forces kényanes par le flanc, s'emparant à son tour d'Eastern Uganda quelques heures plus tard.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Europe du Sud</div>
+      <h3>Succès et résistance de la Serbie</h3>
+      <p>La Serbie, principal adversaire de l'axe français sur le continent, s'est imposée face à la Hongrie (alliée de Paris) en lui confisquant Pest au terme d'une victoire sans appel. Dans le même temps, Belgrade a solidement tenu ses lignes de défense à Naples, parvenant à repousser victorieusement une attaque écrasante lancée par l'Italie.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Asie du Nord — Percée inattendue</div>
+    <h2 class="world-headline">L'ÉCLAIR MONGOL SUR LES TERRES LITUANIENNES</h2>
+    <p class="deck">En une seule journée, la Mongolie a brisé les lignes défensives de la Lituanie sur plusieurs fronts majeurs, amputant le géant d'Europe de l'Est de trois de ses vastes territoires conquis.</p>
+    <div class="byline">Bureau des affaires eurasiennes — 10 juillet 2026</div>
+    <div class="story-body">
+      <p>La Lituanie, puissance de tout premier plan mondial en termes de développement et fidèle alliée de la France, a subi une série de revers fulgurants au cours d'une campagne militaire menée par la Mongolie. Les forces mongoles ont ouvert les hostilités par un assaut victorieux sur Baikal Highlands, s'imposant sans la moindre contestation face aux garnisons locales de Vilnius.</p>
+      <p>Loin de sécuriser ce premier gain pour ralentir le rythme, les états-majors mongols ont immédiatement ordonné une nouvelle attaque en direction de Great Vasyugan Mire. Sur ce second théâtre, la résistance lituanienne a de nouveau rompu face à la rapidité de la manœuvre ennemie, laissant le territoire basculer sous le contrôle de l'assaillant après une nouvelle victoire écrasante.</p>
+      <p>Le coup de grâce de cette offensive parfaitement coordonnée a été porté à Krasnoyarsk Krai. En fin de journée, la Mongolie a confirmé la chute de cette troisième région, signant une campagne stratégique exemplaire. Ce recul inattendu ampute la Lituanie d'une partie de sa couverture territoriale en Asie, bien que l'assise industrielle de la nation balte reste colossale à l'échelle du conflit.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Diplomatie et soulèvements</h3>
+      <p>La diplomatie de l'ombre a tourné à plein régime en marge des combats. L'Iran s'est rapproché de nouveaux partenaires en officialisant des pactes défensifs avec le Turkmenistan, le Portugal et la Gambia. De son côté, la Russie a consolidé sa stratégie globale en s'alliant militairement avec le Nicaragua. Enfin, des troubles civils ont frappé la Méditerranée avec l'éclatement d'une véritable révolution civile sur l'île de Cyprus.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li>Lithuania achemine des fonds vers Poland (1 889, 1 400, et 1 750 monnaies).</li>
+        <li>Netherlands alimente Poland avec 3 000 monnaies.</li>
+        <li>Germany finance massivement Iran à hauteur de 5 000 monnaies.</li>
+        <li>Guyana injecte 5 000 monnaies dans les réserves de Mali.</li>
+        <li>India soutient financièrement Guinea-Bissau avec 3 000 monnaies.</li>
+        <li>South Africa fait parvenir 1 500 monnaies à Greece.</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Dernières nouvelles des fronts</h3>
+      <p>Dans les dernières heures ayant précédé l'impression de notre journal, la géopolitique africaine s'est tendue avec la déclaration de guerre formelle de la Namibia à l'encontre du Kenya. En Afrique de l'Ouest, le Cameroon est passé à l'action en arrachant les territoires de Continental Equatorial Guinea et de Western Cameroon des mains de leurs défenseurs respectifs, le Gabon et l'Equatorial Guinea.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
