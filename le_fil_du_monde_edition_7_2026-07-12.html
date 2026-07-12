@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 12 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>Vol. I — N° 7</span>
+    <span>Bureau international des dépêches</span>
+    <span>Prix : un peu de poudre à canon</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>Édition du 12 juillet 2026</span>
+    <span>De la faillite à la prise de Moscow — la résurrection lituanienne</span>
+    <span>Dépêches compilées à la clôture de la journée</span>
+  </div>
+  <hr class="rule-thin">
+
+  <!-- ARTICLE PRINCIPAL + SIDEBAR -->
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front russo-lituanien — Europe orientale</div>
+      <h2 class="headline">MOSCOW TOMBE SOUS L'ÉTENDARD LITUANIEN AU TERME D'UNE JOURNÉE DE TOUS LES DANGERS</h2>
+      <p class="deck">Frappée de faillite au lever du soleil et privée en un instant de l'ensemble de ses pactes défensifs, la Lituanie a pourtant arraché Moscow à la Russie dans la bataille la plus intense de cette journée — un retournement stratégique qui tient du prodige.</p>
+      <div class="byline">Bureau de la Rédaction — 12 juillet 2026</div>
+      <div class="story-body">
+        <p>Dans les premières heures de ce dimanche, la Lituanie — alliée de la France — a connu l'une des crises les plus brutales de cette guerre. La déclaration de faillite de Vilnius a effacé en quelques secondes sept pactes défensifs simultanément : Pologne, Pays-Bas, Belgique, Lettonie, Égypte et d'autres — une puissance de premier rang se retrouvait diplomatiquement nue.</p>
+        <p>L'ennemi n'a pas tardé à exploiter cette fenêtre. Dans la matinée, les forces lituaniennes ont tenté d'arracher Central Chernozem Region à l'Iran — puissance hostile à la France. La défense iranienne, portée en grande partie par l'Allemagne, ennemi déclaré de Paris, a repoussé l'offensive avec autorité. Un premier revers.</p>
+        <p>Mais en milieu d'après-midi, la journée a basculé. La Lituanie, avec la Belgique, la Pologne et la Lettonie en renforts, a lancé un assaut sur Moscow, tenu par la Russie ennemie. Ce qui a suivi est la bataille la plus intense de la journée : les deux camps ont déployé une puissance de feu quasiment identique, l'issue restant incertaine jusqu'au dernier échange, avant que la résistance russe ne cède.</p>
+        <p>La Russie avait pour soutiens le Venezuela, le Guatemala, la Suède et le Portugal. La coalition lituanienne a néanmoins prévalu, la Lituanie fournissant près de la moitié de l'effort offensif total. La veille encore, ce front oriental semblait sous pression — la prise de Moscow marque un retournement significatif.</p>
+        <p>En parallèle, Vilnius a démontré une capacité de reconstruction diplomatique remarquable. Dès la matinée, un pacte avec la Pologne ouvrait la voie ; la Lettonie, la Belgique, les Pays-Bas et l'Égypte ont suivi, si bien qu'au soir la Lituanie avait reconstitué l'essentiel de son réseau. La solidité d'une coalition ne se mesure pas à l'état des caisses, mais à la cohésion de ses membres.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Front Amérique du Sud</div>
+        <h3>La France en tête de la défense colombienne, mais Venezuelan Andes est perdu</h3>
+        <p>Le Venezuela — nation non engagée vis-à-vis de la France — s'est emparé de Colombian Andes, tenu par la Colombie (sans lien d'alliance avec Paris), dans une offensive conduite sans appel avec l'appui de Trinité-et-Tobago. Fait notable : c'est la France qui a constitué le fer de lance défensif, devançant même la Colombie dans les dommages infligés — sans que cela suffise à renverser le cours du combat. En début de journée, la Colombie avait libéré Colombian Orinoco des mains de la Jamaïque, victoire aussitôt éclipsée.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Mer Noire</div>
+        <h3>Black Sea Coast arraché à la Turquie alliée</h3>
+        <p>L'Ukraine s'est emparée de Black Sea Coast, territoire turc — la Turquie est alliée de la France. Paris avait contribué à la défense, aux côtés de la garnison turque, sans pouvoir enrayer l'assaut ukrainien soutenu par la Roumanie et l'Arménie. Dans la foulée, l'Ukraine a relancé ses forces sur Central Anatolia, maintenant la pression sur le flanc nord turc.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÉPÊCHES RÉGIONALES -->
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Balkans — Méditerranée</div>
+      <h3>La Serbie tient cinq fronts, cède un territoire à la Roumanie</h3>
+      <p>La Serbie — sans lien d'alliance direct avec la France — a repoussé Malta, la Slovénie, la Bulgarie et le Vatican en une seule journée. À Sicily, l'assaut de Malta était mené en grande partie par les forces françaises — principal contributeur offensif, devant Malta elle-même — sans ébranler la garnison serbe. La Bulgarie a été renvoyée d'Eastern Serbia avec la même aisance. Seule la Roumanie a réussi à prendre pied, s'emparant de Haskovo &amp; Burgas.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amériques — Front nord</div>
+      <h3>Guatemala et Bahamas grignotent le sol américain</h3>
+      <p>L'érosion territoriale des États-Unis — non engagés vis-à-vis de la France — se poursuit. Le Guatemala a pris Southwestern USA et American Pacific Coast, tout en arrachant Baja California au Mexique. Les Bahamas ont ajouté American Atlantic Coast à leurs conquêtes. Le périmètre défensif américain se rétrécit à vue d'œil, de larges pans du territoire d'origine étant désormais sous contrôle étranger.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Proche-Orient</div>
+      <h3>Le Liban avance ; Jérusalem reste à l'Égypte</h3>
+      <p>Le Liban a arraché South Lebanon à l'Égypte — alliée de la France — dans une offensive portée par le Venezuela et Trinité-et-Tobago. Israël a simultanément tenté de reprendre Jerusalem, également tenu par l'Égypte, mais la défense égyptienne n'a jamais vacillé et l'assaillant a été repoussé. Le Liban a par ailleurs lancé une attaque sur Northern District, dont l'issue restait inconnue à l'heure de boucler cette édition.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Eurasie centrale</div>
+      <h3>Le Kazakhstan rompt avec l'Iran et passe à l'acte en fin de soirée</h3>
+      <p>Le Kazakhstan — non engagé vis-à-vis de la France — a dissous son pacte avec l'Iran en début de journée, avant de lui déclarer la guerre en soirée et d'attaquer immédiatement Aktobe. Une rupture lourde de conséquences pour l'équilibre eurasiatique. En parallèle, la Russie s'est emparée de Sakha Republic lors d'un accrochage de faible intensité contre les États-Unis.</p>
+    </div>
+  </div>
+
+  <!-- ARTICLE MONDE -->
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Asie-Pacifique — Nouveau conflit</div>
+    <h2 class="world-headline">LA CORÉE DU SUD DÉCLARE LA GUERRE AU JAPON ET OUVRE UN FRONT INÉDIT EN EXTRÊME-ORIENT</h2>
+    <p class="deck">Après des semaines de tension dans la région, Séoul a officiellement plongé en guerre contre Tokyo en milieu d'après-midi et lancé dans la foulée une première offensive sur le territoire japonais, redistribuant les équilibres stratégiques à l'est du continent.</p>
+    <div class="byline">Bureau des opérations spéciales — 12 juillet 2026</div>
+    <div class="story-body">
+      <p>La Corée du Sud — non engagée vis-à-vis de la France — a déclaré la guerre au Japon en milieu d'après-midi et lancé dans la foulée une attaque sur Chugoku. Le Japon, allié de la Pologne partenaire de Paris et de l'Irak ami de la France, se retrouve projeté dans un conflit qu'il avait cherché à éviter.</p>
+      <p>Séoul a mobilisé ses alliés — dont la Guinée et la Papouasie-Nouvelle-Guinée — pour étayer son offensive sur Chugoku, point d'appui stratégique sur le flanc occidental japonais. Nos dernières informations indiquent que Chugoku demeure sous contrôle japonais, les conditions exactes du combat n'étant pas encore confirmées. Tokyo a réaffirmé sa volonté de défendre chaque territoire d'origine.</p>
+      <p>Pour les alliés de Tokyo — Pologne, Irak, Inde, Afrique du Sud — la question est ouverte : jusqu'où s'engageront-ils face à une Corée du Sud aux ambitions offensives affirmées ? Les prochaines heures diront si ce conflit reste bilatéral ou appelle une réponse de coalition.</p>
+    </div>
+  </div>
+
+  <!-- BANDE INFÉRIEURE -->
+  <div class="section-header">
+    <span class="label">Dépêches brèves</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Faillite, ruptures et réconciliations</h3>
+      <p>La faillite lituanienne a dissous sept pactes au lever du jour, tous reconstitués avant le soir. Le Kazakhstan a déclaré la guerre à l'Iran en fin de soirée, après avoir rompu leur pacte commun en début de journée. Paix conclues entre Iraq et Ukraine, Mali et Guinée-Bissau, Guinée et Guinée-Bissau, Guinée équatoriale et Cameroun, Cameroun et République centrafricaine, ainsi qu'entre Namibie et Kenya — suivie d'un pacte défensif. Transferts territoriaux : KwaZulu-Natal (Lesotho → Namibie), Abuja (Niger → Burkina Faso), Ecuadorian Islands (Équateur → Guatemala). Bahrain a rejoint Steppes Horde ; le Tchad s'est affilié aux Military Tourists.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li>Serbie → Macédoine du Nord : 1 500</li>
+        <li>Ouzbékistan → Russie : 934</li>
+        <li>Belgique → Lituanie : 3 000</li>
+        <li>Pays-Bas → Lituanie : 2 000</li>
+        <li>Lettonie → Lituanie : 2 250</li>
+        <li>Égypte → Lituanie : 2 000</li>
+        <li>Allemagne → Iran : 3 500</li>
+        <li>Nicaragua → Russie : 500</li>
+        <li>El Salvador → Russie : 500</li>
+        <li>Croatie → Hongrie : 1 500</li>
+        <li>Trinité-et-Tobago → Japon : 1 500</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>La Lituanie aura démontré ce jour qu'une faillite ne signe pas la mort d'une puissance. Plusieurs fronts restent actifs à l'heure où ces lignes sont imprimées — Ukraine en Anatolie, Corée du Sud à Chugoku, Bahamas au sud des États-Unis — dont les dénouements alimenteront les prochaines éditions. La rédaction rappelle que ce journal est généré automatiquement ; des approximations peuvent y figurer.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
