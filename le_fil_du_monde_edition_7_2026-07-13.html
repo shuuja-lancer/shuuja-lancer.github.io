@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 13 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. I / N° 8</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : 1 PIÈCE D'OR</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 13 JUILLET 2026</span>
+    <span>LE RÉVEIL DE LA PÉNINSULE ITALIENNE</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front méditerranéen — Europe du Sud</div>
+      <h2 class="headline">LA RENAISSANCE ITALIENNE : ROME, NAPLES ET LA TOSCANE REPASSENT SOUS LE TRICOLORE</h2>
+      <p class="deck">En une seule journée, l'Italie a mené une série d'offensives foudroyantes pour reconquérir ses territoires historiques, balayant les positions de l'Autriche, de la Serbie et du Vatican.</p>
+      <div class="byline">Bureau de la Rédaction — 13 juillet 2026</div>
+      <div class="story-body">
+        <p>L'Italie, alliée de la France, a sonné l'heure de la reconquête. Après une longue période d'occupation ayant morcelé son territoire d'origine, Rome a déclenché une offensive coordonnée et d'une ampleur inédite pour reprendre la maîtrise de la péninsule.</p>
+        <p>L'assaut a débuté sur Romagna & Tuscany, tenu par l'Autriche, puissance hostile. L'offensive italienne a imposé un rythme que les défenseurs autrichiens n'ont pu soutenir, s'inclinant sans remporter le moindre round. Malte a constitué le fer de lance de cette attaque aux côtés des forces italiennes, tandis que l'Irlande portait la majeure partie de la charge défensive autrichienne, en vain.</p>
+        <p>Le rouleau compresseur s'est ensuite abattu plus au sud. À Lazio, le Vatican n'a pas pu endiguer l'avancée et a dû céder la région au terme d'une défaite sans appel. Quelques heures plus tôt, c'est Naples qui tombait sous pavillon italien à l'issue d'une opération écrasante menée contre la Serbie, nation non engagée vis-à-vis de la France.</p>
+        <p>Sur le front diplomatique, Northwestern Italy a fait l'objet d'une rétrocession pacifique de la part de la France. L'Italie récupère ainsi une région qu'elle avait préventivement cédée à son allié pour la mettre à l'abri, parachevant la réunification de son sol historique au soir de cette journée décisive.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Moyen-Orient — Crise diplomatique</div>
+        <h3>Faillite égyptienne et chute de Northern District</h3>
+        <p>L'Égypte, alliée de la France, a été frappée par la faillite en cours de nuit, un séisme financier entraînant la dissolution automatique de la quasi-totalité de ses pactes défensifs. Dans ce contexte de vulnérabilité extrême, le Caire a cédé Northern District face à une offensive écrasante du Liban (sans lien avec la France), portée en grande partie par un effort coalisé de la Corée Unifiée et des Fidji.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Front eurasiatique</div>
+        <h3>L'Iran arrache Tver & Smolensk à la Lituanie</h3>
+        <p>L'Iran, ennemi déclaré de la France, s'est emparé de Tver & Smolensk au terme d'une bataille acharnée contre la Lituanie, alliée de Paris. L'issue est restée incertaine jusqu'à la fin des combats. L'Allemagne a lourdement pesé dans la balance, apportant près de la moitié de la puissance de feu de l'offensive iranienne pour briser les lignes lituaniennes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Asie-Pacifique</div>
+      <h3>La Corée du Sud s'impose sur le sol japonais</h3>
+      <p>La Corée du Sud, nation non engagée vis-à-vis de la France, a frappé un grand coup en s'emparant de Chugoku, territoire du Japon. Cette offensive écrasante, menée avec l'appui notable du Panama, marque une escalade majeure en Extrême-Orient et place Tokyo sur la défensive.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amériques</div>
+      <h3>L'étau se resserre sur les États-Unis</h3>
+      <p>Le territoire des États-Unis (non engagés) continue de fondre sous les assauts de leurs voisins. Les Bahamas se sont emparées de Southern USA et de Northwestern USA dans deux offensives sans appel, tandis que le Guatemala a conquis Alaska avec la même facilité déconcertante.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique de l'Ouest</div>
+      <h3>Le Burkina Faso tient bon face au Nigeria</h3>
+      <p>Le Burkina Faso, sans lien avec la France, a opposé une défense souveraine à l'offensive du Nigeria sur Sokoto and Niger. Fait notable : le Portugal a tenu un rôle central absolu dans cette résistance, fournissant plus de 90 % de la puissance défensive ayant permis de repousser l'assaillant.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Europe du Nord</div>
+      <h3>La Lettonie repousse la Russie à Neva Highlands</h3>
+      <p>La Lettonie, puissance alliée de la France, a brillamment défendu Neva Highlands face aux assauts de la Russie. La défense balte n'a laissé aucune chance à l'attaquant, s'imposant sans concéder le moindre round grâce à un effort défensif réparti entre la Lettonie et la Lituanie.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Europe centrale — Guerre d'usure</div>
+    <h2 class="world-headline">LE CHOC DES TITANS DANS LES GRANDES PLAINES</h2>
+    <p class="deck">La bataille pour Great Plains a concentré une puissance de feu inégalée, s'imposant comme le front le plus destructeur et le plus disputé de la journée entre la Serbie et la Hongrie.</p>
+    <div class="byline">Correspondance spéciale — 13 juillet 2026</div>
+    <div class="story-body">
+      <p>Le front d'Europe centrale a été le théâtre d'un affrontement d'une intensité rarissime. La Hongrie, alliée de la France, a lancé une offensive d'envergure pour tenter d'arracher Great Plains à la Serbie, puissance non engagée vis-à-vis de Paris. Ce carrefour stratégique a mobilisé l'attention et les ressources d'une grande partie du continent.</p>
+      <p>Le combat s'est transformé en une véritable guerre d'usure, drainant des forces colossales des deux côtés. L'issue est restée incertaine jusqu'à la fin des affrontements, le territoire menaçant de changer de mains à plusieurs reprises au fil des rounds. L'Italie a lourdement soutenu l'effort offensif hongrois, constituant la première force de frappe de l'assaut, tandis que l'Allemagne apportait un renfort décisif aux lignes défensives serbes.</p>
+      <p>Finalement, la Serbie est parvenue à conserver le contrôle de Great Plains au terme de cette défense âprement disputée. Le volume inouï de destruction généré par ce face-à-face confirme la position de ce front comme le théâtre de guerre principal du conflit européen actuel.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Faillite, revirements et cessions</h3>
+      <p>Outre l'Égypte, le Vanuatu a également déclaré faillite dans la nuit. Sur le plan diplomatique, le Kazakhstan a opéré un revirement spectaculaire en rompant son pacte avec l'Iran avant de lui déclarer la guerre quelques heures plus tard, ouvrant un nouveau front à Aktobe. Le Guatemala a quant à lui déclaré la guerre à la Russie et à la Mongolie. Côté cessions territoriales : la Chine a transféré Xinjiang et Western Mongolia à l'Inde, et Battambang au Vietnam ; le Vatican a cédé Sardinia à l'Espagne.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li>Panama → Corée du Sud : 700 BTC</li>
+        <li>Équateur → Pérou : 190 BTC</li>
+        <li>Cameroun → Guinée équatoriale : 170 BTC</li>
+        <li>Yémen → Irlande : 242,17 BTC</li>
+        <li>Croatie → Hongrie : 4450 BTC (en cinq versements)</li>
+        <li>Italie → Hongrie : 3000 BTC (en deux versements)</li>
+        <li>Pays-Bas → Lituanie : 2000 BTC</li>
+        <li>Irlande → Iran : 3000 BTC</li>
+        <li>Allemagne → Iran : 5000 BTC</li>
+        <li>Turquie → Hongrie : 1100 BTC</li>
+        <li>Afghanistan → Ouzbékistan : 2030 BTC</li>
+        <li>Maroc → Hongrie : 1000 BTC</li>
+        <li>Malte → Hongrie : 900 BTC (en trois versements)</li>
+        <li>Afrique du Sud → Hongrie : 1500 BTC</li>
+        <li>Inde → Népal : 3000 BTC</li>
+        <li>Roumanie → Serbie : 6800 BTC (en deux versements)</li>
+        <li>Cameroun → <i>Destinataire inconnu</i> : 170 BTC</li>
+        <li>Kirghizistan → Hongrie : 855 BTC (en deux versements)</li>
+        <li>Panama → Corée du Sud : 522 BTC</li>
+        <li>Syrie → Jordanie : 132 BTC</li>
+        <li>Ukraine → Serbie : 5333 BTC (en deux versements)</li>
+        <li>Suède → Iran : 5000 BTC</li>
+        <li>Yémen → Inde : 1474 BTC</li>
+        <li>Brésil → Suriname : 1200 BTC</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Les faillites foudroyantes de cette journée rappellent avec brutalité que la géopolitique est aussi et surtout une affaire de comptabilité. Une trésorerie qui s'assèche, ce sont des frontières qui cèdent dans la minute. La rédaction rappelle que ce journal est généré automatiquement par l'IA à partir des archives d'opérations ; quelques brouillards de guerre peuvent subsister dans notre couverture.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
