@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 14 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. I / N° 9</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UNE VICTOIRE AU FOOT CONTRE l'ESPAGNE</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 14 JUILLET 2026</span>
+    <span>L'EURASIE S'EMBRASE, LA POLOGNE FRAPPE</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front eurasiatique — Guerre totale</div>
+      <h2 class="headline">LE CHOC DES TITANS : L'IRAN REPOUSSE L'OFFENSIVE POLONAISE DANS UNE BATAILLE HISTORIQUE</h2>
+      <p class="deck">Dans un affrontement des plus destructeurs, l'Iran a conservé le contrôle de Central Chernozem Region face à une coalition massive menée par la Pologne, grâce à l'intervention décisive de l'Allemagne.</p>
+      <div class="byline">Bureau de la Rédaction — 14 juillet 2026</div>
+      <div class="story-body">
+        <p>La Pologne, puissance alliée de la France , a lancé une offensive d'une envergure colossale contre l'Iran, nation hostile à Paris , pour tenter de lui arracher Central Chernozem Region. Ce théâtre d'opérations s'est rapidement transformé en un gouffre militaire, absorbant des ressources immenses des deux côtés du front et s'imposant comme le choc majeur de la journée.</p>
+        <p>Malgré une attaque foudroyante, l'Iran a fait preuve d'une défense souveraine, ne concédant aucun round à l'attaquant. La bataille a mis en lumière l'implication écrasante des puissances extérieures. L'Allemagne, ennemie jurée de la France , a constitué le véritable fer de lance de cette résistance, apportant près de la moitié des forces défensives iraniennes.</p>
+        <p>Du côté de l'offensive, l'effort a été largement soutenu par une coalition européenne. La Belgique, nation sans alliance directe avec Paris , et la Lituanie, alliée de la France , ont fourni une part prépondérante de la capacité de frappe, devançant même l'apport direct de la Pologne.</p>
+        <p>Cet échec retentissant aux portes de l'Eurasie souligne la capacité de l'axe irano-allemand à verrouiller ses positions stratégiques, tout en révélant l'ampleur de la mobilisation nécessaire pour espérer faire plier ce front hautement militarisé.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Mer Noire — L'intervention française</div>
+        <h3>Percée turque et résistance ukrainienne</h3>
+        <p>La Turquie, alliée de la France , a ouvert un nouveau front contre l'Ukraine, nation sans lien déclaré avec Paris , en s'emparant de Black Sea Coast. L'issue de cette bataille doit presque tout à l'intervention directe de la France, qui a fourni plus des trois quarts de la puissance de feu de l'offensive. L'effort français s'est toutefois heurté à un mur quelques heures plus tard sur Crimea, où l'Ukraine a réussi à défendre souverainement son territoire malgré le soutien continu de Paris à l'attaque turque.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Méditerranée — Consolidation</div>
+        <h3>L'Italie poursuit sa reconquête</h3>
+        <p>L'Italie, alliée de la France, n'a pas ralenti son rythme de progression. Les forces italiennes se sont emparées de Sicily, repoussant la Serbie, pays sans alliance avec la France , hors de ce territoire stratégique au terme d'une offensive écrasante. Ce succès collectif a été appuyé de manière significative par le Mali, nation également non engagée vis-à-vis de Paris.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Balkans</div>
+      <h3>La Roumanie s'étend au sud</h3>
+      <p>La Roumanie, pays non engagé vis-à-vis de la France, a mené deux offensives triomphales. Elle a arraché Marmara à la Turquie, puissance alliée de Paris, avant de conquérir Sofia & Plovdiv au détriment de la Bulgarie, nation sans lien avec la France.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amériques</div>
+      <h3>Coup d'arrêt pour le Guatemala</h3>
+      <p>Après avoir englouti Russian Far East, Outer Manchuria et Hawaii, le Guatemala, nation sans lien avec la France, a finalement trébuché. Le Mexique, pays également sans alliance avec Paris , a en effet repris le contrôle de Baja California au terme d'une attaque fulgurante, stoppant l'élan guatémaltèque.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique de l'Ouest</div>
+      <h3>Le Burkina Faso renverse le Nigeria</h3>
+      <p>Le Burkina Faso, nation non engagée vis-à-vis de la France , a consolidé son emprise régionale en prenant Kano au Nigeria, pays sans alliance avec Paris. Cette victoire a été rendue possible par le soutien décisif du Portugal, puissance non engagée vis-à-vis de la France, qui a assuré la majorité écrasante des dommages de l'attaque.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie-Pacifique</div>
+      <h3>La Corée du Sud progresse au Japon</h3>
+      <p>La Corée du Sud, nation neutre vis-à-vis de la France , a infligé un revers majeur au Japon, pays sans lien avec Paris. Les forces sud-coréennes se sont emparées de Kansai après un assaut sans appel, appuyé notamment par les troupes tchadiennes.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Europe centrale — L'étreinte serbe</div>
+    <h2 class="world-headline">LA SERBIE VERROUILLE LA STYRIE CARINTHIE FACE À LA SLOVÉNIE</h2>
+    <p class="deck">Dans un affrontement d'une intensité exceptionnelle, la Serbie a brisé l'offensive slovène, consolidant ses acquis régionaux grâce à un appui allemand déterminant.</p>
+    <div class="byline">Correspondance spéciale — 14 juillet 2026</div>
+    <div class="story-body">
+      <p>Le front balkanique continue d'absorber une énergie militaire phénoménale. La Slovénie, nation sans lien avec la France , a tenté un coup de force magistral pour reconquérir Styria Carinthia, solidement tenue par la Serbie. L'affrontement qui s'en est suivi s'est hissé parmi les batailles de haute intensité de la journée.</p>
+      <p>Malgré une coalition offensive robuste, comprenant un apport substantiel de l'Italie et de la Croatie, tous deux alliés de la France, la défense serbe n'a concédé aucun round. La Serbie, non engagée vis-à-vis de Paris , a dicté son rythme en repoussant l'assaut de manière souveraine.</p>
+      <p>Une fois encore, le rôle des puissances tutélaires a été flagrant. L'Allemagne, ennemie de Paris , a fourni un renfort crucial aux lignes défensives serbes, illustrant la stratégie de Berlin de parrainer de multiples fronts à travers l'Europe. Quelques heures auparavant, la Serbie prenait également l'initiative de s'emparer de Dalmatia aux dépens de la Croatie.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Mouvements diplomatiques et politiques</h3>
+      <p>La journée a été marquée par de nombreuses signatures de pactes défensifs, redessinant la toile des alliances. L'Iran, ennemi de la France , a sécurisé ses arrières en s'alliant avec la Thaïlande et le Brésil. De son côté, la Belgique s'est rapprochée du Nigeria , tandis que le Vanuatu et le Panama ont formalisé leur union. Sur la scène intérieure, l'Ouganda a vu l'investiture d'un nouveau président.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li>Madagascar → Russie : 500 BTC </li>
+        <li>Croatie → Slovénie : 1 100 BTC (en deux versements)</li>
+        <li>Yémen → Bahreïn : 607,9 BTC </li>
+        <li>Turquie → Slovénie : 3 000 BTC (en deux versements)</li>
+        <li>Italie → Slovénie : 1 000 BTC </li>
+        <li>Yémen → Arménie : 532,9 BTC </li>
+        <li>Namibie → Zimbabwe : 1 069 BTC </li>
+        <li>Belgique → Pologne : 2 000 BTC </li>
+        <li>Italie → Pologne : 1 500 BTC </li>
+        <li>RD Congo → Kenya : 750 BTC </li>
+        <li>Lettonie → Pologne : 2 000 BTC (en deux versements)</li>
+        <li>Chine → Lituanie : 103 BTC </li>
+        <li>Venezuela → Mexique : 500 BTC </li>
+        <li>Groenland → Pologne : 500 BTC </li>
+        <li>Maroc → Pologne : 1 000 BTC </li>
+        <li>Afrique du Sud → Pologne : 800 BTC </li>
+        <li>Allemagne → Iran : 5 000 BTC </li>
+        <li>Espagne → France : 2 BTC 🤡</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>En ce 14 juillet, jour de fête nationale française, les armes ne se sont pas tues sur le continent. Si la rédaction vous souhaite une joyeuse fête nationale, force est de constater que le nerf de la guerre reste avant tout financier. Le volume impressionnant de capitaux affluant vers la Pologne illustre l'effort de coalition mobilisé pour alimenter l'offensive contre l'Iran, lui-même largement subventionné par l'Allemagne. La rédaction rappelle que ce journal est généré automatiquement par l'IA à partir des archives d'opérations.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
