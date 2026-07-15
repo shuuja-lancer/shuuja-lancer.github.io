@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 15 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. I / N° 10</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN BARIL DE PÉTROLE</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 15 JUILLET 2026</span>
+    <span>L'ALLEMAGNE FAIT BARRAGE À L'EST</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Europe Centrale — Proxy War</div>
+      <h2 class="headline">L'OFFENSIVE HONGROISE BRISÉE SUR LE BOUCLIER ALLEMAND EN TRANSDANUBIE</h2>
+      <p class="deck">La Hongrie, soutenue par l'axe pro-français, a échoué à percer les défenses serbes en Transdanubie, massivement renforcées par l'intervention directe de Berlin.</p>
+      <div class="byline">Bureau de la Rédaction — 15 juillet 2026</div>
+      <div class="story-body">
+        <p>La Hongrie, puissance alliée de la France, a lancé une offensive majeure contre la Serbie, nation sans lien déclaré avec Paris. L'assaut visait le territoire de Transdanubia, mais s'est rapidement heurté à un mur infranchissable, s'imposant comme l'un des fronts les plus disputés de la journée.</p>
+        <p>Malgré une coalition offensive robuste incluant un large soutien de l'Italie et de l'Égypte, toutes deux alliées de la France, l'assaut n'a jamais réussi à prendre le dessus. La Serbie a affiché une défense souveraine, repoussant l'offensive en ne concédant aucun round aux attaquants.</p>
+        <p>L'issue de cette bataille doit presque tout à l'intervention de l'Allemagne. Ennemie jurée de la France, la nation germanique a constitué le véritable fer de lance de la résistance, fournissant près des deux tiers de la puissance défensive. L'Ukraine a également contribué de manière significative à ce blocus, bien que dans une moindre mesure.</p>
+        <p>Cet échec cuisant souligne la capacité de Berlin à s'engager militairement sur des fronts lointains pour verrouiller les ambitions de la sphère d'influence française. L'axe franco-allemand continue ainsi de s'affronter indirectement, alimentant une guerre d'usure coûteuse au cœur du continent européen.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Afrique Australe — Résistance</div>
+        <h3>L'Afrique du Sud bute sur la Namibie</h3>
+        <p>L'Afrique du Sud, puissance alliée de la France, a vu son offensive repoussée dans la région de North West par la Namibie, nation non engagée vis-à-vis de Paris. Au terme d'une bataille âprement disputée, la défense namibienne l'a emporté. Une fois encore, l'Allemagne a pesé lourd dans la balance, assumant la plus grande part de l'effort défensif.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Diplomatie — Rupture</div>
+        <h3>Le Nigeria ouvre les hostilités</h3>
+        <p>Le paysage diplomatique s'est assombri avec la décision du Nigeria, nation jusqu'ici sans alliance avec Paris, de déclarer officiellement la guerre à la France. Cette nouvelle déclaration de guerre vient ajouter un ennemi supplémentaire sur la liste déjà particulièrement chargée de la diplomatie française.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Méditerranée Orientale</div>
+      <h3>La Roumanie frappe fort</h3>
+      <p>La Roumanie, pays sans alliance avec la France, a mené une offensive écrasante sur deux fronts. Elle s'est d'abord emparée d'Aegean Region au détriment de Chypre. Elle a ensuite infligé un lourd revers à la Turquie, puissance alliée de Paris, en conquérant Central Anatolia.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Sous-continent indien</div>
+      <h3>Le Bangladesh fait plier l'Inde</h3>
+      <p>Le Bangladesh, nation non engagée vis-à-vis de la France, a lancé une série d'offensives couronnées de succès contre l'Inde, alliée de Paris. Les forces bangladaises ont pris le contrôle de Northern Bangladesh et de Dhaka, dominant largement les combats sur ces deux théâtres.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Frontières lointaines</div>
+      <h3>Le Guatemala repousse l'Iran</h3>
+      <p>Le Guatemala, pays sans lien avec la France, a rompu son pacte avec l'Iran, ennemi de la France, pour lui déclarer la guerre dans la foulée. L'offensive s'est matérialisée par la conquête sans appel de Baikal Highlands, marquant un net recul des forces iraniennes.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Golfe de Guinée</div>
+      <h3>Le Congo avance en Angola</h3>
+      <p>La République Démocratique du Congo, nation neutre pour la France, s'est emparée du territoire de Cabinda, jusqu'ici tenu par l'Angola. Cette victoire écrasante a été presque intégralement portée par l'intervention décisive du Portugal, qui a assuré la majorité des dommages de l'attaque.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Front Nordique — Guerre d'usure</div>
+    <h2 class="world-headline">LA LITUANIE PRÉSERVE KALININGRAD AU TERME D'UN CHOC TITANESQUE FACE À LA RUSSIE</h2>
+    <p class="deck">Soutenue par un réseau d'alliances réactif, la Lituanie a repoussé l'offensive russe dans l'une des batailles les plus destructrices de la journée.</p>
+    <div class="byline">Correspondance spéciale — 15 juillet 2026</div>
+    <div class="story-body">
+      <p>L'enclave stratégique de Kaliningrad reste sous la bannière de la Lituanie, puissance alliée de la France. La Russie, pays sans lien déclaré avec Paris, a tenté un coup de force massif pour récupérer ce territoire âprement disputé. L'affrontement qui s'en est suivi s'est hissé au rang de bataille de très haute intensité.</p>
+      <p>Le territoire a failli changer de mains avant que la Lituanie ne renverse la situation, s'imposant à l'issue de combats extrêmement serrés. L'offensive russe a pu compter sur un soutien ravageur du Venezuela, ennemi de la France, qui a fourni près de la moitié de l'effort de frappe offensif.</p>
+      <p>Face à ce déferlement de puissance, la résistance s'est organisée de manière collective autour de l'armée lituanienne. La Lettonie et la Belgique, toutes deux sans alliance avec Paris mais proches de la Lituanie, ont complété ce mur défensif salvateur. Cette victoire confirme la résilience de la Lituanie sur son flanc nord-est.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Mouvements diplomatiques et politiques</h3>
+      <p>L'Argentine, pays sans lien direct avec Paris, a formellement déclaré faillite en début de journée et dissous plusieurs pactes, notamment avec les États-Unis, le Libéria et l'Afrique du Sud, avant de renouer des liens défensifs avec Washington plus tard dans la soirée. Le Brunei a ouvert deux nouveaux fronts en déclarant la guerre à la Russie et à Bahreïn. Enfin, la région de Western Cuba a été transférée pacifiquement du Venezuela au Mexique pour le montant symbolique de 1 monnaie.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li>France → Italie : 5 000 BTC</li>
+        <li>Roumanie → Serbie : 3 500 BTC</li>
+        <li>Ukraine → Serbie : 3 333 BTC</li>
+        <li>Croatie → Hongrie : 3 000 BTC</li>
+        <li>Croatie → Italie : 2 000 BTC</li>
+        <li>Bosnie → Serbie : 1 100 BTC</li>
+        <li>Afghanistan → Kazakhstan : 1 000 BTC</li>
+        <li>Turquie → Italie : 1 000 BTC</li>
+        <li>Égypte → Chypre : 900 BTC</li>
+        <li>Kirghizistan → Hongrie : 650 BTC</li>
+        <li>Centrafrique → Congo : 500 BTC</li>
+        <li>Chypre → Hongrie : 500 BTC</li>
+        <li>Malte → Italie : 500 BTC</li>
+        <li>Kirghizistan → Italie : 493 BTC</li>
+        <li>Yémen → Allemagne : 384,87 BTC</li>
+        <li>Panama → Corée du Sud : 350 BTC</li>
+        <li>Yémen → Portugal : 102,97 BTC</li>
+        <li>Colombie → Argentine : 100 BTC</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Alors que les fonds français affluent massivement vers l'Italie pour soutenir l'effort de guerre, la menace se diversifie avec l'entrée en guerre officielle du Nigeria. L'ombre de l'Allemagne plane toujours lourdement sur le continent européen, transformant chaque percée de l'alliance française en une âpre guerre d'usure systématiquement financée depuis Berlin.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
