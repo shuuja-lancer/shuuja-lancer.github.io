@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 16 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+    list-style-type: none;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. I / N° 11</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN PEU D'AMOUR</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 16 JUILLET 2026</span>
+    <span>L'ARMISTICE DE LA RAISON</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Diplomatie — Événement majeur</div>
+      <h2 class="headline">L'ARMISTICE OFFICIEL ENTRE PARIS ET BERLIN</h2>
+      <p class="deck">Après des semaines d'affrontements directs dévastateurs, la France et l'Allemagne ont officiellement conclu la paix, figeant les lignes de front et redessinant instantanément la carte diplomatique du conflit.</p>
+      <div class="byline">Bureau de la Rédaction — 16 juillet 2026</div>
+      <div class="story-body">
+        <p>La rumeur enflait depuis quelques heures à travers les dépêches militaires, elle est désormais formellement actée. Dans l'après-midi, la France et l'Allemagne, ennemies déclarées depuis une longue période, ont signé un traité de paix officiel, suspendant sur-le-champ toute attaque frontale entre les deux grandes puissances.</p>
+        <p>Ce cessez-le-feu marque une trêve fondamentale dans la guerre d'usure qui rongeait l'Europe occidentale. Selon les termes du pacte de non-agression rendus publics, l'accord gèle les fronts directs pour plusieurs semaines, offrant un répit stratégique vital aux appareils d'État et aux trésoreries des deux camps, exsangues après des jours d'offensives mutuelles.</p>
+        <p>Toutefois, cet armistice ne signifie aucunement la fin de la guerre par procuration. Les clauses de l'accord permettent toujours aux deux nations de soutenir indirectement les conflits sur les territoires tiers. La rivalité franco-allemande ne disparaît pas dans les faits : elle se déplace simplement vers les tranchées de leurs alliés respectifs, transformant l'Europe et l'Afrique en de vastes échiquiers indirects.</p>
+        <p>La nouvelle a secoué les chancelleries internationales. Alors que Paris parvient à sécuriser ses frontières immédiates par la voie diplomatique, la question reste entière : ce pari de la trêve saura-t-il compenser la pression colossale que continuent de subir les alliés de l'axe pro-français sous le feu des canons soutenus par Berlin ?</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Afrique de l'Ouest — Défaite</div>
+        <h3>L'Espagne s'empare de Dakar</h3>
+        <p>L'Espagne, puissance ennemie de la France, a lancé une offensive dévastatrice sur la région de Dakar, tenue par le Sénégal, une nation sans lien d'alliance officiel avec Paris mais farouchement soutenue par l'armée française lors de ce combat. Malgré un effort défensif massif de la France, l'assaut espagnol, lourdement appuyé par l'Allemagne, s'est avéré inarrêtable. Les attaquants l'ont emporté sans concéder le moindre round, marquant une chute retentissante sur la côte ouest-africaine.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Péninsule italienne — Effondrement</div>
+        <h3>L'Italie cède Naples et Sicily</h3>
+        <p>Le front italien s'effondre sous les coups de boutoir de la Serbie. Ennemie déclarée de la France, l'armée serbe a orchestré une offensive d'une brutalité inédite pour s'emparer de Naples, tenue par l'Italie, fidèle alliée de Paris. Face à ce choc majeur, s'élevant comme le théâtre de guerre principal de la journée, les défenses italiennes ont été pulvérisées. Dans la foulée, la Serbie a poursuivi sur sa lancée en arrachant également le territoire de Sicily.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Afrique de l'Ouest</div>
+      <h3>Le Burkina Faso résiste</h3>
+      <p>Le Burkina Faso, nation sans lien déclaré avec la France, a repoussé avec succès une offensive majeure du Nigeria ciblant la région d'Abuja. Cette bataille de très haute intensité s'est jouée d'un rien grâce à l'intervention décisive de l'Allemagne et du Portugal du côté de la défense, bloquant net les ambitions nigérianes.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie de l'Est</div>
+      <h3>La chute de Kanto</h3>
+      <p>La Corée du Sud, pays non engagé vis-à-vis de la France, a infligé un revers critique au Japon en conquérant la région de Kanto. Cette offensive, menée tambour battant, n'a laissé aucune chance de survie à la résistance japonaise, illustrant l'agonie territoriale de l'archipel nippon.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amérique du Nord</div>
+      <h3>Le Guatemala fait bloc</h3>
+      <p>Les États-Unis, alliés de la France, ont échoué à percer les lignes défensives dans la région d'American Pacific Coast. Le Guatemala, bien que neutre envers Paris, a affiché une défense souveraine face à l'alliance américaine, repoussant l'assaut de Washington avec une facilité déconcertante.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Balkans</div>
+      <h3>La Bulgarie avance</h3>
+      <p>La Bulgarie, puissance sans alliance directe avec la France, a remporté une victoire expéditive contre la Roumanie. Les forces bulgares ont pris le contrôle du territoire de Haskovo & Burgas au terme d'une bataille à sens unique, modifiant une nouvelle fois l'équilibre des forces dans l'est de l'Europe.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Europe Orientale — Ligne de front</div>
+    <h2 class="world-headline">LA POLOGNE BRISE L'OFFENSIVE IRANIENNE SUR GOMEL</h2>
+    <p class="deck">Une coalition défensive massive a permis à Varsovie de conserver son territoire stratégique face aux assauts répétés de l'Iran et de ses puissants soutiens extérieurs.</p>
+    <div class="byline">Correspondance spéciale — 16 juillet 2026</div>
+    <div class="story-body">
+      <p>La région de Gomel reste fermement sous la protection de la Pologne, puissance alliée de la France. L'Iran, pays ouvertement hostile à l'axe français, avait mobilisé d'importantes ressources pour faire plier les défenses polonaises, déclenchant l'une des batailles les plus intenses et destructrices de ce milieu de semaine.</p>
+      <p>Malgré une attaque iranienne lourdement soutenue par le feu de l'Allemagne et du Portugal, l'offensive s'est brisée net contre le bouclier européen. La défense a en effet été magistralement orchestrée avec le soutien écrasant de la Lituanie, qui a assuré la majorité des dégâts défensifs, fidèlement épaulée par la Lettonie et la Belgique.</p>
+      <p>Cette victoire polonaise sans appel, arrachée au terme de rounds souverains, confirme la résilience impressionnante du bloc défensif balto-européen. En neutralisant la menace iranienne, Varsovie et ses partenaires continentaux démontrent une fois de plus leur capacité à faire front commun pour sécuriser leurs bastions.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Mouvements divers</h3>
+      <p>La diplomatie a connu de sérieuses secousses avec la signature d'un traité de paix entre les États-Unis et l'Allemagne, ainsi qu'entre la France et le Nigeria, apaisant les ardeurs sur plusieurs fronts. Sur le plan territorial, Haïti s'est affranchie de l'occupation venezuelienne en regagnant le contrôle de sa propre région. Enfin, de nombreux transferts pacifiques symboliques ont été actés, avec Central Cuba cédée au Mexique, Eastern Cuba aux Bahamas et Siem Reap passant sous le giron chinois.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li>Chili → Italie : 3 000 BTC</li>
+        <li>Croatie → Hongrie : 2 200 BTC</li>
+        <li>Libéria → Colombie : 2 000 BTC</li>
+        <li>Maroc → Sénégal : 2 000 BTC</li>
+        <li>Portugal → Burkina Faso : 2 000 BTC</li>
+        <li>Arménie → Serbie : 2 000 BTC</li>
+        <li>Guinée-Bissau → Sénégal : 1 500 BTC</li>
+        <li>Croatie → Slovénie : 1 500 BTC</li>
+        <li>Mexique → Venezuela : 980 BTC</li>
+        <li>Turquie → Colombie : 700 BTC</li>
+        <li>Rép. Dém. du Congo → Rwanda : 500 BTC</li>
+        <li>Népal → Soudan du Sud : 500 BTC</li>
+        <li>Suède → Arménie : 500 BTC</li>
+        <li>États-Unis → Colombie : 500 BTC</li>
+        <li>Yémen → Géorgie : 400 BTC</li>
+        <li>Cameroun → Congo : 250 BTC</li>
+        <li>Yémen → Suède : 207,26 BTC</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>La signature historique de la paix franco-allemande redéfinit instantanément les règles du conflit mondial. Si Paris s'offre un répit précieux sur le plan de ses frontières directes, les combats de Dakar et de Naples prouvent que la guerre est loin d'être éteinte. Elle s'annonce désormais beaucoup plus indirecte, menée par alliés interposés, où l'argent et l'influence remplaceront les affrontements frontaux de première ligne.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
