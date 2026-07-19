@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 19 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 14</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN PEU D'ESPOIR</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 19 JUILLET 2026</span>
+    <span>LA COALITION REPOUSSÉE EN EUROPE</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Européen — Choc de titans</div>
+      <h2 class="headline">L'OFFENSIVE HONGROISE BRISÉE EN TRANSDANUBIA</h2>
+      <p class="deck">Malgré une coalition massive réunissant l'Italie, la Croatie et la France, la Hongrie n'est pas parvenue à arracher la région stratégique de Transdanubia des mains serbes au terme du combat le plus intense de la journée.</p>
+      <div class="byline">Bureau de la Rédaction — 19 juillet 2026</div>
+      <div class="story-body">
+        <p>La journée a été marquée par une bataille d'une intensité exceptionnelle sur le front est-européen. La Hongrie, fidèle alliée de la France, a lancé ses forces à l'assaut de Transdanubia, un territoire fermement tenu par la Serbie (nation non engagée vis-à-vis de la France mais farouche adversaire de plusieurs de ses partenaires). L'ampleur phénoménale des forces déployées de part et d'autre a rapidement transformé cet affrontement en théâtre de guerre principal du conflit.</p>
+        <p>Pour percer les défenses serbes, Budapest a pu compter sur un formidable effort collectif et coordonné. L'Italie a ainsi constitué le véritable fer de lance de l'offensive, épaulée de près par la Croatie et la Hongrie elle-même. La France a également pesé lourd dans cet effort offensif, apportant une part décisive de la puissance de feu aux côtés de ses partenaires pour tenter de faire basculer le front.</p>
+        <p>Toutefois, face à cette armada exceptionnelle, la Serbie a opposé une résistance souveraine et intraitable. Épaulés de manière décisive par l'Ukraine et l'Allemagne, les défenseurs ont infligé de très lourdes pertes, imposant un rythme défensif que la coalition attaquante n'a pu surpasser malgré ses moyens colossaux.</p>
+        <p>Le score est resté sans appel, et les forces hongroises ont finalement été formellement repoussées. La Serbie conserve ainsi la pleine maîtrise de ce territoire, confirmant la stupéfiante résilience de ses lignes de défense face aux manœuvres concertées des alliés de Paris.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Europe de l'Est — Victoire</div>
+        <h3>La Pologne s'empare de Kaliningrad</h3>
+        <p>La Pologne, alliée majeure de la France, a mené une attaque écrasante contre la Russie sur Kaliningrad. L'offensive, brillamment appuyée par l'Allemagne, a imposé un rythme que le défenseur n'a pu soutenir, scellant l'issue du combat sans la moindre équivoque. Varsovie s'empare ainsi de ce territoire clé et confirme sa position de force dans la région.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Moyen-Orient — Résistance</div>
+        <h3>L'Égypte tient Jerusalem</h3>
+        <p>Visée par une offensive de haute intensité menée par Israël, l'Égypte, fidèle alliée de Paris, a livré une défense souveraine pour conserver le contrôle de Jerusalem. Malgré des assauts répétés, les forces égyptiennes, largement soutenues par la Belgique et la Lituanie, ont infligé de lourdes pertes et repoussé l'attaquant sans concéder de terrain.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Amérique Centrale & Asie</div>
+      <h3>Le Guatemala frappe fort</h3>
+      <p>Le Guatemala, nation non engagée vis-à-vis de la France, poursuit sa marche agressive. Après avoir repoussé de manière souveraine une vaste offensive des États-Unis sur American Pacific Coast , l'armée guatémaltèque a pris l'initiative et s'est emparée de Southern Mongolia face à la Mongolie au terme d'une attaque écrasante et sans appel.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique Australe</div>
+      <h3>L'avancée malgache</h3>
+      <p>Madagascar, nation neutre dans ce conflit, a imposé sa loi militaire à l'Australie. L'offensive foudroyante lancée sur Mahajanga a permis aux forces malgaches de s'emparer du territoire de manière écrasante , sans que la résistance australienne ne puisse jamais menacer l'issue véritable du combat.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Péninsule Balkanique</div>
+      <h3>La Bulgarie s'impose</h3>
+      <p>La Bulgarie, nation sans lien d'alliance direct avec la France mais proche de ses partenaires, s'est emparée de Haskovo & Burgas aux dépens de la Macédoine du Nord (soutenue quasi-exclusivement par la Roumanie) au terme d'un assaut expéditif. Une victoire nette qui redessine les équilibres locaux.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud</div>
+      <h3>Expansion chinoise</h3>
+      <p>La Chine, nation neutre, a mené une offensive expéditive pour prendre le contrôle formel de Chittagong face au Bangladesh. L'effort d'attaque a été très largement porté par les Philippines qui ont agi comme le véritable fer de lance de l'opération, brisant la résistance adverse sans équivoque.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Méditerranée Orientale — Revers</div>
+    <h2 class="world-headline">LA TURQUIE CÈDE SOUTHEASTERN ANATOLIA À L'UKRAINE</h2>
+    <p class="deck">Confrontée à un assaut fulgurant et unilatéral de l'Ukraine, la Turquie a perdu l'un de ses territoires orientaux sans parvenir à organiser une ligne de résistance suffisante.</p>
+    <div class="byline">Correspondance spéciale — 19 juillet 2026</div>
+    <div class="story-body">
+      <p>Le front moyen-oriental s'embrase au détriment de la Turquie, alliée stratégique de Paris, qui a subi une attaque d'une redoutable efficacité sur ses positions de Southeastern Anatolia. L'offensive a été déclenchée tôt dans la journée par l'Ukraine, une nation non engagée vis-à-vis de la France mais qui maintient une capacité de projection impressionnante dans la région.</p>
+      <p>L'attaque s'est révélée écrasante et s'est soldée sans appel. Les forces ukrainiennes ont déployé une puissance de feu concentrée presque exclusivement par leurs propres divisions, dictant une cadence insoutenable. Malgré un effort défensif tenté conjointement par la Turquie, l'Italie et la Bulgarie, les pertes infligées par l'Ukraine n'ont jamais été contrecarrées par les défenseurs.</p>
+      <p>Southeastern Anatolia passe ainsi officiellement sous bannière ukrainienne. Ce revers inattendu souligne les difficultés actuelles d'Ankara à verrouiller la sécurité de ses frontières face à des adversaires particulièrement déterminés, exigeant une réévaluation rapide de ses priorités militaires dans ce secteur géopolitique toujours très instable.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Diplomatie et ruptures</h3>
+      <ul>
+        <li>Le Belize a officiellement quitté les rangs de l'alliance Steppes Horde au cœur de la nuit.</li>
+        <li>L'Inde, l'Espagne et la Guinée-Bissau ont brusquement déclaré la guerre (respectivement à l'Iran, Haïti et la Mauritanie).</li>
+        <li>La Colombie et la Tunisie ont dissous leur pacte défensif d'un commun accord.</li>
+        <li>La Roumanie s'est séparée militairement de la Géorgie, de l'Arménie et de la Jordanie en l'espace de quelques minutes.</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li><strong>Soutien massif à la Hongrie :</strong> la Croatie (4170 au total sur la journée) , l'Italie (2000) , la France (1500) , le Kirghizistan (985) , la Tunisie (500) , Malte (400)  et les États-Unis (200)  ont afflué leurs fonds.</li>
+        <li><strong>Fonds pour la Serbie :</strong> l'Arménie a transféré 1200 , tandis que l'Ukraine y a ajouté 2166.</li>
+        <li><strong>Financement guatémaltèque :</strong> le Brésil (2000) , l'Équateur (1000) , l'Iran (1000) , le Pérou (679)  et la Russie (260)  ont soutenu le Guatemala.</li>
+        <li><strong>Soutiens directs :</strong> le Maroc a versé 2000 à la Guinée-Bissau  et la Pologne a appuyé le Danemark avec 1500.</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Ressources et territoires</h3>
+      <p>La prospection a tourné à plein régime aujourd'hui. Des gisements lucratifs de pétrole ont soudainement jailli à Montenegro, Bahamas, Togo et Gambia. Sur le front purement commercial et territorial, les îles stratégiques d'Ecuadorian Islands ont été acquises par l'Équateur auprès du Guatemala pour la modique somme de 10 monnaies, illustrant une redistribution diplomatique de l'ombre tout aussi active que les manœuvres strictement militaires.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
