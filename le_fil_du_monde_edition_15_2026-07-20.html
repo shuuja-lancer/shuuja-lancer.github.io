@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 20 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 15</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN PEU D'ESPOIR</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 20 JUILLET 2026</span>
+    <span>L'ITALIE RECONQUIERT LE SUD</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Européen — Reconquête</div>
+      <h2 class="headline">L'ITALIE LIBÈRE NAPLES D'UNE MAIN DE FER</h2>
+      <p class="deck">Soutenue par ses alliés, l'Italie a infligé un revers cinglant à la Serbie en récupérant l'une de ses régions historiques au terme d'une offensive unilatérale.</p>
+      <div class="byline">Bureau de la Rédaction — 20 juillet 2026</div>
+      <div class="story-body">
+        <p>Dans la matinée, l'Italie, partenaire de premier plan de la France, a lancé un assaut décisif sur Naples. Ce territoire d'importance, jusqu'ici sous le joug de la Serbie (nation ouvertement hostile à plusieurs alliés de Paris ), a été le théâtre d'un affrontement de moyenne intensité mais au dénouement fulgurant.</p>
+        <p>L'offensive italienne s'est révélée écrasante. Dictant un rythme que les défenseurs serbes n'ont jamais pu soutenir, Rome a constitué le fer de lance indiscutable de cette opération en fournissant la majorité absolue de la puissance de frappe de son camp.</p>
+        <p>En face, la résistance serbe a paru singulièrement désorganisée. Malgré la mobilisation de quelques divisions locales, le score est resté sans appel en faveur de l'attaquant. Les forces d'occupation ont été balayées sans parvenir à remporter le moindre engagement décisif.</p>
+        <p>Avec cette victoire souveraine, l'Italie récupère l'une de ses régions d'origine  et consolide sa posture stratégique en Méditerranée. Un message fort envoyé aux chancelleries qui douteraient de la résilience de l'axe pro-français en Europe du Sud.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Europe Centrale — Résistance</div>
+        <h3>La Serbie verrouille Styria Carinthia</h3>
+        <p>La Slovénie, nation non engagée vis-à-vis de la France, a tenté une percée majeure sur Styria Carinthia, tenue par la Serbie. Malgré l'appui massif de l'Italie qui a porté près d'un tiers de l'effort offensif , la défense serbe, épaulée par l'Ukraine, s'est montrée souveraine. L'assaut s'est brisé face à un mur défensif, confirmant l'emprise de Belgrade sur ce territoire au terme d'un choc de haute intensité.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Méditerranée — Expansion</div>
+        <h3>Chypre s'empare de Marmara</h3>
+        <p>L'armée chypriote a mené une offensive expéditive contre les positions roumaines à Marmara. La Roumanie, adversaire régulier de la diplomatie française , n'a jamais su endiguer cet assaut. Avec un score sans appel, Chypre s'octroie un verrou stratégique de plus dans la région, infligeant un revers de plus à Bucarest.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est</div>
+      <h3>Choc titanesque en Asie</h3>
+      <p>La Thaïlande (sans lien d'alliance avec la France ) a arraché Luang Namtha aux mains de la Chine lors d'une bataille de très haute intensité. Malgré de lourdes pertes infligées par les défenseurs, l'offensive thaïlandaise, appuyée par l'Indonésie, a imposé un rythme insoutenable, scellant une victoire sans appel.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique de l'Ouest</div>
+      <h3>Le mur burkinabé</h3>
+      <p>Le Burkina Faso, allié du Portugal (adversaire de la France) , a tenu Abuja face à une offensive massive du Nigeria. La défense, portée en grande partie par les forces portugaises, a fait preuve d'une résilience spectaculaire au cœur d'un affrontement de très haute intensité, repoussant l'attaquant sans lui concéder la moindre avancée.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amérique du Sud</div>
+      <h3>Le Venezuela inébranlable</h3>
+      <p>La Colombie, partenaire de nombreux pays mais ennemie du Venezuela , a vu son assaut se fracasser sur les défenses vénézuéliennes à Colombian Caribbean. Le Venezuela (sans lien d'alliance avec la France ) a livré une défense souveraine, assumant la quasi-totalité de l'effort pour conserver son territoire avec autorité.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Front de l'Est</div>
+      <h3>La Lettonie tient bon</h3>
+      <p>Les forces russes ont tenté de percer les défenses de la Lettonie (nation neutre envers Paris) sur Tver & Smolensk. Épaulés de manière décisive par la Lituanie, les défenseurs ont infligé de très lourdes pertes à l'attaquant, sécurisant la région au terme d'un affrontement sans appel.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Scandinavie — Séisme géopolitique</div>
+    <h2 class="world-headline">L'OFFENSIVE SUÉDOISE RAVAGE ZEALAND</h2>
+    <p class="deck">Dans ce qui constitue le théâtre de guerre principal de la journée, la Suède a écrasé les lignes danoises, redessinant brutalement les équilibres en Europe du Nord.</p>
+    <div class="byline">Correspondance spéciale — 20 juillet 2026</div>
+    <div class="story-body">
+      <p>Le fracas des armes a résonné avec une ampleur inédite sur les rives de la Baltique. La Suède, puissance non alignée sur la diplomatie française mais alliée de ses rivaux , a déclenché un assaut cataclysmique sur Zealand, une région ardemment défendue par le Danemark.</p>
+      <p>L'intensité de cette bataille a éclipsé tous les autres fronts mondiaux. L'offensive suédoise s'est révélée écrasante, dictant une cadence d'enfer que les Danois n'ont pu contenir. Il est crucial de souligner que l'effort de défense a été presque intégralement porté par des forces alliées, la Lituanie et la Belgique s'illustrant comme les véritables piliers de la résistance.</p>
+      <p>Malgré cette coalition défensive impressionnante et des pertes colossales de part et d'autre, le score final est resté sans appel en faveur de Stockholm. La Suède s'empare de ce carrefour stratégique, laissant un Danemark exsangue s'en remettre à la solidarité de ses partenaires pour endiguer la suite des événements.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Effondrement diplomatique</h3>
+      <p>La journée a été marquée par une onde de choc économique et diplomatique en Amérique Centrale. Le Guatemala a officiellement déclaré faillite dans la nuit. Dans la même heure, le pays a dissous l'intégralité de ses pactes défensifs avec neuf nations, dont le Brésil, le Pérou, le Kazakhstan et l'Ouzbékistan, s'isolant brutalement sur la scène internationale.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <p>Les capitaux ont afflué de toutes parts aujourd'hui.</p>
+      <ul>
+        <li>Vers l'Espagne : l'Allemagne (500) y a transféré des fonds.</li>
+        <li>Vers la Thaïlande : L'Indonésie (2500 au total), l'Allemagne (7500), le Sri Lanka (1000) et la Suède (100) ont affiché leur soutien.</li>
+        <li>Vers la Chine : L'Inde (7500), les Philippines (1500) et le Yémen (3386,6) ont massivement transféré.</li>
+        <li>Autres mouvements clés : Haïti vers le Venezuela (3000)  ; l'Afghanistan vers le Tadjikistan (4370)  et l'Ouzbékistan (2340)  ; le Yémen vers l'Irlande (338,58) , Bahreïn (846,65)  et l'Arménie (846,65)  ; la RD Congo vers le Kenya (750) , la Centrafrique (1750)  et le Rwanda (1300)  ; l'Inde vers le Myanmar (3000)  ; le Cameroun vers le Gabon (900).</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Alors que la prospection géologique s'emballe avec des découvertes pétrolières aux quatre coins du globe — de l'Afrique de l'Ouest aux confins de l'Asie —, les chancelleries s'agitent et le commerce de la pierre et du sol redessine la carte en silence. Entre cessions de régions à prix d'or et transferts de fonds massifs d'une opacité remarquable, une certitude demeure : dans ce monde en perpétuelle redéfinition, la monnaie circule aussi vite que les obus, et les traités d'aujourd'hui ne valent que jusqu'au prochain bulletin de guerre.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
