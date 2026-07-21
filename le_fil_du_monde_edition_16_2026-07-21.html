@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 21 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:36px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 16</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UNE FRITE</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 21 JUILLET 2026</span>
+    <span>INCIDENT DIPLOMATIQUE EN EUROPE DE L'OUEST</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Européen — Incident ou Escalade ?</div>
+      <h2 class="headline">LA BELGIQUE FRANCHIT LA FRONTIÈRE, PARIS DÉNONCE UNE RUPTURE DE CONFIANCE</h2>
+      <p class="deck">Sous couvert d'un défilé de fête nationale ayant prétendument « mal tourné », l'armée belge a lancé une offensive surprise sur le territoire français. L'Élysée, qui prône la désescalade, regrette une action qui fragilise les alliances.</p>
+      <div class="byline">Bureau de la Rédaction — 21 juillet 2026</div>
+      <div class="story-body">
+        <p>La journée du 21 juillet, censée célébrer la fête nationale belge, a pris une tournure inattendue et pour le moins confuse sur le front ouest-européen. Rompant le statu quo sans le moindre préavis, les forces belges ont franchi les frontières pour lancer des assauts simultanés contre la région de Northern France ainsi que sur le territoire de Rhine, tenu par l'Allemagne.</p>
+        <p>Du côté de Bruxelles, la communication officielle oscille entre la dérision et la provocation diplomatique. Les autorités belges évoquent un « incident mineur » : le défilé militaire aurait simplement pris une mauvaise direction à cause de panneaux de déviation mal placés suite à des travaux. Minimisant l'impact de cette incursion armée, la diplomatie belge a même invité la communauté internationale à patienter jusqu'à ce que les troupes, affamées, rentrent d'elles-mêmes pour retrouver le confort de leurs friteries locales.</p>
+        <p>À Paris, le ton est nettement plus grave, le président Azzazel ayant rapidement pris la parole pour exprimer la profonde incompréhension du gouvernement. Alors qu'un meeting inter-alliance s'était tenu peu de temps auparavant, laissant présager des relations bilatérales sincères, cette attaque surprise — même justifiée par le divertissement — est perçue comme un coup sévère porté à la confiance mutuelle. L'Élysée déplore l'absence totale de concertation et rappelle qu'attaquer un allié pour le « fun » envoie un signal diplomatique désastreux.</p>
+        <p>Refusant de céder au piège de l'escalade face à cette initiative désordonnée, le gouvernement a fait savoir que cette bataille ne constituait pas une priorité stratégique pour la France. Si les citoyens sont libres de se mobiliser pour défendre le territoire national, la France entend gérer la situation avec le plus grand discernement. Paris attend désormais de la Belgique qu'elle prenne la pleine mesure des conséquences de ce geste hasardeux sur l'avenir de leurs relations.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Proche-Orient — Défense souveraine</div>
+        <h3>L'Égypte verrouille Southern District</h3>
+        <p>Israël, sans lien d'alliance direct avec Paris, a tenté une incursion armée sur Southern District. L'Égypte, fidèle alliée de la France, a opposé une résistance acharnée. Lors d'une bataille de très haute intensité, la défense égyptienne a bénéficié d'un effort collectif notable, incluant notamment l'appui des forces françaises. L'attaquant n'a jamais réussi à s'imposer, et l'Égypte a conservé son territoire avec un score défensif sans appel.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Amérique du Nord — Reprise en main</div>
+        <h3>Les États-Unis libèrent Southwestern USA</h3>
+        <p>Les États-Unis, partenaires stratégiques de la France, ont mené une offensive déterminée pour reprendre Southwestern USA aux forces du Guatemala, nation non engagée. Au terme d'un affrontement de haute intensité âprement disputé jusqu'au bout, les forces américaines ont finalement fait plier la défense. Cette victoire disputée permet à Washington de restaurer son autorité sur cette région névralgique.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Scandinavie</div>
+      <h3>La Suède s'empare de Jutland</h3>
+      <p>La Suède, sans lien d'alliance avec la France, a poursuivi sa marche en avant en écrasant la défense du Danemark. Face à une offensive écrasante, le Danemark a subi une défaite sans appel, cédant ce territoire stratégique sans jamais pouvoir renverser la dynamique du combat.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie de l'Est</div>
+      <h3>Taïwan libère Northern Taiwan</h3>
+      <p>Taïwan, neutre vis-à-vis de la France, a réussi une offensive souveraine face à la Chine. L'Indonésie a constitué le fer de lance de cette attaque collective, permettant à l'attaquant de reprendre le contrôle de la région sans concéder le moindre round de bataille.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est</div>
+      <h3>La Thaïlande s'étend à Dien Bien Phu</h3>
+      <p>Sans lien d'alliance avec Paris, la Thaïlande a arraché Dien Bien Phu au Vietnam au terme d'une bataille de haute intensité. Portée en grande partie par un effort offensif allemand inattendu, l'offensive a fini par briser les lignes vietnamiennes dans un affrontement disputé.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Océanie</div>
+      <h3>L'Australie tient Western Australia</h3>
+      <p>L'Australie, nation non engagée, a subi un choc majeur face à une vaste offensive lancée par Madagascar. Malgré des pertes colossales de part et d'autre, l'Australie a failli céder avant de renverser brillamment la situation, conservant in extremis sa souveraineté sur la région.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Front Asiatique — Résilience</div>
+    <h2 class="world-headline">L'INDE DRESSE UN MUR INFRANCHISSABLE</h2>
+    <p class="deck">Soumise à une offensive de grande envergure de l'Iran sur Pakistani Balochistan, l'Inde a démontré une capacité défensive spectaculaire et coordonnée.</p>
+    <div class="byline">Bureau de la Rédaction — 21 juillet 2026</div>
+    <div class="story-body">
+      <p>L'Asie du Sud a été le théâtre d'un affrontement d'une extrême intensité dans la matinée. L'Iran, nation hostile à la diplomatie française, a lancé ses troupes à l'assaut de la région de Pakistani Balochistan, fermement tenue by l'Inde, alliée de premier plan de Paris dans la région.</p>
+      <p>L'offensive iranienne s'est appuyée sur une coalition hétéroclite, où la puissance de frappe de la Suède a pesé lourd sur les lignes de front. Pourtant, la résistance indienne ne s'est jamais fissurée. Avec l'appui d'un effort collectif réparti entre plusieurs nations, la défense a absorbé le choc initial sans vaciller.</p>
+      <p>Le résultat final de la bataille souligne la solidité de l'organisation défensive : l'Iran n'a remporté aucun engagement décisif au cours de cette confrontation. L'Inde sécurise ainsi sa souveraineté sur ce carrefour stratégique, imposant une défense souveraine et infligeant un camouflet retentissant aux ambitions territoriales de Téhéran.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Tensions au sommet</h3>
+      <p>Outre l'embrasement ouest-européen, la journée a vu le Nigeria déclarer formellement la guerre à la France, ajoutant une pression supplémentaire sur les alliés de Paris. Parallèlement, le Vatican a ouvert les hostilités contre la Serbie en attaquant directement la région de Lazio, entérinant l'échec définitif des négociations diplomatiques avec la péninsule italienne.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts du jour</h3>
+      <ul>
+        <li>Vers l'Australie : le Pakistan (1500), le Qatar (850), l'Indonésie (1500), la Nouvelle-Zélande (500) et le Laos (1000).</li>
+        <li>Vers l'Allemagne : la Serbie (2500) et le Yémen (584,45).</li>
+        <li>Vers le Burkina Faso : le Portugal (3000), la Suède (1000) et le Yémen (1000).</li>
+        <li>Vers la Slovénie : la Croatie (400 puis 999), l'Italie (500) et le Kirghizistan (500).</li>
+        <li>Vers les États-Unis : la Lituanie (2000) et le Chili (1000).</li>
+        <li>Autres : L'Inde vers la Lettonie (4500) et le Vietnam (4001). Le Yémen vers la Suède (766,96) et le Portugal (180,73). Bahreïn vers Madagascar (2400). L'Afghanistan vers le Tadjikistan (170). La Russie vers l'Iran (150). La Serbie vers la Macédoine du Nord (500). La Centrafrique vers le Gabon (500). La Malaisie vers la Suède (14,15). Le Cameroun vers Oman (500).</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>La confusion qui règne en Europe de l'Ouest illustre parfaitement la fragilité des équilibres géopolitiques contemporains. Entre défilés militaires aux trajectoires hasardeuses et déclarations de guerre immédiates, la frontière qui sépare l'incident protocolaire du conflit ouvert n'a jamais semblé aussi mince. Pendant que les chancelleries s'efforcent de décoder la diplomatie de la friterie, les mouvements massifs de capitaux à travers le globe confirment que la guerre économique, elle, ne souffre d'aucune erreur d'aiguillage.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
