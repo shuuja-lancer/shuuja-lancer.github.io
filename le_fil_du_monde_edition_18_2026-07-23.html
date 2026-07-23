@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 23 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 18</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN SOURIRE</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 23 JUILLET 2026</span>
+    <span>OFFENSIVES ÉCLAIRS ET REVERS DIPLOMATIQUES</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Ouest-Européen — Désordre</div>
+      <h2 class="headline">CHAOS EN EUROPE DE L'OUEST</h2>
+      <p class="deck">Tandis que la France tente de sécuriser ses frontières par la diplomatie, l'Allemagne déstabilise brutalement l'équilibre régional, et les rancœurs franco-belges continuent de couver en coulisses.</p>
+      <div class="byline">Bureau de la Rédaction — 23 juillet 2026</div>
+      <div class="story-body">
+        <p>Un véritable vent de panique souffle sur l'Europe de l'Ouest. En l'espace de quelques heures, l'équilibre précaire de la région a volé en éclats sous les coups de boutoir d'une Allemagne résolue à redessiner les frontières. La Pologne et les Pays-Bas, partenaires stratégiques de la France, se retrouvent plongés au cœur d'une tourmente militaire d'une violence inouïe.</p>
+        <p>La première puissance industrielle du conflit a d'abord fait plier la défense polonaise, s'emparant de la région de Silesia au terme d'une offensive retentissante. Le chaos s'est ensuite propagé plus à l'ouest, où les troupes germaniques ont écrasé les lignes néerlandaises pour annexer Gelderland-Brabant, ne laissant aucune chance de riposte aux défenseurs acculés.</p>
+        <p>Au milieu de ce tumulte, la France s'efforce de maintenir un îlot de stabilité en actant officiellement la paix avec la Belgique ainsi qu'avec le Nigeria. Toutefois, cette pacification de façade peine à masquer des tensions toujours très vives avec Bruxelles. Dans la presse et sur le terrain, le ressentiment gronde : certains observateurs pointent du doigt des unités armées sous influence française qui auraient délibérément ignoré les appels à la retenue de l'exécutif, agissant en sous-main par amertume face aux provocations et à la rhétorique agressive des Belges. Ce jeu d'ombres, où tout le monde finit par blâmer les Français, illustre à merveille l'adage de notre journal : chaque traité cache bien des rumeurs.</p>
+        <p>Ce chaos ouest-européen pose une question brûlante aux chancelleries : combien de temps la digue diplomatique tiendra-t-elle ? Si la prudence de façade a offert un précieux répit officiel à Paris, l'effondrement brutal des territoires alliés sous la pression allemande et les rancunes tenaces dessinent une nouvelle carte de l'Europe, désormais régie par l'instabilité et la loi du plus fort.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Moyen-Orient — Mobilisation</div>
+        <h3>L'Égypte s'embrase face à Israël</h3>
+        <p>Le Moyen-Orient connaît une nouvelle escalade avec l'entrée officielle de l'Égypte sur le champ de bataille. Allié indéfectible de la France , Le Caire a entamé une mobilisation massive de ses formations militaires en réponse aux vives tensions. Dans la même journée, Israël a frappé le territoire égyptien en lançant un assaut direct sur Jerusalem.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Europe du Sud — Revers Allié</div>
+        <h3>L'Italie cède Sicily à la Serbie</h3>
+        <p>Le front sud-européen s'effrite un peu plus pour les alliés de Paris. L'Italie a subi une lourde défaite défensive face aux ambitions de la Serbie. Les troupes serbes ont mené une offensive d'ampleur qui leur a permis de s'emparer de Sicily sans concéder la moindre manche, repoussant les frontières italiennes toujours plus loin.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Afrique du Nord</div>
+      <h3>La Libye s'empare d'Agadez</h3>
+      <p>Mettant à exécution une stratégie de frappe préventive , la Libye a lancé une violente offensive contre le Burkina Faso sur Agadez. L'assaut a imposé un rythme destructeur qui s'est soldé par une conquête rapide et totale du territoire par les forces libyennes.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amériques</div>
+      <h3>Les Bahamas capturent Alaska</h3>
+      <p>Les États-Unis, partenaires stratégiques de la France , ont essuyé un revers inattendu face aux Bahamas. Une offensive caribéenne foudroyante a forcé les défenses américaines à céder le contrôle de Alaska.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est</div>
+      <h3>L'Indonésie sécurise Sumatra</h3>
+      <p>L'Indonésie a repris l'initiative face à l'Inde en lançant une attaque couronnée de succès sur Sumatra. La défense indienne, acculée, n'a pas pu contenir la pression frontale, laissant le contrôle de la région aux forces indonésiennes.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Moyen-Orient / Asie</div>
+      <h3>L'Iran avance sur Sindh</h3>
+      <p>Nation non engagée vis-à-vis de la France , l'Iran a percé les défenses de l'Inde. L'offensive iranienne a dicté un rythme insoutenable, arrachant la région de Sindh au terme d'une victoire sans appel face à une garnison indienne dépassée.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Asie — Le Vent Tourne</div>
+    <h2 class="world-headline">TAÏWAN POURSUIT SA RECONQUÊTE FACE À LA CHINE</h2>
+    <p class="deck">Malgré l'absence de ses territoires d'origine, l'armée taïwanaise enchaîne les victoires offensives et s'empare de Gansu et Eastern China, marquant un tournant décisif sur le front asiatique.</p>
+    <div class="byline">Bureau de la Rédaction — 23 juillet 2026</div>
+    <div class="story-body">
+      <p>Alors que l'État taïwanais survit sans un seul de ses territoires d'origine, ses forces armées démontrent une résilience spectaculaire sur le front oriental. Faisant fi de sa situation géographique précaire, Taïwan a enchaîné les succès tactiques en frappant directement le cœur du dispositif de la Chine, son rival historique.</p>
+      <p>Une première victoire offensive a permis aux troupes taïwanaises de s'emparer de Eastern China avec un score de domination parfaite. Loin de s'arrêter à ce coup d'éclat, une nouvelle percée lancée quelques heures plus tard a totalement brisé les lignes défensives chinoises pour capturer la région de Gansu.</p>
+      <p>Cette dynamique marque un véritable tournant de la guerre en Asie. Les opérations militaires de l'adversaire s'embourbent, épuisant drastiquement les ressources d'une coalition autrefois conquérante. Le rouleau compresseur taïwanais prouve qu'un sursaut national reste possible même au bord du précipice.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Tensions au sommet</h3>
+      <p>L'échiquier politique mondial connaît d'importants bouleversements au sommet de l'État. L'Argentine et le Népal ont tous deux intronisé de nouveaux présidents à la tête de leur exécutif. Sur le plan diplomatique, l'isolationnisme frappe l'Europe de l'Est : la Tchéquie a brutalement dissous ses pactes défensifs avec le Timor oriental, l'Irak, les Émirats arabes unis et l'Inde.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts</h3>
+      <ul>
+        <li>La Serbie vers Israël : 3000 </li>
+        <li>La Croatie vers la Hongrie : 3000 </li>
+        <li>La Belgique vers la Pologne : 2000 </li>
+        <li>La Lettonie vers la Pologne : 2000 </li>
+        <li>La Suède vers l'Allemagne : 1000 </li>
+        <li>Le Pakistan vers la Thaïlande : 1000 </li>
+        <li>Le Liban vers Israël : 900 </li>
+        <li>La Centrafrique vers le Congo : 750 </li>
+        <li>Brunei vers la Thaïlande : 500 </li>
+        <li>Le Venezuela vers les Bahamas : 500 </li>
+        <li>Le Mozambique vers le Zimbabwe : 500 </li>
+        <li>Malte vers la Slovénie : 500 </li>
+        <li>La Bosnie vers Israël : 500 </li>
+        <li>Le Cameroun vers le Pakistan : 400 </li>
+        <li>L'Espagne vers le Cap-Vert : 400 </li>
+        <li>L'Afghanistan vers l'Espagne : 6,19 </li>
+        <li>Chypre vers les Îles Salomon : 1 </li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>L'escalade militaire en Europe de l'Ouest et la redistribution des cartes en Asie démontrent que la guerre de mouvement a définitivement repris ses droits. Face à cette volatilité extrême, la diplomatie préventive de la France contraste vivement avec les ambitions territoriales dévorantes de ses voisins immédiats, marquant une journée où la survie dépend tout autant des traités que des obus.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
