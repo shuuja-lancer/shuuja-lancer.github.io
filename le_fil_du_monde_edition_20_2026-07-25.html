@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 25 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 20</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN SOURIRE</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 25 JUILLET 2026</span>
+    <span>L'ALLEMAGNE MARQUE LE PAS, L'ITALIE AVANCE</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Européen — Choc Majeur</div>
+      <h2 class="headline">L'ALLEMAGNE S'EMPARE DE BRUSSELS</h2>
+      <p class="deck">Malgré la résistance acharnée de la Belgique et le renfort des troupes françaises, l'armée allemande parvient à imposer sa loi dans un affrontement d'une intensité exceptionnelle.</p>
+      <div class="byline">Bureau de la Rédaction — 25 juillet 2026</div>
+      <div class="story-body">
+        <p>En fin de journée, les forces de l'Allemagne ont lancé une offensive colossale contre la Belgique, ciblant le cœur du pays. L'objectif principal de cette opération militaire de grande envergure était `Brussels`, un territoire dont la position stratégique a ravivé les tensions en Europe occidentale.</p>
+        <p>L'assaut a pris la forme d'une bataille de très haute intensité, mobilisant des dizaines de pays alliés de part et d'autre et cumulant des dégâts historiques. Bien que les forces belges, alliées déclarées de la France , aient opposé une défense âpre, l'offensive allemande a imposé un rythme destructeur impossible à contenir. L'Allemagne s'est finalement emparée du territoire sans concéder la moindre manche.</p>
+        <p>L'effort collectif a été colossal des deux côtés. Du côté des défenseurs, la Belgique a pu compter sur un soutien important de la Lituanie et de la France, Paris apportant une part décisive de la puissance de feu. Cependant, la charge offensive allemande a reposé en grande partie sur l'Allemagne elle-même, qui a constitué le fer de lance de l'attaque avec le soutien logistique et tactique de la Suède et de l'Iran.</p>
+        <p>Cette chute marque un revers important pour le bloc allié, l'Allemagne consolidant sa position comme la première puissance industrielle de cette guerre. Le gouvernement belge doit désormais réorganiser ses défenses face à une menace qui s'étend dangereusement sur ses frontières naturelles.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Front Sud — Avancée</div>
+        <h3>L'Italie s'empare de Naples</h3>
+        <p>L'Italie, partenaire militaire de la France, poursuit sa reconquête de la péninsule. Dans un assaut redoutable, les forces italiennes ont pris `Naples` à la Serbie. L'offensive a été si écrasante que la résistance n'a jamais menacé l'issue du combat , Rome assumant seule la grande majorité de l'effort militaire.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Front de l'Est — Résistance</div>
+        <h3>La Pologne tient ses frontières</h3>
+        <p>La Pologne, alliée clé de la France, fait face à une pression multilatérale. Si elle a dû céder `Greater Poland` à l'Allemagne lors d'une offensive écrasante plus tôt dans la journée, Varsovie a su se ressaisir. Les forces polonaises ont en effet défendu `Northeastern Poland` face à la Russie avec une résistance souveraine , empêchant Moscou de s'imposer sur ce front.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Afrique de l'Ouest</div>
+      <h3>Le Togo s'impose</h3>
+      <p>Le Togo a arraché `Central Burkina Faso` au Burkina Faso. L'issue de cet affrontement est restée incertaine jusqu'à la fin des combats. Le Portugal, nation sans lien direct avec la France , a constitué le fer de lance de la défense burkinabè, sans parvenir à repousser l'assaut.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amériques</div>
+      <h3>Percée des Bahamas</h3>
+      <p>L'offensive des Bahamas sur le territoire canadien a porté ses fruits. La nation insulaire s'est emparée de `Canadian Plains` aux dépens du Canada. L'attaque, soutenue activement par le Venezuela, a submergé les défenses locales.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud</div>
+      <h3>Revanche pakistanaise</h3>
+      <p>Suite à une révolte spectaculaire, le Pakistan a lancé un assaut réussi contre l'Inde, reprenant le contrôle de `Gilgit-Baltistan`. Une victoire sans appel qui permet au gouvernement d'Islamabad de sécuriser l'un de ses territoires historiques face à une armée indienne en difficulté.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie Centrale</div>
+      <h3>La Lettonie s'étend</h3>
+      <p>La Lettonie, alliée de la France, a mené une vaste campagne militaire en Asie centrale. Riga s'est emparée de `Aktobe`, `East Kazakhstan`, `Western Uzbekistan` et `Turkistan` en l'espace de quelques heures, écrasant toute résistance et consolidant son emprise sur la région.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Méditerranée — Point de bascule</div>
+    <h2 class="world-headline">MALTE FAIT TOMBER LA SERBIE EN SICILE</h2>
+    <p class="deck">Dans une bataille âprement disputée, la petite nation insulaire est parvenue à reprendre un territoire clé à l'une des puissances les plus développées de la guerre.</p>
+    <div class="byline">Bureau de la Rédaction — 25 juillet 2026</div>
+    <div class="story-body">
+      <p>Le contrôle de la Méditerranée centrale a changé de mains. Dans une manœuvre audacieuse, Malte a lancé une attaque directe contre la garnison de la Serbie stationnée en `Sicily`. Cette offensive marque un tournant sur ce théâtre d'opérations, confrontant une nation insulaire à un adversaire serbe classé parmi les puissances les mieux développées du conflit.</p>
+      <p>La bataille pour `Sicily` s'est avérée particulièrement intense, l'issue restant incertaine jusqu'à la toute fin des combats. Les forces de la Serbie ont fermement défendu leurs positions, infligeant de lourdes pertes avant de céder le terrain. Finalement, l'offensive a imposé un rythme que les défenseurs serbes n'ont pu soutenir indéfiniment. Malte a officiellement pris le territoire, forçant le repli des troupes serbes.</p>
+      <p>Cet affrontement s'est rapidement transformé en un effort collectif réparti entre de nombreuses nations. Du côté de l'attaque, l'Italie et la Croatie ont constitué les véritables fers de lance de la manœuvre, éclipsant la contribution directe de Malte. La Serbie, de son côté, s'est appuyée sur le soutien logistique de l'Indonésie et de l'Ukraine, un apport qui s'est révélé insuffisant face à la puissance de feu coalisée de la Méditerranée.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Crise au sommet</h3>
+      <p>Les relations entre l'Italie et le Vatican se sont définitivement rompues. Le Saint-Siège a expulsé les diplomates italiens suite à des négociations jugées inacceptables. En réponse, l'Italie — sans lien d'alliance avec le Vatican  — a affirmé sa souveraineté, accusant des États tiers de manipulation. Le jour même, Rome a lancé une attaque sur `Vatican City` , dont l'issue reste en suspens.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts</h3>
+      <ul>
+        <li>L'Argentine envoie 500 au Panama.</li>
+        <li>Le Kirghizistan envoie 900 à la Hongrie.</li>
+        <li>L'Indonésie envoie 2000 au Cambodge.</li>
+        <li>L'Afrique du Sud envoie 500 à Malte.</li>
+        <li>Le Cameroun envoie 500 au Cambodge.</li>
+        <li>La Suède envoie 1500 à l'Autriche.</li>
+        <li>Le Laos envoie 500 au Cambodge.</li>
+        <li>Le Pakistan envoie 2000 au Cambodge.</li>
+        <li>La Serbie envoie 5000 à Israël.</li>
+        <li>Le Qatar envoie 600 au Cambodge.</li>
+        <li>Le Sri Lanka envoie 2000 à la Thaïlande.</li>
+        <li>Le Pakistan envoie 3000 à la Thaïlande.</li>
+        <li>Le Cameroun envoie 500 au Cambodge.</li>
+        <li>L'Indonésie envoie 5000 à la Thaïlande.</li>
+        <li>La Colombie envoie 150 à l'Inde.</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Les rapports frontaliers du jour soulignent des découvertes massives de ressources pétrolières et minérales. Ces gisements d'opportunité attisent les appétits diplomatiques et redessinent l'économie des alliances, prouvant que derrière chaque offensive idéologique ou militaire se cache souvent le calcul froid des chaînes d'approvisionnement.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
