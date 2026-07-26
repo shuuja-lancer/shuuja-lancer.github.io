@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 26 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 21</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN MAKOWIEC</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 26 JUILLET 2026</span>
+    <span>CHUTE D'UN BASTION POLONAIS, L'ÉGYPTE SOUS PRESSION</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Européen — Choc Majeur</div>
+      <h2 class="headline">L'ALLEMAGNE FAIT CHUTER LA DÉFENSE POLONAISE</h2>
+      <p class="deck">Au terme du théâtre de guerre principal du conflit, l'Allemagne a arraché une région stratégique à la Pologne, partenaire clé de Paris, redessinant brutalement les équilibres en Europe de l'Est.</p>
+      <div class="byline">Bureau de la Rédaction — 26 juillet 2026</div>
+      <div class="story-body">
+        <p>La journée a été assombrie par un affrontement d'une ampleur inédite en Europe. L'Allemagne, nation non engagée vis-à-vis de la France, a orchestré une vaste offensive contre la Pologne, alliée stratégique de la France, ciblant directement la région vitale de Northeastern Poland.</p>
+        <p>Cette bataille s'est immédiatement imposée comme le théâtre de guerre principal du conflit, générant des destructions d'une intensité inégalée au cours de ces dernières semaines. Après un choc frontal acharné et disputé jusqu'aux derniers instants, les forces offensives allemandes ont fini par rompre les lignes de défense. L'Allemagne s'est emparée du territoire de manière décisive.</p>
+        <p>Dans les rangs allemands, l'effort a reposé de manière écrasante sur les forces nationales, qui ont constitué le fer de lance de l'attaque et dicté le rythme des combats. En face, la charge défensive polonaise a bénéficié d'une résistance collective, s'appuyant notamment sur le soutien significatif de la Lituanie et de l'Égypte pour tenter d'endiguer l'avancée ennemie.</p>
+        <p>La chute de cette région représente un revers militaire substantiel pour Varsovie et, par ricochet, pour le réseau d'alliances tissé par la diplomatie française. La première puissance industrielle de cette guerre, forte du développement exceptionnel de l'Allemagne, prouve qu'elle conserve toute sa capacité à redessiner les frontières européennes par le fer et le feu.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Péninsule Italique</div>
+        <h3>La Serbie frappe l'Italie au cœur</h3>
+        <p>L'Italie, alliée indéfectible de la France, a subi un coup dur sur son propre sol. La Serbie, pays sans lien d'alliance avec Paris, a mené une offensive écrasante sur Naples, s'emparant du territoire sans que l'issue du combat ne soit jamais incertaine. Malgré une défense coalisée incluant un appui de la France, la résistance a été submergée par la puissance de feu de l'assaillant.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Front Alpin</div>
+        <h3>L'offensive française repoussée</h3>
+        <p>L'armée française a initié une tentative de percée vers Northeastern Italy, contrôlée par l'Autriche, puissance ennemie de Paris. La bataille, d'une haute intensité, a offert une défense âprement disputée où le territoire a failli basculer. Les Autrichiens sont finalement parvenus à renverser la situation et à tenir la région, profitant de l'apport décisif des contingents suédois et allemands.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est</div>
+      <h3>Le Laos avance avec force</h3>
+      <p>Le Laos, nation non engagée vis-à-vis de la France, a lancé une offensive écrasante contre les Philippines pour conquérir Luzon. L'opération a été largement portée par l'Indonésie, véritable fer de lance de l'assaut, permettant aux troupes laotiennes de s'emparer de la région face à des défenseurs dépassés.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique de l'Ouest</div>
+      <h3>L'Espagne conquérante</h3>
+      <p>L'Espagne, pays sans alliance avec la France, a étendu son emprise africaine en arrachant Central Senegal au Sénégal. Ce choc majeur s'est achevé par une victoire sans appel de l'attaquant, les forces espagnoles ayant fourni la quasi-totalité de la puissance de frappe pour briser la résistance.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Caraïbes</div>
+      <h3>Les Bahamas intraitables</h3>
+      <p>Une expédition militaire menée par Cuba pour reprendre Eastern Cuba a été souverainement stoppée par les Bahamas, État sans lien avec Paris. Malgré le soutien des États-Unis à l'assaillant, la défense bahaméenne n'a jamais cédé le moindre terrain, verrouillant fermement le contrôle de la région insulaire.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie Centrale</div>
+      <h3>Almaty tombe aux mains lettones</h3>
+      <p>La Lettonie a mené un raid victorieux en plein cœur de l'Asie centrale pour arracher Almaty au Kazakhstan, aucune des deux nations n'étant alliée à la France. En dépit du soutien de l'Ouzbékistan, les défenses kazakhes n'ont pas résisté à la coordination offensive balte, cédant un territoire clé.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Tensions au Moyen-Orient</div>
+    <h2 class="world-headline">L'ÉGYPTE PRÉSERVE SON TERRITOIRE ET SA SOUVERAINETÉ</h2>
+    <p class="deck">Dans un climat empoisonné par de vifs échanges diplomatiques, l'Égypte a brillamment verrouillé ses frontières face à l'offensive coordonnée d'Israël.</p>
+    <div class="byline">Bureau de la Rédaction — 26 juillet 2026</div>
+    <div class="story-body">
+      <p>La région stratégique de Southern District s'est embrasée sous le poids d'un affrontement de haute intensité au cours de la journée. Israël, pays ne disposant d'aucune alliance avec la France, y a orchestré un vaste assaut dans le but de percer les défenses de l'Égypte, partenaire de poids de Paris. En dépit d'une offensive puissamment appuyée par les troupes de la Serbie et de l'Ukraine, l'initiative israélienne a heurté un mur.</p>
+      <p>Cette défense souveraine a permis aux garnisons égyptiennes de repousser l'agresseur, garantissant l'intégrité de leur territoire. L'Égypte a assumé la majeure partie de l'effort militaire au sein de son propre camp, démontrant une résilience structurelle remarquable qui n'a concédé aucune faille décisive lors des combats.</p>
+      <p>Ce succès tactique prend une dimension singulière au vu du climat diplomatique régnant dans la région. Le gouvernement égyptien se trouve sous le feu des accusations israéliennes concernant la manipulation supposée de sa population et de sa croissance, allégations fermement rejetées par Le Caire qui revendique le dynamisme naturel de sa très vaste démographie. Par cette victoire indiscutable sur le champ de bataille, l'Égypte adresse un message de force qui dépasse largement la simple défense d'une frontière.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Cessions territoriales</h3>
+      <p>L'Europe de l'Est observe un glissement de ses frontières par la diplomatie commerciale. La Lituanie, alliée de la France, a scellé plusieurs accords avec la Lettonie. Les territoires de Minsk et Grodno ont ainsi été transférés sous l'égide lettone en échange de rétributions financières, évitant le fracas des armes pour redessiner la ligne de démarcation balte.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre : transferts</h3>
+      <ul>
+        <li>L'Inde vers le Kirghizistan : 3000 </li>
+        <li>La Lituanie vers la Pologne : 2963 </li>
+        <li>L'Allemagne vers l'Iran : 2500 </li>
+        <li>Le Bangladesh vers l'Inde : 2024 </li>
+        <li>La Croatie vers le Kirghizistan : 2000 </li>
+        <li>Le Chili vers la Colombie : 2000 </li>
+        <li>Le Portugal vers l'Iran : 2000 </li>
+        <li>Le Maroc vers le Kirghizistan : 2000 </li>
+        <li>L'Argentine vers les États-Unis : 2000 </li>
+        <li>La Serbie vers l'Iran : 2000 </li>
+        <li>L'Indonésie vers le Laos : 1500 </li>
+        <li>La Croatie vers le Kirghizistan : 1500 </li>
+        <li>L'Allemagne vers l'Iran : 1500 </li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Les ravages massifs constatés sur le front germano-polonais rappellent brutalement que la suprématie industrielle se convertit toujours en puissance de feu ravageuse. Pour Paris et ses alliés, l'intensité exceptionnelle des combats de ce jour, conjuguée à des percées aux portes de ses partenaires, exige une vigilance stratégique accrue sur tous les azimuts.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
