@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 27 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 22</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN MAKOWIEC</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 27 JUILLET 2026</span>
+    <span>LA FRANCE TIENT BON EN ITALIE, L'ASIE S'EMBRASE</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Européen — Ligne de Défense</div>
+      <h2 class="headline">LA FRANCE BRISE L'OFFENSIVE AUTRICHIENNE</h2>
+      <p class="deck">Engagée dans une défense cruciale pour le maintien de ses positions transalpines, l'armée française a repoussé souverainement l'assaut autrichien sur Romagna & Tuscany.</p>
+      <div class="byline">Bureau de la Rédaction — 27 juillet 2026</div>
+      <div class="story-body">
+        <p>La journée a été marquée par une épreuve de force décisive sur le front sud-européen. L'Autriche, puissance ouvertement hostile à la France , a lancé une vaste offensive ciblant la région de Romagna & Tuscany, un territoire stratégique sous contrôle français.</p>
+        <p>Face à cette incursion, les forces françaises ont déployé une défense souveraine, ne laissant aucune place au doute. L'issue du combat, soldée par une victoire défensive sans appel, confirme la solidité des lignes de Paris dans ce secteur névralgique et met un terme temporaire aux ambitions territoriales de ses adversaires dans la région.</p>
+        <p>La dynamique de cet affrontement a révélé une disparité notable dans l'engagement des belligérants. L'Autriche, bien qu'initiatrice de l'assaut, s'est très largement reposée sur la puissance de feu de la Suède, qui a fourni une écrasante majorité de l'effort offensif. Cette dépendance souligne les limites logistiques de l'attaquant face à une résistance bien préparée.</p>
+        <p>À l'inverse, la défense a été un modèle d'autonomie nationale. Les troupes françaises ont assumé la quasi-totalité des dommages infligés pour tenir la région, envoyant un message clair aux chancelleries ennemies : le verrou transalpin est solidement gardé par ses propres forces.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Front Balte</div>
+        <h3>L'Allemagne s'empare de Suvalkija</h3>
+        <p>L'Allemagne a mené une attaque de haute intensité contre la Lituanie, un partenaire clé de la France. Au terme d'une bataille acharnée et disputée jusqu'au bout, les forces allemandes ont réussi à percer les défenses lituaniennes pour s'emparer de Suvalkija. Malgré l'appui défensif de l'Égypte et des Pays-Bas, la Lituanie a dû céder ce territoire stratégique.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Proche-Orient</div>
+        <h3>L'Égypte défend Jérusalem</h3>
+        <p>Israël, nation sans alliance avec la France , a tenté une percée en lançant un assaut sur Jerusalem, tenue par l'Égypte, fidèle alliée de Paris. L'opération s'est heurtée à une défense souveraine et intraitable. Les Égyptiens, assurant la vaste majorité de l'effort militaire de leur camp, ont repoussé l'agresseur sans lui concéder la moindre victoire tactique.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud</div>
+      <h3>L'Inde repousse l'Iran</h3>
+      <p>L'Inde, bénéficiant d'un solide réseau diplomatique, a mené une offensive retentissante contre l'Iran. Au cours d'un choc majeur, les troupes indiennes ont fait basculer la bataille en leur faveur, s'emparant de Madhya Pradesh au terme d'un engagement très disputé.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique Australe</div>
+      <h3>La Zambie frappe fort</h3>
+      <p>Les forces zambiennes ont orchestré une opération militaire décisive contre la République démocratique du Congo. Cette attaque écrasante a permis à la Zambie d'arracher le contrôle de Katanga, renforçant ainsi significativement son ancrage territorial.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amérique du Sud</div>
+      <h3>Le Venezuela tient bon</h3>
+      <p>La Colombie a initié une violente campagne pour reprendre Colombian Pacific au Venezuela. Cependant, la défense a été souveraine ; le Venezuela, puissamment appuyé par Trinité-et-Tobago, a totalement neutralisé l'offensive colombienne.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Balkans</div>
+      <h3>La Turquie triomphe</h3>
+      <p>Dans une démonstration de force indéniable, la Turquie, alliée de la France , s'est attaquée à la Macédoine du Nord. L'armée turque a réussi à briser les lignes ennemies après un affrontement intense, sécurisant la région de Macedonia.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Géopolitique Asiatique</div>
+    <h2 class="world-headline">LE DÉMANTÈLEMENT DU FRONT IRANIEN</h2>
+    <p class="deck">Soumise à une pression insoutenable sur l'ensemble de ses frontières, la nation iranienne encaisse des pertes territoriales majeures face à une coalition de puissances émergentes.</p>
+    <div class="byline">Bureau de la Rédaction — 27 juillet 2026</div>
+    <div class="story-body">
+      <p>La carte de l'Asie du Sud s'est brutalement redessinée au cours de cette journée. L'Iran, pays ouvertement opposé aux intérêts de la France, s'est retrouvé la cible d'une série d'offensives coordonnées et dévastatrices. Ce n'est pas un simple recul tactique, mais un véritable effondrement de ses lignes défensives qui s'est joué sur plusieurs fronts simultanés.</p>
+      <p>Le Sri Lanka s'est imposé comme le principal architecte de cette débâcle. En lançant deux attaques massives et consécutives, l'armée srilankaise a arraché les territoires de Northeastern India et de Maratha aux forces iraniennes. À chaque reprise, l'offensive a été écrasante, ne laissant aucune chance de résilience aux garnisons locales malgré les multiples tentatives de soutien extérieur déployées pour sauver ces positions.</p>
+      <p>Ce tableau accablant pour Téhéran a été parachevé par l'intervention décisive de la Thaïlande. Après avoir brusquement dissous son pacte défensif avec l'Iran, Bangkok a immédiatement déclaré la guerre et lancé ses troupes sur Haryana. L'offensive thaïlandaise, couronnée de succès, confirme l'isolement diplomatique de l'Iran, désormais contraint de céder d'immenses pans de son territoire face à une multitude d'agresseurs.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Cessions territoriales</h3>
+      <p>La diplomatie financière a permis de réajuster certaines frontières sans heurts militaires. La France a ainsi acquis la région de Quebec auprès du Canada pour la somme symbolique de 1,07 monnaie. Parallèlement, la Bosnie s'est vue transférer le contrôle de Dalmatia par la Serbie pour 1 monnaie , et la Lettonie a racheté Gomel à la Pologne pour 200 monnaies.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre</h3>
+      <ul>
+        <li>L'Argentine vers les États-Unis : 2000 </li>
+        <li>La Jamaïque vers l'Allemagne : 2500  et 2390 </li>
+        <li>La Turquie vers la Hongrie : 7500 </li>
+        <li>L'Afghanistan vers l'Ouzbékistan : 2447  et 1500 </li>
+        <li>La Croatie vers la Hongrie : 3000 , vers Malte : 1000  et 1500 , vers la Pologne : 1500 </li>
+        <li>Les Pays-Bas vers la Pologne : 2500  et 1000 </li>
+        <li>L'Égypte vers le Soudan du Sud : 3000 </li>
+        <li>La France vers la Pologne : 3000 </li>
+        <li>Le Libéria vers la Colombie : 2000 </li>
+        <li>L'Italie vers la Hongrie : 2000 </li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>L'économie de guerre a rattrapé plusieurs nations de premier plan aujourd'hui. L'Espagne et l'Australie ont officiellement déclaré faillite , entraînant la dissolution en chaîne de nombreux pactes défensifs australiens. Ces banqueroutes rappellent brutalement que la pérennité d'un État sur la carte du monde ne repose pas uniquement sur le nombre de ses blindés, mais tout autant sur la solidité de ses finances publiques.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
