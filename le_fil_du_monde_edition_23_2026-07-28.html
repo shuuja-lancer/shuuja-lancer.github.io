@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 28 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 23</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UN MAKOWIEC</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 28 JUILLET 2026</span>
+    <span>LA FRANCE PERCE EN ITALIE, BATAILLE HISTORIQUE EN POLOGNE</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Transalpin — Victoire Majeure</div>
+      <h2 class="headline">LA FRANCE DÉFAIT L'AUTRICHE ET PREND PIED EN ITALIE DU NORD-EST</h2>
+      <p class="deck">Dans une offensive fulgurante et menée de main de maître, l'armée française a arraché la région de Northeastern Italy aux forces autrichiennes[cite: 422, 423].</p>
+      <div class="byline">Bureau de la Rédaction — 28 juillet 2026</div>
+      <div class="story-body">
+        <p>L'offensive française sur Northeastern Italy a marqué la journée par son efficacité redoutable[cite: 423]. Face à une Autriche solidement retranchée, nation hostile à Paris, les troupes françaises ont su imposer un rythme que le défenseur n'a pu soutenir, s'emparant de la région sans concéder le moindre round à leur adversaire[cite: 423, 424].</p>
+        <p>Cette victoire offensive sans appel confirme la supériorité tactique française sur ce front européen[cite: 422, 423]. L'essentiel de la force de frappe a reposé sur les épaules des soldats français, qui ont assuré la quasi-totalité des dommages infligés par leur camp, démontrant une remarquable autonomie militaire dans cette conquête (avec un apport national massif évalué à 97%)[cite: 424].</p>
+        <p>Du côté autrichien, malgré une mobilisation notable, la résistance n'a jamais menacé l'issue du combat[cite: 423, 424]. L'Allemagne a tenté de prêter main-forte à Vienne, mais son intervention s'est avérée tout à fait insuffisante pour endiguer la puissante percée française[cite: 424].</p>
+        <p>Ce succès permet à la France de consolider solidement ses positions face à l'alliance ennemie, tout en infligeant un revers cuisant à une Autriche désormais repoussée sur ses propres lignes territoriales[cite: 423, 424].</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Front Balte</div>
+        <h3>L'Allemagne s'empare de Dzūkija</h3>
+        <p>L'armée allemande a mené une offensive écrasante contre la Lituanie, une proche alliée de la France[cite: 406]. Ne laissant aucune chance de résilience à la garnison locale, Berlin a pris le contrôle de Dzūkija sans concéder un seul round, confirmant la violente pression militaire actuellement exercée sur les pays baltes[cite: 407, 408].</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Moyen-Orient</div>
+        <h3>L'Égypte tient bon à Jérusalem</h3>
+        <p>Israël, nation sans lien d'alliance avec la France, a tenté une percée en lançant un assaut sur Jerusalem, région tenue par l'Égypte, fidèle alliée de Paris[cite: 231]. L'opération s'est heurtée à une défense souveraine et intraitable ; les troupes égyptiennes ont repoussé l'agresseur sans lui concéder la moindre victoire tactique[cite: 232].</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Europe du Nord</div>
+      <h3>Le Danemark reprend Zealand</h3>
+      <p>Le Danemark, nation non engagée vis-à-vis de la France, a lancé une offensive victorieuse contre la Suède pour reprendre le contrôle de Zealand[cite: 405]. L'attaque, menée avec une coalition hétéroclite, a imposé un rythme destructeur aux défenses suédoises qui n'ont pu tenir la ligne[cite: 406].</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Corne de l'Afrique</div>
+      <h3>L'Éthiopie défend Oromia</h3>
+      <p>Le Yémen a tenté d'envahir Oromia, mais l'Éthiopie a opposé une défense souveraine face à l'assaillant[cite: 418]. L'apport défensif décisif de l'Afrique du Sud et de l'Égypte, alliée de la France, a lourdement pesé dans la balance pour faire plier les forces yéménites[cite: 419, 420].</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Balkans</div>
+      <h3>La Hongrie défait la Serbie</h3>
+      <p>La Hongrie, fidèle alliée de Paris, a remporté une bataille de haute intensité en s'emparant de Great Plains[cite: 401]. Au terme d'un effort collectif impressionnant, les forces hongroises et leurs partenaires ont brisé les défenses serbes avec une victoire sans appel[cite: 402].</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud</div>
+      <h3>L'Inde sécurise Kashmir</h3>
+      <p>Dans un choc majeur âprement disputé, l'Inde a réussi à arracher la région de Kashmir à la Thaïlande[cite: 273]. L'issue est restée incertaine jusqu'à la fin des combats, mais les troupes indiennes ont su faire basculer la bataille en leur faveur[cite: 274].</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Géopolitique Européenne</div>
+    <h2 class="world-headline">LE CHOC DES TITANS : LA CHUTE DE MASOVIA</h2>
+    <p class="deck">Dans la plus grande bataille de l'histoire du conflit, l'Allemagne a fait plier les lignes polonaises au terme d'un affrontement d'une brutalité sans précédent[cite: 141, 277].</p>
+    <div class="byline">Bureau de la Rédaction — 28 juillet 2026</div>
+    <div class="story-body">
+      <p>La carte de l'Europe centrale a tremblé sous le poids d'un affrontement historique[cite: 141, 142]. L'Allemagne, première puissance industrielle de cette guerre, s'est lancée à l'assaut de Masovia, un territoire clé tenu par la Pologne, alliée de la France[cite: 277]. Le combat a rapidement pris des proportions dantesques, devenant le théâtre de guerre principal du conflit en totalisant des dommages globaux jamais vus[cite: 180, 279].</p>
+      <p>La bataille a été acharnée, disputée jusqu'au bout[cite: 179]. La Pologne, soutenue par une large coalition comprenant la Lituanie, les Pays-Bas et la Belgique, a infligé de lourdes pertes avant de céder le terrain[cite: 279]. Malgré une résistance héroïque de Varsovie qui a arraché un round à l'assaillant, la force de frappe allemande, appuyée par la Suède, a fini par faire la différence lors du round décisif[cite: 278, 279].</p>
+      <p>Les chancelleries de tous bords observent avec stupéfaction les dégâts colossaux engendrés par cette bataille de haute intensité[cite: 180, 279]. La prise de Masovia par l'Allemagne marque une étape critique dans son offensive européenne, contraignant la Pologne et ses alliés à repenser l'urgence de leur ligne de défense[cite: 174, 277].</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Cessions territoriales et faillites</h3>
+      <p>La journée a été marquée par l'effondrement économique du Ghana, qui a officiellement déclaré faillite[cite: 249]. Sur le plan territorial, la diplomatie financière a permis de réajuster certaines frontières : la Suède a cédé Jutland à l'Allemagne pour la somme symbolique de 1 monnaie [cite: 391], tandis que Madagascar s'est offert Southern Tanzania auprès de la Tanzanie pour 268 monnaies[cite: 265].</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre</h3>
+      <ul>
+        <li>La Malaisie vers la Suède : 11 102 [cite: 228]</li>
+        <li>La Turquie vers la Hongrie : 5000 [cite: 342] et vers l'Irak : 3000 [cite: 401]</li>
+        <li>La Croatie vers la Hongrie : 3000 [cite: 294], 3000 [cite: 322], vers la Pologne : 1500 [cite: 226] et vers l'Irak : 3000 [cite: 395]</li>
+        <li>La France vers la Pologne : 3000 [cite: 218]</li>
+        <li>La Suède vers le Yémen : 3000 [cite: 350]</li>
+        <li>La Lituanie vers la Pologne : 2200 [cite: 240]</li>
+        <li>La Guinée-Bissau vers la Mauritanie : 2000 [cite: 428]</li>
+        <li>L'Italie vers la Hongrie : 2000 [cite: 346] et vers Malte : 1500 [cite: 286]</li>
+        <li>La Norvège vers le Yémen : 1500 [cite: 353]</li>
+        <li>L'Ukraine vers la Macédoine du Nord : 1500 [cite: 425]</li>
+        <li>Le Yémen vers la Suède : 515,61 [cite: 228] et vers la Roumanie : 75,72 [cite: 438]</li>
+        <li>L'Espagne vers le Cap-Vert : 400 [cite: 304]</li>
+        <li>Le Cameroun vers le Gabon : 300 [cite: 333]</li>
+        <li>Le Sénégal vers la Mauritanie : 300 [cite: 416]</li>
+        <li>Le Soudan du Sud vers la Mauritanie : 100 [cite: 297]</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Des tracts diplomatiques ont inondé les capitales aujourd'hui[cite: 160]. L'Égypte, dans une communication officielle adressée au Soudan, a réaffirmé que ses récentes opérations militaires visaient uniquement la stabilisation régionale et non l'annexion permanente des territoires soudanais[cite: 161, 162]. Le Caire a ainsi exhorté Khartoum à rompre ses alliances actuelles pour négocier un retour à la paix et à la souveraineté complète[cite: 163, 164].</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
