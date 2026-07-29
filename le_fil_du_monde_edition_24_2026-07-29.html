@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 29 juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 24</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : MOINS CHER QUE GRATUIT</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 29 JUILLET 2026</span>
+    <span>L'ÉGYPTE DOMINE LE SOUDAN, L'IRAK FRAPPE FORT</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Front Africain — Victoire Majeure</div>
+      <h2 class="headline">L'ÉGYPTE S'EMPARE DE NORTHERN SUDAN ET FAIT PLIER KHARTOUM</h2>
+      <p class="deck">Dans une offensive méthodique, l'armée égyptienne a écrasé les défenses soudanaises, reprenant le contrôle de territoires stratégiques de la région.</p>
+      <div class="byline">Bureau de la Rédaction — 29 juillet 2026</div>
+      <div class="story-body">
+        <p>Le contrôle de l'Afrique du Nord-Est vient de connaître un basculement décisif. L'Égypte, fidèle alliée de la France, a lancé une attaque dévastatrice sur la région de Northern Sudan, jusqu'alors tenue par le Soudan. Face à un ennemi qui avait récemment multiplié les provocations, les forces égyptiennes ont imposé un rythme destructeur, balayant toute résistance sur leur passage.</p>
+        <p>L'issue de la bataille n'a laissé aucune place au doute, s'achevant sur une victoire offensive écrasante et sans appel en faveur du Caire. L'Égypte a constitué le fer de lance absolu de cette percée, assurant la vaste majorité des dommages destructeurs infligés lors de l'assaut. Du côté des défenseurs, l'intervention de l'Allemagne n'aura pas suffi à compenser l'effondrement des troupes soudanaises, soulignant la vulnérabilité de Khartoum.</p>
+        <p>Cette conquête égyptienne sonne le glas des ambitions territoriales du gouvernement soudanais. Privé de la région de Northern Sudan, le Soudan se voit repoussé et isolé. Des observateurs locaux soulignent que ce revers marque brutalement la fin du "rêve soudanais", rendant les terres à l'administration égyptienne.</p>
+        <p>Avec cette victoire majeure, l'Égypte réaffirme sa position de puissance dominante incontournable sur le continent africain. La suprématie de ce partenaire clé de la diplomatie française envoie un avertissement clair aux nations voisines qui espéraient déstabiliser la région.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Moyen-Orient</div>
+        <h3>L'Irak s'empare de Kuwait et Northern Iraq</h3>
+        <p>Dans une double offensive d'une rare fulgurance, l'Irak, allié stratégique de la France, a arraché la région de Kuwait au Yémen  et celle de Northern Iraq à la Syrie. Ces victoires sans appel démontrent la puissance de frappe colossale déployée par Bagdad, consolidant sa maîtrise absolue sur le Levant.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Front Européen</div>
+        <h3>L'Allemagne prend Pomerania</h3>
+        <p>L'Allemagne a poursuivi sa pression implacable sur la Pologne, précieuse alliée de la France, en s'emparant de la région de Pomerania. Malgré ses efforts, la défense polonaise n'a pas pu endiguer la force de frappe de Berlin dans cet affrontement aux conséquences territoriales lourdes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Péninsule Ibérique</div>
+      <h3>Andorre libère Catalonia</h3>
+      <p>Dans une bataille acharnée et incertaine jusqu'aux derniers instants, Andorre a arraché la région de Catalonia à l'Espagne. Cette conquête inattendue marque un tournant spectaculaire, affranchissant le territoire de l'administration madrilène.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Afrique Australe</div>
+      <h3>L'Afrique du Sud progresse</h3>
+      <p>L'Afrique du Sud, partenaire indéfectible de Paris, a mené une offensive méthodique contre la Namibie pour s'emparer de la région de Free State. L'attaque a balayé les lignes de défense ennemies avec une victoire sans appel.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Balkans</div>
+      <h3>La Turquie inarrêtable</h3>
+      <p>La Turquie, alliée de la France, a multiplié les succès tactiques en s'emparant des régions de Northern Macedonia  et de Razgrad & Varna. Ces assauts victorieux démontrent une maîtrise absolue de son effort offensif sur le front est-européen.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie Centrale</div>
+      <h3>La Lettonie écrase l'Ouzbékistan</h3>
+      <p>La Lettonie a imposé sa suprématie en Asie centrale en capturant coup sur coup les régions de Bukhoro  et de Tashkent. Les défenses ouzbèkes ont été balayées sans réussir à arracher un seul round à l'assaillant.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Effondrement Impérial</div>
+    <h2 class="world-headline">L'ESPAGNE PERD PIED SUR TOUS LES FRONTS : DE L'AFRIQUE AUX CARAÏBES</h2>
+    <p class="deck">En l'espace de quelques heures, Madrid a vu ses ambitions coloniales réduites à néant suite à une série de défaites écrasantes à travers le globe.</p>
+    <div class="byline">Bureau de la Rédaction — 29 juillet 2026</div>
+    <div class="story-body">
+      <p>L'Espagne, nation en conflit régulier avec les partenaires de la France, traverse l'une de ses journées les plus sombres. Ses forces armées, dispersées sur de multiples continents dans des guerres d'usure, ont subi un effondrement simultané. En Afrique de l'Ouest, la Mauritanie a repris la région stratégique de Cape Verde, expulsant les garnisons espagnoles au terme d'une bataille intensément disputée. Cet échec met un terme brutal à la désastreuse aventure ibérique dans la région.</p>
+      <p>La déroute s'est étendue jusqu'aux Caraïbes, où le Venezuela a lancé une offensive foudroyante. Les troupes de Caracas se sont emparées de la région de Puerto Rico, écrasant les défenses espagnoles sans leur concéder la moindre victoire tactique. Le coup de grâce est survenu sur le sol européen avec la perte inattendue de Catalonia, tombée aux mains d'Andorre.</p>
+      <p>Ces défaites en cascade laissent l'Espagne exsangue, tant sur le plan territorial qu'économique. L'incapacité de Madrid à sécuriser ses possessions d'outre-mer révèle les limites fatales de sa stratégie militaire globale, la forçant désormais à se retrancher sur ses terres d'origine déclinantes.</p>
+    </div>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Ruptures diplomatiques pour la France</h3>
+      <p>La diplomatie française a pris des décisions tranchées aujourd'hui. En une série de mouvements simultanés, la France a officiellement dissous ses pactes défensifs de longue date avec l'Inde , l'Irak  et Malte.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre</h3>
+      <ul>
+        <li>L'Inde vers la Lettonie : 4337,55 BTC </li>
+        <li>L'Allemagne vers le Sri Lanka : 3500 BTC </li>
+        <li>L'Italie vers la Croatie : 3000 BTC </li>
+        <li>L'Andorre vers l'Espagne : 2000 BTC </li>
+        <li>Le Libéria vers la Mauritanie : 2000 BTC </li>
+        <li>L'Afrique du Sud vers la Mauritanie : 2000 BTC </li>
+        <li>L'Argentine vers la Mauritanie : 2000 BTC </li>
+        <li>Le Yémen vers l'Arménie : 1610 BTC </li>
+        <li>Malte vers la Mauritanie : 1190 BTC </li>
+        <li>La Croatie vers la Mauritanie : 1000 BTC </li>
+        <li>Le Maroc vers la Mauritanie : 1000 BTC </li>
+        <li>La Grèce vers la Mauritanie : 700 BTC </li>
+        <li>Le Chili vers le Japon : 520 BTC </li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Une vaste enquête secoue actuellement les marchés d'équipements militaires. Des observateurs indépendants dénoncent l'utilisation de méthodes automatisées pour accaparer les ressources en quelques secondes, faussant l'économie de guerre. Les instances dirigeantes sont appelées à faire la lumière sur cette machinerie illicite.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
