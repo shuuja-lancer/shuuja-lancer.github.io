@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Bilan du mois de juillet 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --blood:#7a1f1f;
+    --gold:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px 48px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1100px;
+    padding:32px 40px 52px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 48px rgba(0,0,0,0.28);
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(0,0,0,0.025) 0, transparent 45%),
+      radial-gradient(circle at 90% 90%, rgba(0,0,0,0.025) 0, transparent 45%);
+  }
+
+  /* ── MASTHEAD ── */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.09em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{text-align:center;padding:6px 0 10px;}
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.4px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:5px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{border:none;border-top:4px double var(--ink);margin:8px 0 4px;}
+  .rule-thin {border:none;border-top:1px solid var(--ink);margin:4px 0;}
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* ── EYEBROW ── */
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.13em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  /* ── BANNER EDITORIAL ── */
+  .banner{
+    text-align:center;
+    padding:18px 0 14px;
+    border-top:4px double var(--ink);
+    border-bottom:1px solid var(--ink);
+    margin-bottom:22px;
+  }
+  .banner .eyebrow{font-size:12px;margin-bottom:6px;}
+  .banner h2{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:46px;
+    margin:0 0 6px;
+    line-height:1.02;
+  }
+  .banner .deck{
+    font-style:italic;
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:720px;
+    margin:0 auto;
+    line-height:1.5;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:28px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{flex:1;border-top:3px double var(--ink);}
+
+  /* ── PHASE BLOCK ── */
+  .phase{
+    border-left:4px solid var(--ink);
+    padding-left:18px;
+    margin-bottom:22px;
+  }
+  .phase h3{
+    font-family:'Playfair Display', serif;
+    font-size:22px;
+    margin:0 0 6px;
+    line-height:1.1;
+  }
+  .phase .sub{
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--gold);
+    margin-bottom:6px;
+  }
+  .phase p{font-size:13.5px;line-height:1.55;margin:0 0 8px;text-align:justify;}
+  .phase p:last-child{margin-bottom:0;}
+
+  /* ── FRONTS GRID ── */
+  .fronts-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    margin-bottom:4px;
+  }
+  .front-card{
+    border:1px solid var(--ink);
+    padding:14px 16px;
+    background:rgba(255,255,255,0.12);
+  }
+  .front-card .eyebrow{font-size:9.5px;}
+  .front-card h4{
+    font-family:'Playfair Display', serif;
+    font-size:17px;
+    margin:0 0 7px;
+    line-height:1.15;
+  }
+  .front-card p{font-size:12.5px;line-height:1.45;margin:0;}
+
+  /* ── EDITORIAL FINALE ── */
+  .editorial-finale{
+    padding-top:8px;
+    margin-top:8px;
+    columns:2;
+    column-gap:28px;
+  }
+  .editorial-finale p{
+    font-size:13.5px;
+    line-height:1.6;
+    text-align:justify;
+    margin:0 0 10px;
+  }
+  .editorial-finale p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:54px;
+    line-height:40px;
+    padding-right:6px;
+    padding-top:2px;
+    padding-bottom:16px;
+  }
+
+  /* ── FOOTER ── */
+  .footer-rule{
+    margin-top:28px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media(max-width:820px){
+    .fronts-grid,.editorial-finale{grid-template-columns:1fr;columns:1;}
+    .masthead h1{font-size:48px;}
+    .banner h2{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. I–II / BILAN MENSUEL</span>
+    <span>Bureau International des Dépêches</span>
+    <span>Édition Spéciale — Juillet 2026</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">« Chaque traité est une rumeur, chaque rumeur un traité »</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>Bilan du mois de juillet 2026</span>
+    <span>26 Éditions · 26 Jours de Guerre</span>
+    <span>Rédaction Centrale</span>
+  </div>
+  <hr class="rule-thin">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <div class="eyebrow">Rétrospective mensuelle</div>
+    <h2>VINGT-SIX JOURS QUI ONT SECOUÉ LE MONDE</h2>
+    <p class="deck">De l'offensive allemande sur la Bavière aux conquêtes turco-égyptiennes du 31 juillet, en passant par l'armistice franco-allemand du 16, l'incident belge du défilé militaire égaré et l'effondrement simultané de l'Inde et de l'Iran, juillet 2026 a gravé son nom dans les annales comme le mois de toutes les ruptures.</p>
+  </div>
+
+  <!-- CHRONOLOGIE PAR SEMAINE CALENDAIRE -->
+  <div class="section-header"><span class="label">La chronologie du mois</span><span class="line"></span></div>
+
+  <!-- SEMAINE 28 -->
+  <div class="phase">
+    <div class="sub">Semaine 28 · 6 – 12 juillet · Éditions 1 à 7</div>
+    <h3>L'escalade directe : Berlin frappe Paris coup après coup</h3>
+    <p>Le mois s'ouvre sur une provocation calculée : l'Allemagne signe la paix avec les Pays-Bas le matin même où elle lance ses troupes sur la Bavière française. En l'espace de sept jours, Berlin enchaîne les coups portés directement au cœur de la France — Baden-Württemberg arraché le 7 juillet par un soulèvement financé depuis Berlin, Rhine conquis militairement le 8 juillet dans ce que la presse allemande présente pudiquement comme « le franchissement d'un seuil », Luxembourg emporté le 11 juillet au terme d'un choc majeur. Chaque jour apporte son revers ; chaque revers appelle une réponse française. Le 10 juillet, Paris sonne la mobilisation générale face à la menace allemande, signal fort adressé autant aux alliés qu'à l'ennemi. Le 9 juillet, la France et la Pologne scellent un pacte défensif, pierre angulaire de la coalition orientale.</p>
+    <p>Sur les fronts voisins, la semaine est tout aussi agitée. L'Iran — soutenu à bout de bras par des subsides allemands en cascade — inflige de lourdes défaites à la Lituanie : Saratov &amp; Orenburg tombent le 8 juillet après une bataille acharnée, les troupes allemandes ayant fourni près de la moitié de la puissance de feu offensive. En Indochine, le Vietnam s'empare de Bangkok le 9 juillet, redessinant la hiérarchie régionale, tandis que la Chine absorbe Vientiane au Laos le même jour. La semaine se clôt sur un paradoxe lituanien qui restera dans les mémoires : le 12 juillet, Vilnius est frappée de faillite au lever du soleil — sept pactes défensifs dissous en quelques secondes. Et pourtant, ce même soir, la Lituanie reconstitue son réseau d'alliances et arrache Moscow à la Russie dans la bataille la plus intense de la journée, prouvant qu'une faillite ne signe pas la mort d'une puissance. Ce 12 juillet voit aussi le Kazakhstan rompre son pacte avec l'Iran et lui déclarer la guerre, et la Corée du Sud ouvrir un front inédit contre le Japon.</p>
+  </div>
+
+  <!-- SEMAINE 29 -->
+  <div class="phase">
+    <div class="sub">Semaine 29 · 13 – 19 juillet · Éditions 8 à 14</div>
+    <h3>La renaissance italienne, l'armistice du 16 et ses paradoxes immédiats</h3>
+    <p>Le 13 juillet ouvre la semaine par un coup d'éclat : l'Italie, alliée de la France, déclenche une reconquête totale de la péninsule en une seule journée. Romagna &amp; Tuscany est arrachée à l'Autriche, Lazio au Vatican, Naples à la Serbie — et la France rétrocède diplomatiquement Northwestern Italy, scellant la réunification du territoire italien. Un triomphe de courte durée : dans la même nuit, l'Égypte, autre pilier de l'alliance, est frappée de faillite et perd Northern District face au Liban. L'Iran, servi par des transferts allemands massifs, prend Tver &amp; Smolensk à la Lituanie. La Corée du Sud s'empare de Chugoku au Japon. Les Bahamas grignotent Southern et Northwestern USA ; le Guatemala conquiert Alaska.</p>
+    <p>Les jours suivants voient le front hongrois s'embourber dans une guerre d'usure autour de Great Plains : la Hongrie multiplie les assauts contre la Serbie (13, 17, 19 juillet), toujours repoussée, l'Allemagne assurant en sous-main la défense serbe. Le 14 juillet, fête nationale française, l'Iran repousse une offensive polonaise dans une bataille qualifiée d'historique. La Lituanie, elle, préserve Kaliningrad face à la Russie le 15 juillet dans un choc titanesque.</p>
+    <p>Le 16 juillet est le pivot de tout le mois. Dans l'après-midi, la France et l'Allemagne signent l'armistice officiel, gelant les fronts directs entre les deux puissances. Ce cessez-le-feu offre à Paris un répit vital — mais libère simultanément l'Allemagne de toute contrainte occidentale. Dans les heures qui suivent la signature, la démonstration est brutale : l'Espagne, lourdement appuyée par Berlin, s'empare de Dakar en Afrique de l'Ouest malgré la résistance française au Sénégal ; la Serbie reprend Naples ET Sicily en une journée d'une « brutalité inédite ». La guerre ne s'est pas arrêtée — elle s'est habillée en proxy. Les jours suivants confirment la tendance : la Turquie perd Southeastern Anatolia face à l'Ukraine le 19 juillet, rappelant que les alliés de Paris ont leurs propres vulnérabilités.</p>
+  </div>
+
+  <!-- SEMAINE 30 -->
+  <div class="phase">
+    <div class="sub">Semaine 30 · 20 – 26 juillet · Éditions 15 à 21</div>
+    <h3>L'incident belge du 21 juillet et la machine allemande qui s'emballe</h3>
+    <p>Le 20 juillet, l'Italie libère Naples d'une main de fer. Mais c'est le lendemain qui défraie la chronique. Le 21 juillet — fête nationale belge — des unités de l'armée belge franchissent les frontières et attaquent simultanément Northern France et le territoire allemand de Rhine. La communication officielle de Bruxelles évoque un « incident mineur », un défilé militaire ayant pris une mauvaise direction à cause de « panneaux mal placés suite à des travaux ». Paris réagit avec un mélange de stupeur et de retenue : l'Élysée condamne la rupture de confiance, refuse l'escalade et renonce à toute riposte armée. Le lendemain, 22 juillet, la Belgique lâche prise : la France remporte Northern France par abandon, sans combattre. Un cadeau enveloppé dans une provocation. La paix franco-belge est signée le 23 juillet, de même que la paix franco-nigériane — le Nigeria avait déclaré la guerre à la France le 21 juillet dans la foulée du chaos ambiant.</p>
+    <p>Pendant que les chancelleries digèrent l'épisode belge, l'Allemagne, elle, frappe sans ambiguïté. Le 22 juillet, la Thaïlande — avec l'Allemagne comme fer de lance offensif — s'empare du Tibet dans l'un des affrontements les plus massifs de tout le mois. Le 23 juillet, Berlin enchaîne Silesia (Pologne) et Gelderland-Brabant (Pays-Bas) en une seule journée. Le 25 juillet, Brussels tombe à son tour. Le 26 juillet, la défense polonaise s'effondre sous une nouvelle offensive allemande. En contrepoint, la France marque ses premiers points offensifs propres en Europe du Sud : le 24 juillet, Paris arrache Romagna &amp; Tuscany à l'Autriche dans une attaque souveraine, l'Italie constituant le fer de lance allié. Ce même 24 juillet, l'Inde est dépecée de toutes parts : l'Iran prend Madhya Pradesh et Northeastern India, le Bangladesh conquiert Dhaka et Chittagong, le Pakistan s'empare d'Azad Kashmir et Haryana, le Sri Lanka sécurise Dravida. La désintégration est amorcée.</p>
+  </div>
+
+  <!-- SEMAINE 31 -->
+  <div class="phase">
+    <div class="sub">Semaine 31 · 27 – 31 juillet · Éditions 22 à 26</div>
+    <h3>Faillites en série, effondrement de l'Iran, l'Inde rayée de la carte, la Turquie et l'Égypte dominantes</h3>
+    <p>La dernière semaine du mois est la plus violente et la plus riche en ruptures. Le 27 juillet, l'Espagne et l'Australie déclarent faillite simultanément, entraînant la dissolution en cascade de leurs pactes défensifs. Ce même jour, la coalition anti-iranienne coordonne son offensive finale : le Sri Lanka arrache Northeastern India et Maratha à l'Iran en deux assauts consécutifs ; la Thaïlande, après avoir brusquement rompu son pacte avec Téhéran, lui prend Haryana ; l'Inde elle-même récupère Madhya Pradesh dans la foulée. L'Iran, grand bénéficiaire des largesses allemandes depuis le premier jour du mois, est amputé de régions entières en moins de 24 heures. L'Allemagne, de son côté, prend Suvalkija à la Lituanie. La France, elle, brise l'offensive autrichienne sur Romagna &amp; Tuscany — l'Autriche s'étant reposée sur la puissance suédoise pour l'essentiel de son effort offensif — démontrant son autonomie défensive dans ce secteur.</p>
+    <p>Le 28 juillet marque l'apogée de la puissance française en Europe du Sud : Paris arrache Northeastern Italy à l'Autriche dans une offensive quasi-exclusivement nationale, à 97 % de l'effort de frappe. Dans le même temps, Berlin inscrit la prise de Masovia — « la plus grande bataille de l'histoire du conflit en termes de dommages totaux » — comme l'un des titres de la journée. La Pologne perd son territoire central malgré une résistance héroïque soutenue par la Lituanie, les Pays-Bas et la Belgique. Le Ghana déclare faillite ; la Suède cède Jutland à l'Allemagne pour 1 monnaie symbolique.</p>
+    <p>Les 29 et 30 juillet voient l'Égypte prendre Northern Sudan après avoir adressé des tracts diplomatiques à Khartoum lui demandant de rompre ses alliances, et l'Italie consolider ses positions tout en frappant l'Albanie. La Turquie lance une offensive dévastratrice en Europe de l'Est. Le 31 juillet, le rideau tombe. La Turquie s'empare en une seule journée de Odesa (Ukraine), Romanian Moldavia (Roumanie), Abkhazia (Géorgie), Caspian Sea Coast (Yémen), Iranian Kurdistan (Iran) et Moldova (Moldavie). L'Égypte complète la mainmise sur la péninsule arabique en prenant Al Jawf, Al Madinah et Makkah à l'Arabie saoudite. Les Pays-Bas percent en territoire allemand et prennent Lower Saxony. La Croatie s'empare de Southern Bosnia et Banat &amp; Crișana. L'Afrique du Sud intègre Hardap et Eastern Namibia. Et, fait capital, le Sri Lanka arrache Madhya Pradesh à l'Inde — dernier territoire d'une puissance désormais rayée de la carte. Le Vatican et l'Italie scellent la paix, Rome versant 4 000 monnaies en réparations à la papauté.</p>
+  </div>
+
+  <!-- FRONTS PAR THÉÂTRE -->
+  <div class="section-header"><span class="label">Les fronts du mois</span><span class="line"></span></div>
+
+  <div class="fronts-grid">
+    <div class="front-card">
+      <div class="eyebrow">Front franco-allemand</div>
+      <h4>Quatre coups portés, un armistice signé, une guerre redessinée</h4>
+      <p>En sept jours, l'Allemagne arrache Bavière (attaque), Baden-Württemberg (révolte financée), Rhine (offensive) et Luxembourg (choc majeur) à l'axe français. La France répond par la mobilisation générale le 10 juillet. L'armistice du 16 juillet gèle les fronts directs mais libère l'Allemagne vers l'est : Silesia, Gelderland-Brabant, Brussels tombent en semaine 30, puis Suvalkija, Masovia, Lesser Poland, Samogitia en semaine 31. En réponse, les Pays-Bas percent en Allemagne et prennent Lower Saxony le 31 juillet. La France, elle, consolide ses gains en Europe du Sud.</p>
+    </div>
+    <div class="front-card">
+      <div class="eyebrow">Front baltique et polonais</div>
+      <h4>La Pologne en retrait, la Lituanie phénix</h4>
+      <p>La Lituanie vit le mois le plus spectaculaire : faillite le 12 juillet (sept pactes dissous au lever du soleil), reconstruction immédiate, prise de Moscow le soir même, Kaliningrad arraché à la Russie le 22 juillet — avant de perdre Suvalkija et Dzūkija sous la pression allemande en semaine 31. La Pologne, soutenue financièrement par la France (3 000 monnaies versées à deux reprises), la Belgique, les Pays-Bas, la Lituanie et le Groenland, résiste héroïquement mais perd Silesia, Masovia et Lesser Poland sur les seuls 27–31 juillet.</p>
+    </div>
+    <div class="front-card">
+      <div class="eyebrow">Péninsule italienne</div>
+      <h4>Le yo-yo transalpin et la percée française</h4>
+      <p>L'Italie connaît le mois le plus chaotique de la guerre : reconquête totale le 13 juillet (Romagna &amp; Tuscany, Lazio, Naples — récupération de Northwestern Italy via la France), puis la Serbie reprend Naples et Sicily le 16 juillet. Le cycle reprend : Naples libérée le 20, perdue le 22, Lazio reprise le 24. En semaine 31, la France intervient directement : elle brise l'offensive autrichienne sur Romagna &amp; Tuscany le 27 juillet, puis prend Northeastern Italy le 28 juillet dans une offensive à 97 % française. La Hongrie arrache Great Plains à la Serbie le 28 juillet. Le Vatican et l'Italie signent la paix le 31 (4 000 monnaies de réparations).</p>
+    </div>
+    <div class="front-card">
+      <div class="eyebrow">Moyen-Orient et Afrique</div>
+      <h4>L'Égypte, bouclier indéfectible et puissance conquérante</h4>
+      <p>L'Égypte subit la faillite le 13 juillet et perd Northern District face au Liban — mais se reconstruit aussitôt. Tout le mois, elle résiste aux offensives israéliennes répétées sur Jerusalem (7, 19, 24, 27, 28 juillet) sans jamais céder. Elle passe ensuite à l'offensive : Northern Sudan le 29 juillet, puis Al Jawf, Al Madinah et Makkah le 31 juillet. Dakar tombe aux mains de l'Espagne le 16 juillet malgré la résistance française — revers majeur sur la côte ouest-africaine. L'Irak déclare la guerre à la Syrie le 22 juillet et attaque Homs &amp; Hama.</p>
+    </div>
+    <div class="front-card">
+      <div class="eyebrow">Asie du Sud et du Sud-Est</div>
+      <h4>L'Inde dévorée, l'Iran effacé, la Thaïlande conquérante</h4>
+      <p>La Thaïlande s'impose comme la révélation asiatique du mois en s'emparant du Tibet le 22 juillet dans un affrontement titanesque où l'Allemagne joue le rôle de fer de lance offensif. L'Inde, alliée de la France, résiste d'abord (Pakistani Balochistan tenu le 21 juillet) avant d'être dépecée à partir du 24 juillet : Bangladesh, Iran, Pakistan, Sri Lanka, Taiwan et Thaïlande la frappent de toutes parts. Madhya Pradesh — dernier territoire indien — tombe au Sri Lanka le 31 juillet. L'Iran lui-même s'effondre en semaine 31 : Northeastern India, Maratha (Sri Lanka), Haryana (Thaïlande), Iranian Kurdistan (Turquie) lui sont arrachés en quatre jours.</p>
+    </div>
+    <div class="front-card">
+      <div class="eyebrow">Europe du Sud-Est et Caucase</div>
+      <h4>La Turquie, puissance du mois, redessine l'est</h4>
+      <p>Alliée de la France, la Turquie encaisse en début de mois la perte de Black Sea Coast (Ukraine, 12 juillet) et de Southeastern Anatolia (Ukraine, 19 juillet). Mais elle monte en puissance au fil des semaines : Macedonia prise le 27 juillet, offensive dévastatrice les 30–31 juillet — Odesa, Romanian Moldavia, Abkhazia, Caspian Sea Coast, Iranian Kurdistan et Moldova en une seule journée. La Croatie, fidèle alliée, conquiert Southern Bosnia et Banat &amp; Crișana le 31 juillet. En Afrique australe, l'Afrique du Sud intègre Hardap et Eastern Namibia le même jour.</p>
+    </div>
+  </div>
+
+  <!-- EDITORIAL FINAL -->
+  <div class="section-header"><span class="label">Éditorial de fin de mois</span><span class="line"></span></div>
+
+  <div class="editorial-finale">
+    <p>Juillet 2026 restera dans les annales comme le mois de l'armistice qui n'a pas arrêté la guerre. Lorsque Paris et Berlin ont signé leur accord de non-agression le 16 juillet, les chancelleries ont cru un instant au gel des hostilités. Mais la réalité a rattrapé l'illusion plus vite encore qu'on ne l'espérait : le jour même de la signature, l'Espagne prenait Dakar avec l'appui allemand, la Serbie arrachait Naples et Sicily à l'Italie, et Berlin engrangeait un répit stratégique dont elle allait user sans retenue. En gelant son propre front, la France a libéré la machine de guerre la plus puissante du conflit pour qu'elle se retourne vers l'est. Le bilan de cette liberté retrouvée par Berlin se lit sur la carte polonaise : Silesia, Masovia, Lesser Poland perdus en moins de dix jours, avec des dommages de bataille qualifiés d'historiques par nos propres archives.</p>
+    <p>L'incident du 21 juillet aura été le moment le plus absurde et le plus révélateur du mois. La Belgique, sous couvert de « panneaux mal placés suite à des travaux », attaque la France le jour de sa fête nationale — et le territoire allemand du Rhine dans la foulée, comme pour brouiller les pistes. La réponse française, délibérément mesurée, a évité l'escalade au prix d'une dose d'humiliation diplomatique. Le lendemain, la Belgique abandonnait son avancée, offrant Northern France à Paris sur un plateau. La guerre moderne a ses bouffonneries ; elles ne sont jamais anodines. Cette semaine a aussi vu l'Allemagne s'emparer de Brussels et la Suède ravager le Danemark — pendant que l'Élysée gérait les suites protocolaires d'un défilé égaré.</p>
+    <p>Les deux grandes tragédies du mois portent des noms de puissances disparues. L'Iran, qui jouait depuis le premier jour un rôle de bras armé de l'Allemagne sur le front oriental, s'est effondré en 48 heures en semaine 31 : le Sri Lanka, la Thaïlande — qui venait de trahir son pacte avec Téhéran — et l'Inde lui ont arraché des régions entières avant que la Turquie ne prenne Iranian Kurdistan le 31 juillet. Quant à l'Inde, alliée de la France, son agonie a été méthodique et collective : une dizaine de nations ont frappé à ses portes simultanément à partir du 24 juillet, et le Sri Lanka a posé le point final en s'emparant de Madhya Pradesh le dernier jour du mois. L'Inde n'existe plus sur la carte. Ses terres sont administrées par ses voisins.</p>
+    <p>Sur ce fond sombre, quelques lumières méritent d'être notées. La France a tenu Romagna &amp; Tuscany le 27 juillet et pris Northeastern Italy le 28, premier territoire conquis en offensive directe contre l'Autriche — une avancée à 97 % nationale, sans béquille extérieure. L'Égypte, après avoir traversé la faillite du 13 juillet, s'est redressée pour devenir la puissance conquérante du Proche-Orient et de la péninsule arabique. La Turquie a démontré en deux jours la portée de sa force de frappe. La Croatie, fidèle tout le mois, a conclu juillet par deux conquêtes décisives. La coalition tient — même si elle a perdu l'Inde, même si elle regarde la Pologne reculer chaque jour. Derrière les défaites et les traités brisés, quelqu'un, encore, paie les factures de l'alliance.</p>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Bilan mensuel spécial juillet 2026 — Vingt-six éditions, vingt-six jours, un seul fil conducteur — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
