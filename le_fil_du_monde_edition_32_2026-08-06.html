@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 6 août 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  /* ============ BONUS DE PRODUCTION ============ */
+  .bonus-intro{
+    font-size:13px;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin-bottom:12px;
+  }
+
+  .bonus-table-wrap{
+    overflow-x:auto;
+    border:1px solid var(--ink);
+  }
+
+  .bonus-table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'Courier Prime', monospace;
+    font-size:11.5px;
+  }
+
+  .bonus-table thead tr{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .bonus-table th{
+    font-family:'Courier Prime', monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    padding:7px 10px;
+    text-align:right;
+    white-space:nowrap;
+    font-weight:700;
+  }
+  .bonus-table th:first-child{ text-align:left; }
+  .bonus-table th.col-country{ text-align:left; }
+  .bonus-table th.col-region{ text-align:left; }
+
+  .bonus-table td{
+    padding:5px 10px;
+    text-align:right;
+    border-bottom:1px solid rgba(28,26,22,0.12);
+    vertical-align:middle;
+  }
+
+  .bonus-table td:first-child{
+    text-align:left;
+    font-weight:700;
+    letter-spacing:0.04em;
+  }
+
+  .bonus-table tr:nth-child(even){
+    background:rgba(0,0,0,0.03);
+  }
+
+  /* Commodity label */
+  .commodity-name{
+    display:block;
+    font-size:11.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .commodity-tag{
+    display:inline-block;
+    font-size:8.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    background:var(--ink);
+    color:var(--paper);
+    padding:1px 4px;
+    margin-top:2px;
+    opacity:0.55;
+  }
+
+  /* Country / Region */
+  .bonus-table td.col-country{ text-align:left; }
+  .bonus-table td.col-region{
+    text-align:left;
+    font-size:10px;
+    font-style:italic;
+    color:var(--ink-soft);
+  }
+
+  /* Bonus pct */
+  .bonus-pct{
+    color:var(--blood);
+    font-weight:700;
+  }
+
+  /* Max/pp — most prominent value */
+  .max-pp{
+    font-weight:700;
+    font-size:12.5px;
+  }
+
+  /* Timer badge */
+  .timer-badge{
+    display:inline-block;
+    background:var(--blood);
+    color:var(--paper);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    padding:2px 6px;
+    white-space:nowrap;
+  }
+  .timer-none{
+    color:var(--ink-soft);
+    opacity:0.4;
+    font-size:10px;
+  }
+  .swatch-timer{ background:var(--blood); }
+  .swatch-bonus{ color:var(--blood); font-size:13px; font-weight:700; line-height:1; }
+
+  /* ============ FIN BONUS DE PRODUCTION ============ */
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+    .bonus-table th, .bonus-table td{ padding:4px 6px; font-size:10.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topline">
+    <span>VOL. II / N° 32</span>
+    <span>BUREAU INTERNATIONAL DES DÉPÊCHES</span>
+    <span>PRIX : UNE PILULE ÉCO</span>
+  </div>
+
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">Chaque traité est une rumeur, chaque rumeur un traité</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>ÉDITION DU 6 AOÛT 2026</span>
+    <span>DÉFENSE HÉROÏQUE DANS LES BALKANS, L'ALLEMAGNE REPOUSSÉE</span>
+    <span>RÉDACTION CENTRALE</span>
+  </div>
+  <hr class="rule-thin">
+
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Balkans — Défense de l'Axe</div>
+      <h2 class="headline">L'ITALIE FAIT FRONT : SOUTHERN ALBANIA RÉSISTE À L'ASSAUT</h2>
+      <p class="deck">Dans l'une des batailles les plus féroces de la journée, les forces italiennes, soutenues par une vaste coalition incluant la France, ont brisé une offensive albanaise d'une ampleur inédite sur leurs positions balkaniques.</p>
+      <div class="byline">Bureau des Affaires Militaires — 6 août 2026</div>
+      <div class="story-body">
+        <p>L'étau balkanique a tremblé sous le fracas des armes. En fin de journée, l'Albanie a déclenché une offensive massive pour tenter de reprendre le contrôle de Southern Albania, déclenchant l'un des chocs les plus intenses que cette guerre ait connus. La violence de l'assaut a mis à l'épreuve les défenses de l'Italie, puissance souveraine de la région et alliée stratégique de Paris.</p>
+        <p>Face à la déferlante ennemie, Rome n'a pas plié. L'armée italienne a dressé un mur de feu infranchissable, imposant une défense souveraine qui s'est soldée par une victoire éclatante, interdisant à l'assaillant de remporter le moindre round décisif. Cette bataille de très haute intensité a vu des centaines de millions de dommages s'échanger, confirmant l'importance géostratégique cruciale de cette tête de pont pour les forces alliées.</p>
+        <p>Le succès de cette résistance acharnée doit beaucoup à la solidarité de la coalition internationale. La France a tenu un rôle central dans l'effort défensif, pesant lourdement dans la balance aux côtés de ses partenaires belges et néerlandais. L'apport coordonné de ces nations a permis de verrouiller définitivement les positions italiennes.</p>
+        <p>De l'autre côté du front, l'Albanie avait mobilisé d'importants soutiens, notamment la Roumanie, l'Ukraine et la Serbie, dont les contributions conjointes n'ont cependant pas suffi à percer le bouclier italo-français. Ce triomphe défensif réaffirme la suprématie de l'axe allié dans les Balkans et adresse un signal de fermeté sans équivoque aux nations révisionnistes de la région.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Front Nord-Européen</div>
+        <h3>La Belgique intraitable sur le Rhin</h3>
+        <p>L'Allemagne a tenté de forcer les lignes de son voisin en attaquant Rhine, mais la Belgique, proche alliée de la France, a opposé une défense intraitable. Loin de se contenter d'encaisser le choc, les troupes belges ont maintenu la pression sur d'autres fronts et ont lancé des assauts couronnés de succès, s'emparant de Northern Austria et de Styria.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Corne de l'Afrique</div>
+        <h3>L'Égypte étend son influence</h3>
+        <p>L'Égypte, puissance amie de Paris, a mené une double offensive foudroyante de part et d'autre de la mer Rouge. Ses forces ont conquis Al Hodeidah face au Yémen et arraché Djibouti à l'Éthiopie. Une démonstration de force qui consolide son emprise stratégique sur ce carrefour maritime névralgique, en dépit d'un revers défensif encaissé plus au sud dans la région de Sidama face au Soudan du Sud.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Europe de l'Est</div>
+      <h3>Le recul allemand se confirme</h3>
+      <p>La pression militaire s'accentue sur Berlin. La Pologne s'est emparée de Northeastern Poland au terme d'une offensive sans appel, repoussant les frontières germaniques. Plus au nord, la Lituanie a défendu avec succès Dzūkija, brisant net une nouvelle tentative d'incursion de l'Allemagne.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Moyen-Orient</div>
+      <h3>L'hégémonie turque s'affirme</h3>
+      <p>La Turquie, alliée indéfectible de la France, poursuit sa frénésie de conquêtes. Ses forces ont triomphé sur de multiples théâtres, arrachant Western Iran à la nation iranienne, sécurisant Moldova, capturant Maramureș & Bucovina face à la Roumanie, et prenant le contrôle d'Iranian Azerbaijan.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amérique latine</div>
+      <h3>Frontières redessinées</h3>
+      <p>Le Venezuela a su préserver le territoire de Colombian Orinoco face à une offensive de haute intensité menée par la Colombie. Caracas a toutefois dû céder du terrain en Amérique centrale, perdant le contrôle de Western Panama sous la pression des forces panaméennes.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est</div>
+      <h3>La Thaïlande impose son rythme</h3>
+      <p>L'armée thaïlandaise a dicté ses conditions sur le continent asiatique au cours d'une journée prolifique. Ses troupes se sont emparées de Nay Pyi Taw au détriment du Myanmar et ont mené un raid audacieux pour arracher Qinghai à la Chine, redessinant ainsi les équilibres régionaux.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Proche-Orient — Affaires Intérieures</div>
+    <h2 class="world-headline">CRISE DE CONFIANCE AU CAIRE : LE POUVOIR ÉGYPTIEN ACCUSÉ DE CORRUPTION</h2>
+    <p class="deck">De graves accusations secouent la scène politique égyptienne, où des voix dissidentes dénoncent publiquement une manipulation des institutions et des abus de pouvoir au plus haut sommet de l'État.</p>
+    <div class="byline">Bureau des Affaires Étrangères — 6 août 2026</div>
+    <div class="story-body">
+      <p>Le vernis de l'unité égyptienne s'écaille dangereusement. Alors que les forces armées du Caire enregistrent d'importants succès diplomatiques et militaires — allant de la conquête de nouveaux territoires à l'inscription du Yémen sur la liste de ses ennemis déclarés —, la grogne monte à l'intérieur du pays. Un brûlot médiatique publié par l'opposition expose au grand jour ce qui est décrit comme une « destruction systématique du fair-play » orchestrée par le gouvernement en place.</p>
+      <p>Les accusations sont lourdes et ciblent directement les méthodes de l'administration égyptienne. Les dissidents évoquent une confiscation des canaux de communication officiels et dénoncent une opposition réduite à un rôle purement cosmétique. Plus accablant encore, le pouvoir est accusé d'exploiter les mécanismes institutionnels à des fins de sabotage : des citoyens égyptiens auraient été délibérément transférés au Soudan du Sud avant le déclenchement des hostilités, dans le but d'infiltrer et de paralyser l'appareil d'État adverse de l'intérieur.</p>
+      <p>Ces révélations jettent une ombre troublante sur la légitimité des récentes opérations militaires de l'Égypte, forçant la communauté internationale à s'interroger sur la nature véritable du régime cairote. Derrière la façade d'une nation puissante et en pleine expansion, c'est l'image d'un pays profondément fracturé par des luttes intestines et des dérives autoritaires qui émerge, poussant certains cadres de la nation à appeler à l'exode vers des cieux plus cléments.</p>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <span class="label">Suivi économique</span>
+    <span class="line"></span>
+  </div>
+
+  <p class="bonus-intro">Meilleurs bonus de production au 6 août 2026, classés par rendement maximal par point de production. Les bonus limités dans le temps sont mis en évidence — agir avant la fermeture de la fenêtre.</p>
+
+  <div class="bonus-table-wrap">
+    <table class="bonus-table">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Base / pp</th>
+          <th>Bonus</th>
+          <th>Max / pp</th>
+          <th>Taxe</th>
+          <th class="col-country">Pays</th>
+          <th class="col-region">Région</th>
+          <th>Temps restant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="commodity-name">FER</span></td>
+          <td>0,0875</td>
+          <td><span class="bonus-pct">55,0 %</span></td>
+          <td><span class="max-pp">0,1356</span></td>
+          <td>9,0 %</td>
+          <td class="col-country">Indonésie</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">PILULE</span></td>
+          <td>0,1047</td>
+          <td><span class="bonus-pct">25,0 %</span></td>
+          <td><span class="max-pp">0,1309</span></td>
+          <td>12,0 %</td>
+          <td class="col-country">Afrique du Sud</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">BÉTON</span></td>
+          <td>0,0813</td>
+          <td><span class="bonus-pct">60,5 %</span></td>
+          <td><span class="max-pp">0,1305</span></td>
+          <td>8,0 %</td>
+          <td class="col-country">Turquie</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">CALCAIRE</span></td>
+          <td>0,0796</td>
+          <td><span class="bonus-pct">60,0 %</span></td>
+          <td><span class="max-pp">0,1274</span></td>
+          <td>8,0 %</td>
+          <td class="col-country">Irak</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">PÉTROLE</span></td>
+          <td>0,0843</td>
+          <td><span class="bonus-pct">50,0 %</span></td>
+          <td><span class="max-pp">0,1265</span></td>
+          <td>8,0 %</td>
+          <td class="col-country">Venezuela</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">PLOMB</span></td>
+          <td>0,0813</td>
+          <td><span class="bonus-pct">55,0 %</span></td>
+          <td><span class="max-pp">0,1259</span></td>
+          <td>8,5 %</td>
+          <td class="col-country">Lettonie</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">POISSON</span></td>
+          <td>0,0787</td>
+          <td><span class="bonus-pct">60,0 %</span></td>
+          <td><span class="max-pp">0,1258</span></td>
+          <td>10,0 %</td>
+          <td class="col-country">Islande</td>
+          <td class="col-region">Southern Iceland</td>
+          <td><span class="timer-badge">3j 10h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">POISSON CUIT</span></td>
+          <td>0,1044</td>
+          <td><span class="bonus-pct">20,0 %</span></td>
+          <td><span class="max-pp">0,1253</span></td>
+          <td>10,0 %</td>
+          <td class="col-country">Croatie</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">BARIL</span></td>
+          <td>0,0833</td>
+          <td><span class="bonus-pct">50,0 %</span></td>
+          <td><span class="max-pp">0,1249</span></td>
+          <td>7,0 %</td>
+          <td class="col-country">Slovaquie</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">CÉRÉALES</span></td>
+          <td>0,0779</td>
+          <td><span class="bonus-pct">60,0 %</span></td>
+          <td><span class="max-pp">0,1246</span></td>
+          <td>3,5 %</td>
+          <td class="col-country">Centrafrique</td>
+          <td class="col-region">Eastern Cameroon</td>
+          <td><span class="timer-badge">1j 17h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">PLANTE MYSTÉRIEUSE</span></td>
+          <td>0,0778</td>
+          <td><span class="bonus-pct">60,0 %</span></td>
+          <td><span class="max-pp">0,1244</span></td>
+          <td>3,5 %</td>
+          <td class="col-country">Centrafrique</td>
+          <td class="col-region">Mbomou</td>
+          <td><span class="timer-badge">2j 21h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">PAPIER</span></td>
+          <td>0,0828</td>
+          <td><span class="bonus-pct">50,0 %</span></td>
+          <td><span class="max-pp">0,1242</span></td>
+          <td>6,0 %</td>
+          <td class="col-country">Mexique</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">PAIN</span></td>
+          <td>0,0985</td>
+          <td><span class="bonus-pct">26,0 %</span></td>
+          <td><span class="max-pp">0,1241</span></td>
+          <td>6,0 %</td>
+          <td class="col-country">Thaïlande</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">MUNITIONS</span></td>
+          <td>0,0797</td>
+          <td><span class="bonus-pct">55,5 %</span></td>
+          <td><span class="max-pp">0,1239</span></td>
+          <td>6,5 %</td>
+          <td class="col-country">Chili</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">MUNITIONS LÉGÈRES</span></td>
+          <td>0,0820</td>
+          <td><span class="bonus-pct">50,5 %</span></td>
+          <td><span class="max-pp">0,1235</span></td>
+          <td>1,0 %</td>
+          <td class="col-country">Salvador</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">BÉTAIL</span></td>
+          <td>0,0769</td>
+          <td><span class="bonus-pct">60,0 %</span></td>
+          <td><span class="max-pp">0,1230</span></td>
+          <td>3,0 %</td>
+          <td class="col-country">Mongolie</td>
+          <td class="col-region">Western Mongolia</td>
+          <td><span class="timer-badge">4j 1h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">STEAK</span></td>
+          <td>0,1067</td>
+          <td><span class="bonus-pct">15,0 %</span></td>
+          <td><span class="max-pp">0,1227</span></td>
+          <td>18,0 %</td>
+          <td class="col-country">Cameroun</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">BOIS</span></td>
+          <td>0,0875</td>
+          <td><span class="bonus-pct">40,0 %</span></td>
+          <td><span class="max-pp">0,1225</span></td>
+          <td>6,0 %</td>
+          <td class="col-country">Guinée-Bissau</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">ACIER</span></td>
+          <td>0,0748</td>
+          <td><span class="bonus-pct">61,5 %</span></td>
+          <td><span class="max-pp">0,1208</span></td>
+          <td>4,5 %</td>
+          <td class="col-country">Italie</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">MUNITIONS LOURDES</span></td>
+          <td>0,0768</td>
+          <td><span class="bonus-pct">35,0 %</span></td>
+          <td><span class="max-pp">0,1036</span></td>
+          <td>5,0 %</td>
+          <td class="col-country">Équateur</td>
+          <td class="col-region"></td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="section-header">
+    <span class="label">Échos et finances</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Refonte diplomatique argentine</h3>
+      <p>Un grand coup de balai diplomatique a secoué Buenos Aires. Le nouveau président argentin, Miauricio, a déclaré publiquement l'annulation de tous les traités, négociations et accords conclus par l'administration précédente. Seule l'alliance avec The Olive Union (OU) est maintenue, marquant un recentrage radical de la politique étrangère du pays et invitant la communauté internationale à rebâtir ses relations sur de nouvelles bases.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Trésorerie de guerre</h3>
+      <ul>
+        <li>De la Serbie vers l'Albanie : 3000 pièces.</li>
+        <li>De l'Ukraine vers l'Albanie : 2000 pièces.</li>
+        <li>De la Roumanie vers l'Albanie : 1500 pièces.</li>
+        <li>De l'Irlande vers le Koweït : 2000 pièces au total.</li>
+        <li>Du Liberia vers l'Italie : 3000 pièces.</li>
+        <li>De la Croatie vers l'Italie : 1000 pièces.</li>
+        <li>De la Hongrie vers l'Italie : 690 pièces.</li>
+        <li>De l'Arménie vers l'Italie : 40 pièces.</li>
+        <li>De l'Allemagne vers le Suriname : 1000 pièces.</li>
+        <li>Du Chili vers le Japon : 400 pièces.</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Les dynamiques géopolitiques du jour révèlent que la puissance militaire ne prémunit pas toujours contre les tempêtes intérieures. Tandis que l'Italie démontre la primauté de la solidarité défensive dans les Balkans, les secousses diplomatiques en Argentine et la fronde civile en Égypte nous rappellent que la véritable stabilité d'une nation repose autant sur son appareil d'État que sur la confiance de ses citoyens.</p>
+    </div>
+  </div>
+
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
