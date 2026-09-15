@@ -418,6 +418,8 @@
   // --- liseré fixe, chargé depuis l'URL (pas d'upload utilisateur) ---
   function loadFixedLisere(){
     const image = new Image();
+    // Needed so the canvas isn't tainted by this cross-origin image (blocks toBlob/toDataURL otherwise).
+    image.crossOrigin = 'anonymous';
     image.onload = function(){
       frameImg = image;
       draw();
