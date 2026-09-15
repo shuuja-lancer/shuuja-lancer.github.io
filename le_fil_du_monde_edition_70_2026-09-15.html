@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Le Fil du Monde — Édition du 15 septembre 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700;900&family=Courier+Prime:wght@400;700&display=swap');
+
+  :root{
+    --paper:#efe8d8;
+    --paper-dark:#e4dcc7;
+    --ink:#1c1a16;
+    --ink-soft:#3a362e;
+    --rule:#1c1a16;
+    --blood:#7a1f1f;
+    --brass:#8a6d3b;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--paper-dark);
+    font-family:'Libre Caslon Text', serif;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+    padding:24px 12px;
+  }
+
+  .page{
+    background:var(--paper);
+    width:100%;
+    max-width:1040px;
+    padding:28px 34px 40px;
+    box-shadow:0 0 0 1px rgba(0,0,0,0.08), 0 20px 40px rgba(0,0,0,0.25);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(0,0,0,0.03) 0, transparent 40%),
+      radial-gradient(circle at 85% 80%, rgba(0,0,0,0.03) 0, transparent 40%);
+  }
+
+  /* MASTHEAD */
+  .topline{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:6px;
+    margin-bottom:10px;
+  }
+
+  .masthead{
+    text-align:center;
+    padding:6px 0 10px;
+  }
+
+  .masthead h1{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:76px;
+    margin:0;
+    letter-spacing:0.5px;
+    line-height:0.95;
+  }
+
+  .masthead .tagline{
+    font-family:'Libre Caslon Text', serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:4px;
+    letter-spacing:0.03em;
+  }
+
+  .rule-thick{
+    border:none;
+    border-top:4px double var(--ink);
+    margin:8px 0 4px;
+  }
+  .rule-thin{
+    border:none;
+    border-top:1px solid var(--ink);
+    margin:4px 0;
+  }
+
+  .edition-bar{
+    display:flex;
+    justify-content:space-between;
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+    padding:4px 0 8px;
+  }
+
+  /* MAIN GRID */
+  .layout{
+    display:grid;
+    grid-template-columns:2.1fr 1fr;
+    gap:26px;
+    margin-top:6px;
+  }
+
+  .eyebrow{
+    font-family:'Courier Prime', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--blood);
+    margin-bottom:4px;
+  }
+
+  h2.headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:38px;
+    line-height:1.03;
+    margin:0 0 6px;
+  }
+
+  .deck{
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    margin:0 0 10px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+
+  .byline{
+    font-family:'Courier Prime', monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .story-body{
+    columns:2;
+    column-gap:22px;
+    font-size:14px;
+    line-height:1.5;
+    text-align:justify;
+  }
+
+  .story-body p{
+    margin:0 0 10px;
+  }
+
+  .story-body p:first-of-type::first-letter{
+    float:left;
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:50px;
+    line-height:38px;
+    padding-right:6px;
+    padding-top:2px;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    border-left:1px solid var(--ink);
+    padding-left:20px;
+  }
+
+  .brief{
+    margin-bottom:16px;
+    padding-bottom:12px;
+    border-bottom:1px dashed var(--ink-soft);
+  }
+  .brief:last-child{border-bottom:none;}
+
+  .brief .eyebrow{font-size:10px;}
+
+  .brief h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 5px;
+    line-height:1.1;
+  }
+
+  .brief p{
+    font-size:12.5px;
+    line-height:1.45;
+    margin:0;
+  }
+
+  /* SECTION HEADER */
+  .section-header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:26px 0 14px;
+  }
+  .section-header .label{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:22px;
+    white-space:nowrap;
+  }
+  .section-header .line{
+    flex:1;
+    border-top:3px double var(--ink);
+  }
+
+  /* REGIONAL GRID */
+  .regional-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .region-card{
+    border:1px solid var(--ink);
+    padding:12px 14px;
+    background:rgba(255,255,255,0.15);
+  }
+  .region-card .eyebrow{font-size:9.5px;}
+  .region-card h3{
+    font-family:'Playfair Display', serif;
+    font-size:16.5px;
+    margin:0 0 6px;
+    line-height:1.15;
+  }
+  .region-card p{
+    font-size:12px;
+    line-height:1.42;
+    margin:0;
+  }
+
+  /* WORLD ARTICLE */
+  .world-article{
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+  }
+  h2.world-headline{
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:28px;
+    line-height:1.05;
+    margin:0 0 6px;
+  }
+
+  /* LOWER BAND */
+  .lower{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+    margin-top:6px;
+  }
+
+  .lower-box h3{
+    font-family:'Playfair Display', serif;
+    font-size:18px;
+    margin:0 0 6px;
+  }
+  .lower-box p, .lower-box li{
+    font-size:12.5px;
+    line-height:1.5;
+    margin:0;
+  }
+  .lower-box ul{
+    margin:0;
+    padding-left:16px;
+  }
+  .lower-box li{margin-bottom:4px;}
+
+  /* ============ BONUS DE PRODUCTION ============ */
+  .bonus-intro{
+    font-size:13px;
+    font-style:italic;
+    color:var(--ink-soft);
+    margin-bottom:12px;
+  }
+
+  .bonus-table-wrap{
+    overflow-x:auto;
+    border:1px solid var(--ink);
+  }
+
+  .bonus-table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'Courier Prime', monospace;
+    font-size:11.5px;
+  }
+
+  .bonus-table thead tr{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .bonus-table th{
+    font-family:'Courier Prime', monospace;
+    font-size:9.5px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    padding:7px 10px;
+    text-align:right;
+    white-space:nowrap;
+    font-weight:700;
+  }
+  .bonus-table th:first-child{ text-align:left; }
+  .bonus-table th.col-country{ text-align:left; }
+  .bonus-table th.col-region{ text-align:left; }
+
+  .bonus-table td{
+    padding:5px 10px;
+    text-align:right;
+    border-bottom:1px solid rgba(28,26,22,0.12);
+    vertical-align:middle;
+  }
+
+  .bonus-table td:first-child{
+    text-align:left;
+    font-weight:700;
+    letter-spacing:0.04em;
+  }
+
+  .bonus-table tr:nth-child(even){
+    background:rgba(0,0,0,0.03);
+  }
+
+  /* Commodity label */
+  .commodity-name{
+    display:block;
+    font-size:11.5px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:0.06em;
+  }
+  .commodity-tag{
+    display:inline-block;
+    font-size:8.5px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    background:var(--ink);
+    color:var(--paper);
+    padding:1px 4px;
+    margin-top:2px;
+    opacity:0.55;
+  }
+
+  /* Country / Region */
+  .bonus-table td.col-country{ text-align:left; }
+  .bonus-table td.col-region{
+    text-align:left;
+    font-size:10px;
+    font-style:italic;
+    color:var(--ink-soft);
+  }
+
+  /* Bonus pct */
+  .bonus-pct{
+    color:var(--blood);
+    font-weight:700;
+  }
+
+  /* Max/pp — most prominent value */
+  .max-pp{
+    font-weight:700;
+    font-size:12.5px;
+  }
+
+  /* Timer badge */
+  .timer-badge{
+    display:inline-block;
+    background:var(--blood);
+    color:var(--paper);
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    padding:2px 6px;
+    white-space:nowrap;
+  }
+  .timer-none{
+    color:var(--ink-soft);
+    opacity:0.4;
+    font-size:10px;
+  }
+  .swatch-timer{ background:var(--blood); }
+  .swatch-bonus{ color:var(--blood); font-size:13px; font-weight:700; line-height:1; }
+
+  /* ============ FIN BONUS DE PRODUCTION ============ */
+
+  .footer-rule{
+    margin-top:24px;
+    padding-top:8px;
+    border-top:1px solid var(--ink);
+    text-align:center;
+    font-family:'Courier Prime', monospace;
+    font-size:10px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:820px){
+    .layout, .lower{grid-template-columns:1fr;}
+    .regional-grid{grid-template-columns:1fr 1fr;}
+    .treaty-columns{columns:1;}
+    .sidebar{border-left:none; border-top:1px solid var(--ink); padding-left:0; padding-top:16px;}
+    .masthead h1{font-size:48px;}
+    .story-body{columns:1;}
+  }
+  @media (max-width:520px){
+    .regional-grid{grid-template-columns:1fr;}
+    .bonus-table th, .bonus-table td{ padding:4px 6px; font-size:10.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ BANDEAU SUPÉRIEUR ============ -->
+  <div class="topline">
+    <span>Vol. VI / N° 70</span>
+    <span>Bureau international des dépêches</span>
+    <span>Prix : un double cheeseburger</span>
+  </div>
+
+  <!-- ============ MASTHEAD ============ -->
+  <div class="masthead">
+    <h1>LE FIL DU MONDE</h1>
+    <div class="tagline">Chaque traité est une rumeur, chaque rumeur un traité</div>
+  </div>
+
+  <hr class="rule-thick">
+  <div class="edition-bar">
+    <span>Édition du 15 septembre 2026</span>
+    <span>La France en première ligne face au Chili, Moscou change deux fois de mains, Bakou s'effondre</span>
+    <span>Rédaction Le Fil du Monde</span>
+  </div>
+  <hr class="rule-thin">
+
+  <!-- ============ ARTICLE PRINCIPAL + SIDEBAR ============ -->
+  <div class="layout">
+    <div class="main-story">
+      <div class="eyebrow">Amériques — Front américano-chilien</div>
+      <h2 class="headline">LE CHILI ARRACHE NORTHERN USA, LA FRANCE EN PREMIÈRE LIGNE DE LA DÉFENSE AMÉRICAINE</h2>
+      <p class="deck">Washington cède un nouveau territoire face à l'avancée chilienne, au terme d'une bataille où l'effort défensif français a dépassé celui des États-Unis eux-mêmes.</p>
+      <div class="byline">Notre service Amériques — édition du 15 septembre 2026</div>
+      <div class="story-body">
+        <p>Le Chili, engagé sans lien d'alliance avec la France dans une expansion nord-américaine méthodique, a lancé au cœur de la nuit une offensive sur Northern USA, région tenue par les États-Unis, qui ne sont formellement liés à Paris par aucun pacte malgré un net rapprochement militaire de fait.</p>
+        <p>Le résultat, connu en toute fin de soirée, s'est joué au terme d'un combat disputé jusqu'au bout, remporté par le Chili sur un score serré. Fait notable, la défense américaine a reposé pour l'essentiel sur la France, dont la contribution a dépassé celle des États-Unis eux-mêmes dans leur propre bataille.</p>
+        <p>Cet engagement confirme l'implication croissante de Paris sur le théâtre nord-américain, déjà manifeste la veille lors de la perte de Northwestern USA. Malgré cet appui soutenu, l'offensive chilienne, cette fois portée principalement par ses propres forces, a suffi à faire plier la résistance alliée et à étendre l'emprise de Santiago sur le continent.</p>
+        <p>Northern USA vient allonger la liste des territoires nord-américains passés sous pavillon chilien, aux côtés de Hawaii, de l'Alaska et de la côte pacifique américaine. Washington, sans pacte formel avec Paris, doit désormais sa résistance presque autant à ses soutiens extérieurs qu'à ses propres armées.</p>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <div class="brief">
+        <div class="eyebrow">Europe de l'Ouest — Guerre franco-belge</div>
+        <h3>Paris attaque Wallonia, résultat encore inconnu</h3>
+        <p>En soirée, la France a lancé une offensive sur Wallonia, tenue par la Belgique, son ennemie déclarée. Aucun résultat de bataille n'était encore consigné à l'heure du bouclage ; selon les dernières informations disponibles, la région demeurait sous contrôle belge en fin de journée.</p>
+      </div>
+
+      <div class="brief">
+        <div class="eyebrow">Afrique de l'Est — Rift Valley disputée</div>
+        <h3>Madagascar conquiert Rift Valley, Nairobi riposte aussitôt</h3>
+        <p>Madagascar, ennemie déclarée de la France, a arraché Rift Valley au Soudan du Sud au terme d'une offensive sans appel. Quelques heures plus tard, le Kenya, sans lien d'alliance avec Paris, déclarait la guerre à Madagascar et attaquait ce même territoire, dont l'issue restait inconnue à l'heure du bouclage.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ GRILLE RÉGIONALE (4 cartes) ============ -->
+  <div class="section-header">
+    <span class="label">Dépêches régionales</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="regional-grid">
+    <div class="region-card">
+      <div class="eyebrow">Caucase — Bakou en chute libre</div>
+      <h3>L'Azerbaïdjan s'effondre puis cherche à se relever</h3>
+      <p>L'Azerbaïdjan, sans lien d'alliance avec la France, a ouvert la journée en rompant huit pactes défensifs et en déclarant faillite. Une offensive lancée dans la foulée contre l'Iran, ennemi déclaré de la France, s'est soldée par un échec, avant qu'une paix ne soit conclue avec le Kirghizistan en fin d'après-midi. Le pays termine néanmoins sa journée sous une nouvelle attaque iranienne, cette fois sur son propre sol.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Corne de l'Afrique — Juba à l'offensive</div>
+      <h3>Le Soudan du Sud enchaîne les victoires face à Khartoum</h3>
+      <p>Le Soudan du Sud, sans lien d'alliance avec la France, s'est emparé de Northern Uganda puis de Kivu aux dépens du Soudan, également neutre vis-à-vis de Paris, tout en libérant Upper Nile des mains de l'Éthiopie, elle aussi sans lien avec la France. Une troisième offensive vise désormais Western Uganda, toujours tenue par Khartoum à l'heure du bouclage.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Asie du Sud-Est — Bornéo disputé</div>
+      <h3>La Malaisie perd Sarawak et Sabah en une journée</h3>
+      <p>La Malaisie, sans lien d'alliance avec la France, a cédé Sarawak au Brunei puis Sabah à l'Indonésie, également neutres vis-à-vis de Paris, deux défaites nettes le même jour. Kuala Lumpur et Pahang, visées respectivement par le Brunei et la Thaïlande — cette dernière ennemie déclarée de la France —, sont restées sous contrôle malaisien à l'heure du bouclage.</p>
+    </div>
+    <div class="region-card">
+      <div class="eyebrow">Amérique du Sud — Brésil sous pression</div>
+      <h3>Brasília cède Buenos Aires, tenu en échec ailleurs</h3>
+      <p>Le Brésil, sans lien d'alliance avec la France, a défendu Southeastern Liberia face à une coalition dispersée, avant de perdre Buenos Aires face à l'Argentine, également neutre vis-à-vis de Paris. Fait notable, l'offensive argentine a été portée davantage par l'Afrique du Sud, alliée de la France, que par l'Argentine elle-même, Paris y apportant aussi une contribution appréciable.</p>
+    </div>
+  </div>
+
+  <!-- ============ ARTICLE MONDE ============ -->
+  <div class="section-header">
+    <span class="label">Le Monde</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="world-article">
+    <div class="eyebrow">Europe de l'Est — Blitz ukrainien</div>
+    <h2 class="world-headline">MOSCOU CHANGE DEUX FOIS DE MAINS EN UNE SEULE JOURNÉE</h2>
+    <p class="deck">Reprise par la Russie au petit matin, la capitale russe est retombée sous contrôle ukrainien avant la tombée de la nuit, au terme d'une journée où Kiev a multiplié les gains sur plusieurs fronts distincts.</p>
+    <div class="byline">Notre service International — édition du 15 septembre 2026</div>
+    <div class="story-body">
+      <p>Moscou, tenue jusque-là par la Lettonie, sans lien d'alliance avec la France, est repassée sous pavillon russe au petit matin à l'issue d'un combat disputé jusqu'au bout. La Russie, elle aussi neutre vis-à-vis de Paris, n'a toutefois pas eu le temps de savourer cette reconquête.</p>
+      <p>L'Ukraine, sans lien d'alliance déclaré avec la France, avait lancé sa propre offensive sur la capitale russe avant même que celle-ci ne change de mains. Le combat, résolu en toute fin de journée, s'est soldé par une victoire sans appel de Kiev, portée presque intégralement par ses propres forces, et Moscou est retombée dans son giron.</p>
+      <p>Cette double bascule s'inscrit dans une offensive ukrainienne bien plus large. Kiev s'est aussi emparée de Kaliningrad aux dépens de la Russie et de Grodno aux dépens de la Pologne, alliée de la France, avant de lui arracher également Northern Hungary. Sur ce dernier front, l'apport d'Israël, sans lien avec Paris, a dépassé celui de l'Ukraine elle-même dans l'effort offensif.</p>
+      <p>Côté défense, la Pologne a une nouvelle fois dû sa résistance à la Lituanie, également alliée de Paris, dont la contribution a largement surpassé celle de Varsovie — un schéma déjà observé la veille sur un autre front polonais. Une contre-attaque hongroise visant à reprendre Northern Hungary n'avait, à l'heure du bouclage, procuré aucun résultat confirmé.</p>
+    </div>
+  </div>
+
+  <!-- ============ BONUS DE PRODUCTION ============ -->
+  <div class="section-header">
+    <span class="label">Suivi économique</span>
+    <span class="line"></span>
+  </div>
+
+  <p class="bonus-intro">Meilleurs bonus de production au 15 septembre 2026, classés par rendement maximal par point de production. Les bonus limités dans le temps sont mis en évidence — agir avant la fermeture de la fenêtre.</p>
+
+  <div class="bonus-table-wrap">
+    <table class="bonus-table">
+      <thead>
+        <tr>
+          <th>Produit</th>
+          <th>Base / pp</th>
+          <th>Bonus</th>
+          <th>Max / pp</th>
+          <th>Taxe</th>
+          <th class="col-country">Pays</th>
+          <th class="col-region">Région</th>
+          <th>Temps restant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="commodity-name">Pétrole</span></td>
+          <td>0,1328</td>
+          <td><span class="bonus-pct">45,0 %</span></td>
+          <td><span class="max-pp">0,1925</span></td>
+          <td>9,0 %</td>
+          <td class="col-country">Chili</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Calcaire</span></td>
+          <td>0,1049</td>
+          <td><span class="bonus-pct">53,5 %</span></td>
+          <td><span class="max-pp">0,1610</span></td>
+          <td>6,9 %</td>
+          <td class="col-country">Ukraine</td>
+          <td class="col-region">Brest</td>
+          <td><span class="timer-badge">2j 21h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Munitions légères</span></td>
+          <td>0,1023</td>
+          <td><span class="bonus-pct">55,0 %</span></td>
+          <td><span class="max-pp">0,1586</span></td>
+          <td>8,5 %</td>
+          <td class="col-country">Salvador</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Céréales</span></td>
+          <td>0,0926</td>
+          <td><span class="bonus-pct">69,0 %</span></td>
+          <td><span class="max-pp">0,1565</span></td>
+          <td>8,0 %</td>
+          <td class="col-country">Philippines</td>
+          <td class="col-region">Luzon</td>
+          <td><span class="timer-badge">2j 6h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Acier</span></td>
+          <td>0,0943</td>
+          <td><span class="bonus-pct">60,7 %</span></td>
+          <td><span class="max-pp">0,1515</span></td>
+          <td>10,0 %</td>
+          <td class="col-country">Portugal</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Munitions</span></td>
+          <td>0,1117</td>
+          <td><span class="bonus-pct">35,0 %</span></td>
+          <td><span class="max-pp">0,1508</span></td>
+          <td>3,0 %</td>
+          <td class="col-country">Togo</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Poisson</span></td>
+          <td>0,0963</td>
+          <td><span class="bonus-pct">56,0 %</span></td>
+          <td><span class="max-pp">0,1502</span></td>
+          <td>10,0 %</td>
+          <td class="col-country">Islande</td>
+          <td class="col-region">Northeastern Iceland</td>
+          <td><span class="timer-badge">3j 7h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Papier</span></td>
+          <td>0,0995</td>
+          <td><span class="bonus-pct">50,0 %</span></td>
+          <td><span class="max-pp">0,1493</span></td>
+          <td>5,0 %</td>
+          <td class="col-country">Madagascar</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Fer</span></td>
+          <td>0,0925</td>
+          <td><span class="bonus-pct">60,5 %</span></td>
+          <td><span class="max-pp">0,1484</span></td>
+          <td>10,0 %</td>
+          <td class="col-country">Kirghizistan</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Baril</span></td>
+          <td>0,0963</td>
+          <td><span class="bonus-pct">52,0 %</span></td>
+          <td><span class="max-pp">0,1463</span></td>
+          <td>6,0 %</td>
+          <td class="col-country">Cambodge</td>
+          <td class="col-region">Stung Treng</td>
+          <td><span class="timer-badge">0j 20h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Poisson cuit</span></td>
+          <td>0,1170</td>
+          <td><span class="bonus-pct">25,0 %</span></td>
+          <td><span class="max-pp">0,1463</span></td>
+          <td>10,0 %</td>
+          <td class="col-country">Jamaïque</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Steak</span></td>
+          <td>0,1157</td>
+          <td><span class="bonus-pct">25,0 %</span></td>
+          <td><span class="max-pp">0,1446</span></td>
+          <td>3,0 %</td>
+          <td class="col-country">Italie</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Béton</span></td>
+          <td>0,0903</td>
+          <td><span class="bonus-pct">60,0 %</span></td>
+          <td><span class="max-pp">0,1445</span></td>
+          <td>10,0 %</td>
+          <td class="col-country">Yémen</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Plomb</span></td>
+          <td>0,0891</td>
+          <td><span class="bonus-pct">61,5 %</span></td>
+          <td><span class="max-pp">0,1440</span></td>
+          <td>8,0 %</td>
+          <td class="col-country">Brésil</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Bétail</span></td>
+          <td>0,0841</td>
+          <td><span class="bonus-pct">69,0 %</span></td>
+          <td><span class="max-pp">0,1421</span></td>
+          <td>5,0 %</td>
+          <td class="col-country">Zambie</td>
+          <td class="col-region">Lusaka</td>
+          <td><span class="timer-badge">0j 13h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Bois</span></td>
+          <td>0,0994</td>
+          <td><span class="bonus-pct">40,0 %</span></td>
+          <td><span class="max-pp">0,1391</span></td>
+          <td>5,0 %</td>
+          <td class="col-country">Thaïlande</td>
+          <td class="col-region">Jaladhi</td>
+          <td><span class="timer-badge">2j 19h</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Pilule</span></td>
+          <td>0,1099</td>
+          <td><span class="bonus-pct">25,8 %</span></td>
+          <td><span class="max-pp">0,1381</span></td>
+          <td>9,0 %</td>
+          <td class="col-country">Afrique du Sud</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Munitions lourdes</span></td>
+          <td>0,0963</td>
+          <td><span class="bonus-pct">40,5 %</span></td>
+          <td><span class="max-pp">0,1353</span></td>
+          <td>6,0 %</td>
+          <td class="col-country">Équateur</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Pain</span></td>
+          <td>0,1107</td>
+          <td><span class="bonus-pct">20,0 %</span></td>
+          <td><span class="max-pp">0,1329</span></td>
+          <td>6,0 %</td>
+          <td class="col-country">Serbie</td>
+          <td class="col-region">—</td>
+          <td><span class="timer-none">—</span></td>
+        </tr>
+        <tr>
+          <td><span class="commodity-name">Plante mystérieuse</span></td>
+          <td>0,0825</td>
+          <td><span class="bonus-pct">56,0 %</span></td>
+          <td><span class="max-pp">0,1287</span></td>
+          <td>3,0 %</td>
+          <td class="col-country">Nicaragua</td>
+          <td class="col-region">Eastern Nicaragua</td>
+          <td><span class="timer-badge">4j 15h</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- ============ FIN BONUS DE PRODUCTION ============ -->
+
+  <!-- ============ BANDE INFÉRIEURE (3 boîtes) ============ -->
+  <div class="section-header">
+    <span class="label">En bref</span>
+    <span class="line"></span>
+  </div>
+
+  <div class="lower">
+    <div class="lower-box">
+      <h3>Quatre pays changent de président</h3>
+      <p>La Syrie, le Ghana, le Pakistan et le Soudan, tous sans lien d'alliance avec la France, ont chacun désigné un nouveau président au cours de la journée — une vague de renouvellement inhabituelle touchant simultanément l'Asie, l'Afrique et le Moyen-Orient, sans qu'aucun de ces scrutins ne bouleverse pour l'heure les équilibres du conflit.</p>
+    </div>
+    <div class="lower-box">
+      <h3>Transferts du jour</h3>
+      <ul>
+        <li>Russie ← Salvador (1000, 1000), Guatemala (600), Équateur (500)</li>
+        <li>Liberia ← Afrique du Sud (750), Algérie (500)</li>
+        <li>Cuba ← Pays-Bas (2000, 2000, 2000), Kirghizistan (3000, 1500), Belgique (2001, 1500), Croatie (2000, 1500)</li>
+        <li>Brunei ← Indonésie (2000, 2000), Syrie (1000), Thaïlande (2000), Pakistan (2000), Cambodge (2000)</li>
+        <li>Portugal ← Venezuela (1000), Espagne (1500), Jamaïque (2000), Brésil (1000)</li>
+        <li>Autres transferts isolés : Érythrée ← Yémen (625,5) ; Népal ← Kirghizistan (1200) ; Japon ← Chili (1000) ; Soudan du Sud ← Égypte (1000) ; Afghanistan ← Kirghizistan (2000) ; Philippines ← Inde (3000) ; Zambie ← Afrique du Sud (250) ; Roumanie ← Yémen (1251) ; Malaisie ← Inde (3000) ; Koweït ← Allemagne (1500) ; Mozambique ← Afrique du Sud (400) ; Ukraine ← Roumanie (2000) ; Suriname ← Brésil (750) ; États-Unis ← Afrique du Sud (1000) ; Corée unifiée ← Slovaquie (500) ; Bénin ← Népal (1200) ; Kirghizistan ← Cuba (985)</li>
+      </ul>
+    </div>
+    <div class="lower-box">
+      <h3>Note de la rédaction</h3>
+      <p>Les données de cette édition reflètent l'état des lignes de front et des positions diplomatiques tel qu'observé au moment du bouclage. Les offensives sur Wallonia, Western Uganda, Rift Valley, Kuala Lumpur, Pahang et Northern Hungary restaient sans résultat confirmé ; leurs développements seront suivis dans notre prochaine édition.</p>
+    </div>
+  </div>
+
+  <!-- ============ PIED DE PAGE ============ -->
+  <div class="footer-rule">Le Fil du Monde — Imprimé sur le papier qui a survécu à la journée — Reproduction interdite sans trésorerie en état de marche</div>
+
+</div>
+</body>
+</html>
