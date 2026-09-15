@@ -540,24 +540,16 @@
     const offCtx = off.getContext('2d');
     render(offCtx, EXPORT_SIZE);
 
-    try{
-      off.toBlob(function(blob){
-        if(!blob){
-          alert("Le téléchargement a échoué : le navigateur bloque l'export à cause de l'image de liseré distante (restriction CORS).");
-          return;
-        }
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'avatar-liseré.png';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 'image/png');
-    }catch(e){
-      alert("Le téléchargement a échoué : le navigateur bloque l'export à cause de l'image de liseré distante (restriction CORS).");
-    }
+    off.toBlob(function(blob){
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'avatar-liseré.png';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }, 'image/png');
   });
 
   // initial paint
