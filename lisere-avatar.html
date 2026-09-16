@@ -231,7 +231,7 @@
 
 <header>
   <h1 class="title">Lis<span>eré</span></h1>
-  <p class="subtitle">Importe ton avatar, cadre-le comme tu veux derrière le liseré, puis télécharge le résultat.</p>
+  <p class="subtitle">Importe ton avatar (image ou GIF animé), cadre-le comme tu veux derrière le liseré, puis télécharge le résultat.</p>
 </header>
 
 <main>
@@ -263,7 +263,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M12 15l-4-4M12 15l4-4"/><path d="M4 19h16"/></svg>
         Télécharger l'avatar
       </button>
-      <p class="hint">Glisse l'avatar pour le déplacer sous le liseré, utilise le curseur ou la molette pour zoomer. Le liseré reste fixe et n'est ni déplacé ni redimensionné. Export en 1000×1000 px.</p>
+      <p class="hint">Glisse l'avatar pour le déplacer sous le liseré, utilise le curseur ou la molette pour zoomer. Le liseré reste fixe et n'est ni déplacé ni redimensionné. Export en 1000×1000 px. Les GIF animés sont acceptés : l'aperçu joue l'animation et l'export produit un GIF animé.</p>
     </div>
   </aside>
 
@@ -302,6 +302,7 @@
 
   // Liseré fixe : chargé une fois pour toutes depuis cette URL (pas d'upload,
   // pas d'encodage de l'image dans la page).
+  // jsdelivr garantit des en-têtes CORS corrects (contrairement à raw.githubusercontent.com, moins fiable).
   const LISERE_URL = 'https://cdn.jsdelivr.net/gh/shuuja-lancer/shuuja-lancer.github.io@main/lisere.png';
 
   let avatarImg = null;
@@ -310,6 +311,20 @@
   let userZoom = 1;      // 1.0 -> 4.0 (matches slider 100-400)
   let offsetX = 0;       // pan offset, edit-space px
   let offsetY = 0;
+
+  // --- GIF animé ---
+  let gifFrames = null;    // frames décompressées (gifuct-js), null si image fixe
+  let gifW = 0, gifH = 0;  // taille logique du GIF
+  let compCanvas = null;   // canevas de composition à la taille du GIF
+  let compCtx = null;
+  let compFrameIndex = -1; // dernière frame compositée dans compCanvas
+  let prevSnapshot = null; // snapshot pour disposalType 3
+  let currentFrame = 0;
+  let playing = false;
+  let playTimer = null;
+  let exporting = false;
+  let gifLibsPromise = null;
+  const downloadBtnHTML = downloadBtn.innerHTML;
 
   // Circular mask, centered on the canvas: fixed radius, 90% of half the
   // canvas size (i.e. 90% of the way to the edges).
@@ -321,12 +336,16 @@
   let pinchStartDist = null;
   let pinchStartZoom = 1;
 
+  function hasAvatar(){
+    return !!avatarImg || !!(gifFrames && gifFrames.length);
+  }
+
   function updateReadyState(){
-    const hasAvatar = !!avatarImg;
-    zoomBlock.classList.toggle('disabled', !hasAvatar);
-    maskBlock.classList.toggle('disabled', !hasAvatar);
-    downloadBtn.disabled = !hasAvatar;
-    emptyState.style.display = hasAvatar ? 'none' : 'flex';
+    const ready = hasAvatar();
+    zoomBlock.classList.toggle('disabled', !ready);
+    maskBlock.classList.toggle('disabled', !ready);
+    downloadBtn.disabled = !ready || exporting;
+    emptyState.style.display = ready ? 'none' : 'flex';
   }
 
   // Draws the composed avatar (avatar image + fixed liseré on top) onto any
@@ -334,11 +353,20 @@
   // by size/REF. The liseré image is never panned/zoomed — it always covers
   // the full frame, "contain"-fitted. The mask circle (centered on the
   // canvas, fixed radius) only clips the avatar, not the liseré.
+  // Source dessinée dans le cadre : l'image importée, ou le canevas de
+  // composition du GIF animé (frame courante).
+  function getAvatarRenderSource(){
+    if(gifFrames && gifFrames.length) return { src: compCanvas, w: gifW, h: gifH };
+    if(avatarImg) return { src: avatarImg, w: avatarImg.naturalWidth, h: avatarImg.naturalHeight };
+    return null;
+  }
+
   function render(targetCtx, size){
     const k = size / REF;
     targetCtx.clearRect(0, 0, size, size);
 
-    if(avatarImg){
+    const av = getAvatarRenderSource();
+    if(av){
       targetCtx.save();
       if(maskEnabled){
         const r = (size / 2) * (MASK_RADIUS_PCT / 100);
@@ -347,11 +375,11 @@
         targetCtx.clip();
       }
       const scale = baseScale * userZoom * k;
-      const dw = avatarImg.naturalWidth * scale;
-      const dh = avatarImg.naturalHeight * scale;
+      const dw = av.w * scale;
+      const dh = av.h * scale;
       const dx = size/2 - dw/2 + offsetX * k;
       const dy = size/2 - dh/2 + offsetY * k;
-      targetCtx.drawImage(avatarImg, dx, dy, dw, dh);
+      targetCtx.drawImage(av.src, dx, dy, dw, dh);
       targetCtx.restore();
     }
 
@@ -387,19 +415,52 @@
   }
 
   // --- avatar upload ---
-  function handleAvatarFile(file){
+  function onAvatarReady(){
+    userZoom = 1;
+    offsetX = 0;
+    offsetY = 0;
+    zoomSlider.value = 100;
+    zoomValue.textContent = '100%';
+    updateReadyState();
+    draw();
+  }
+
+  async function handleAvatarFile(file){
     if(!file) return;
+    stopPlayback();
+    const isGif = file.type === 'image/gif' || /\.gif$/i.test(file.name);
+    if(isGif){
+      try{
+        const libs = await ensureGifLibs();
+        const buffer = await file.arrayBuffer();
+        const gif = libs.parseGIF(buffer);
+        const frames = libs.decompressFrames(gif, true);
+        if(frames && frames.length > 1){
+          resetGifState();
+          avatarImg = null;
+          gifFrames = frames;
+          gifW = gif.lsd.width;
+          gifH = gif.lsd.height;
+          compCanvas = document.createElement('canvas');
+          compCanvas.width = gifW;
+          compCanvas.height = gifH;
+          compCtx = compCanvas.getContext('2d');
+          baseScale = REF / Math.min(gifW, gifH);
+          markDropzoneFilled(avatarDropzone, avatarFilename, file.name);
+          onAvatarReady();
+          startPlayback();
+          return;
+        }
+      }catch(err){
+        console.error('Lecture du GIF animé impossible, ouverture en image fixe.', err);
+      }
+    }
     loadImageFile(file, image=>{
+      resetGifState();
       avatarImg = image;
       baseScale = REF / Math.min(avatarImg.naturalWidth, avatarImg.naturalHeight);
-      userZoom = 1;
-      offsetX = 0;
-      offsetY = 0;
-      zoomSlider.value = 100;
-      zoomValue.textContent = '100%';
       markDropzoneFilled(avatarDropzone, avatarFilename, file.name);
-      updateReadyState();
-      draw();
+      onAvatarReady();
     });
   }
   avatarDropzone.addEventListener('click', () => avatarInput.click());
@@ -431,14 +492,99 @@
   }
   loadFixedLisere();
 
+  // --- GIF animé : libs chargées à la demande (décodage + ré-encodage) ---
+  function ensureGifLibs(){
+    if(!gifLibsPromise){
+      gifLibsPromise = Promise.all([
+        import('https://cdn.jsdelivr.net/npm/gifuct-js@2.1.2/+esm'),
+        import('https://cdn.jsdelivr.net/npm/gifenc@1.0.3/+esm'),
+      ]).then(([gifuct, gifenc]) => ({
+        parseGIF: gifuct.parseGIF,
+        decompressFrames: gifuct.decompressFrames,
+        GIFEncoder: gifenc.GIFEncoder,
+        quantize: gifenc.quantize,
+        applyPalette: gifenc.applyPalette,
+      }));
+    }
+    return gifLibsPromise;
+  }
+
+  function stopPlayback(){
+    playing = false;
+    if(playTimer){ clearTimeout(playTimer); playTimer = null; }
+  }
+
+  function resetGifState(){
+    stopPlayback();
+    gifFrames = null;
+    gifW = 0; gifH = 0;
+    compCanvas = null;
+    compCtx = null;
+    compFrameIndex = -1;
+    prevSnapshot = null;
+    currentFrame = 0;
+  }
+
+  // Dessine la frame i dans le canevas de composition, en respectant le mode
+  // de disposal de la frame précédente (2 = restaurer le fond, 3 = restaurer
+  // l'état antérieur). Les frames GIF doivent être compositées dans l'ordre.
+  const patchCanvas = document.createElement('canvas');
+  function compositeGifFrame(i){
+    const f = gifFrames[i];
+    const prev = i > 0 ? gifFrames[i-1] : null;
+    if(prev){
+      if(prev.disposalType === 2){
+        compCtx.clearRect(prev.dims.left, prev.dims.top, prev.dims.width, prev.dims.height);
+      } else if(prev.disposalType === 3 && prevSnapshot){
+        compCtx.putImageData(prevSnapshot, 0, 0);
+      }
+    }
+    prevSnapshot = (f.disposalType === 3) ? compCtx.getImageData(0, 0, gifW, gifH) : null;
+    patchCanvas.width = f.dims.width;
+    patchCanvas.height = f.dims.height;
+    patchCanvas.getContext('2d').putImageData(new ImageData(f.patch, f.dims.width, f.dims.height), 0, 0);
+    // drawImage (et pas putImageData) pour que les pixels transparents du
+    // patch n'effacent pas le contenu des frames précédentes.
+    compCtx.drawImage(patchCanvas, f.dims.left, f.dims.top);
+    compFrameIndex = i;
+  }
+
+  // Avance le compositeur jusqu'à la frame voulue (repart de zéro si la
+  // frame demandée est en arrière de la frame courante).
+  function compositeUpTo(i){
+    if(compFrameIndex >= i){
+      compCtx.clearRect(0, 0, gifW, gifH);
+      compFrameIndex = -1;
+      prevSnapshot = null;
+    }
+    for(let n = compFrameIndex + 1; n <= i; n++) compositeGifFrame(n);
+  }
+
+  function startPlayback(){
+    stopPlayback();
+    if(!gifFrames || !gifFrames.length) return;
+    playing = true;
+    const step = () => {
+      if(!playing) return;
+      compositeUpTo(currentFrame);
+      draw();
+      const delay = Math.max(gifFrames[currentFrame].delay || 0, 20);
+      currentFrame = (currentFrame + 1) % gifFrames.length;
+      playTimer = setTimeout(step, delay);
+    };
+    step();
+  }
+
   // --- circular mask (rayon fixe, centré sur le canevas) ---
   maskToggle.addEventListener('change', ()=>{
+    if(exporting){ maskToggle.checked = maskEnabled; return; }
     maskEnabled = maskToggle.checked;
     draw();
   });
 
   // --- zoom slider ---
   zoomSlider.addEventListener('input', ()=>{
+    if(exporting) return;
     userZoom = zoomSlider.value / 100;
     zoomValue.textContent = zoomSlider.value + '%';
     draw();
@@ -446,7 +592,7 @@
 
   // --- wheel to zoom on canvas ---
   canvas.addEventListener('wheel', e=>{
-    if(!avatarImg) return;
+    if(!hasAvatar() || exporting) return;
     e.preventDefault();
     const delta = e.deltaY > 0 ? -8 : 8;
     let next = Number(zoomSlider.value) + delta;
@@ -459,7 +605,7 @@
 
   // --- drag to pan (mouse) ---
   canvas.addEventListener('mousedown', e=>{
-    if(!avatarImg) return;
+    if(!hasAvatar() || exporting) return;
     dragging = true;
     canvas.classList.add('grabbing');
     lastX = e.clientX; lastY = e.clientY;
@@ -481,7 +627,7 @@
     return Math.hypot(t1.clientX - t0.clientX, t1.clientY - t0.clientY);
   }
   canvas.addEventListener('touchstart', e=>{
-    if(!avatarImg) return;
+    if(!hasAvatar() || exporting) return;
     if(e.touches.length === 1){
       dragging = true;
       lastX = e.touches[0].clientX;
@@ -494,7 +640,7 @@
   }, { passive:true });
 
   canvas.addEventListener('touchmove', e=>{
-    if(!avatarImg) return;
+    if(!hasAvatar() || exporting) return;
     if(e.touches.length === 1 && dragging){
       e.preventDefault();
       const t = e.touches[0];
@@ -523,7 +669,7 @@
 
   // --- reset ---
   resetBtn.addEventListener('click', ()=>{
-    if(!avatarImg) return;
+    if(!hasAvatar() || exporting) return;
     userZoom = 1;
     offsetX = 0;
     offsetY = 0;
@@ -533,25 +679,89 @@
   });
 
   // --- download ---
-  downloadBtn.addEventListener('click', ()=>{
-    if(!avatarImg) return;
+  function downloadBlob(blob, filename){
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function exportPng(){
     const EXPORT_SIZE = 1000;
     const off = document.createElement('canvas');
     off.width = EXPORT_SIZE;
     off.height = EXPORT_SIZE;
     const offCtx = off.getContext('2d');
     render(offCtx, EXPORT_SIZE);
+    off.toBlob(blob => downloadBlob(blob, 'avatar-liseré.png'), 'image/png');
+  }
 
-    off.toBlob(function(blob){
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'avatar-liseré.png';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }, 'image/png');
+  // Re-compose chaque frame du GIF (cadrage, masque et liseré appliqués),
+  // quantifie les couleurs et ré-encode le tout en GIF animé 1000×1000.
+  async function exportGif(){
+    if(exporting) return;
+    exporting = true;
+    stopPlayback();
+    downloadBtn.disabled = true;
+    const EXPORT_SIZE = 1000;
+    try{
+      const libs = await ensureGifLibs();
+      const off = document.createElement('canvas');
+      off.width = EXPORT_SIZE;
+      off.height = EXPORT_SIZE;
+      const offCtx = off.getContext('2d', { willReadFrequently: true });
+
+      // la composition repart de la frame 0 pour un export déterministe
+      compCtx.clearRect(0, 0, gifW, gifH);
+      compFrameIndex = -1;
+      prevSnapshot = null;
+
+      const gif = libs.GIFEncoder();
+      const total = gifFrames.length;
+      for(let i = 0; i < total; i++){
+        compositeGifFrame(i);
+        render(offCtx, EXPORT_SIZE);
+        const imageData = offCtx.getImageData(0, 0, EXPORT_SIZE, EXPORT_SIZE);
+        const palette = libs.quantize(imageData.data, 256, { format: 'rgba4444' });
+        const indexed = libs.applyPalette(imageData.data, palette, 'rgba4444');
+        const frameOpts = {
+          palette,
+          delay: Math.max(gifFrames[i].delay || 0, 20),
+          first: i === 0,
+          repeat: 0, // boucle infinie
+        };
+        // Transparence : on réutilise l'éventuelle entrée alpha=0 de la palette.
+        for(let p = 0; p < palette.length; p++){
+          if(palette[p].length > 3 && palette[p][3] === 0){
+            frameOpts.transparent = true;
+            frameOpts.transparentIndex = p;
+            break;
+          }
+        }
+        gif.writeFrame(indexed, EXPORT_SIZE, EXPORT_SIZE, frameOpts);
+        downloadBtn.textContent = 'Export du GIF… ' + (i + 1) + '/' + total;
+        await new Promise(r => setTimeout(r, 0)); // laisse respirer l'UI
+      }
+      gif.finish();
+      downloadBlob(new Blob([gif.bytes()], { type: 'image/gif' }), 'avatar-liseré.gif');
+    }catch(err){
+      console.error('Export du GIF impossible', err);
+    }
+    exporting = false;
+    downloadBtn.innerHTML = downloadBtnHTML;
+    updateReadyState();
+    currentFrame = 0;
+    startPlayback();
+  }
+
+  downloadBtn.addEventListener('click', ()=>{
+    if(!hasAvatar()) return;
+    if(gifFrames && gifFrames.length) exportGif();
+    else exportPng();
   });
 
   // initial paint
