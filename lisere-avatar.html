@@ -330,6 +330,7 @@
   // canvas size (i.e. 90% of the way to the edges).
   let maskEnabled = true;
   const MASK_RADIUS_PCT = 90;
+  const MASK_OFFSET_Y = -5; // décale le cercle de découpe 5px plus haut (en unités REF)
 
   let dragging = false;
   let lastX = 0, lastY = 0;
@@ -371,7 +372,7 @@
       if(maskEnabled){
         const r = (size / 2) * (MASK_RADIUS_PCT / 100);
         targetCtx.beginPath();
-        targetCtx.arc(size/2, size/2, Math.max(r, 0), 0, Math.PI * 2);
+        targetCtx.arc(size/2, size/2 + MASK_OFFSET_Y * k, Math.max(r, 0), 0, Math.PI * 2);
         targetCtx.clip();
       }
       const scale = baseScale * userZoom * k;
